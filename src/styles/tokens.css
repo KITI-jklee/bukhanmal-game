@@ -1,0 +1,105 @@
+/* 통일 워드게임 — 디자인 토큰
+ * 색상·타이포·라운드는 UI 시안(6화면 × 3브레이크포인트)에서 추출한 값 그대로 사용한다. */
+
+:root {
+  /* 브랜드 */
+  --ink: #14231f;
+  --green: #158c6c;
+  --green-dark: #0c6e54;
+  --green-soft: #e8f5f0;
+  --amber: #f4b94b;
+  --amber-soft: #fff6df;
+  --canvas: #f3f6f4;
+  --line: #dce5e1;
+  --muted-text: #70817a;
+  --danger: #df604f;
+
+  /* 산성비게임 — 서비스 전체 톤에 맞춘 밝은 배경 */
+  --rain-bg: #f7f9f8;
+  --rain-panel: #ffffff;
+  --rain-field: #fbfcfb;
+  --rain-border: #e2e9e6;
+
+  /* 낙하 단어 색상 — 기획서 4-1
+   * 밝은 배경에서도 본문 대비 기준(4.5:1)을 넘기도록 명도를 잡았다.
+   * 북한말은 어두운 칩 + 흰 글자, 남한말은 밝은 칩 + 어두운 글자로
+   * 색상(hue) 외에 명암까지 달라 색약에서도 구분된다. */
+  --word-north-bg: #0c6e54; /* 흰 글자 대비 6.2:1 */
+  --word-north-fg: #ffffff;
+  --word-south-bg: #f4b94b; /* #392b0d 글자 대비 7.7:1 */
+  --word-south-fg: #392b0d;
+  --word-stop-bg: #b8402e; /* 흰 글자 대비 5.5:1 */
+  --word-stop-fg: #ffffff;
+
+  --font-sans: "Pretendard Variable", Pretendard, system-ui, -apple-system, "Apple SD Gothic Neo",
+    "Malgun Gothic", sans-serif;
+  --font-display: "Pretendard Variable", Pretendard, system-ui, sans-serif;
+
+  --radius: 0.875rem;
+
+  /* 모바일 가상 키보드 대응 — visualViewport 변화에 따라 JS가 갱신 */
+  --viewport-height: 100dvh;
+  --keyboard-inset: 0px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: var(--canvas);
+  -webkit-font-smoothing: antialiased;
+  font-synthesis: none;
+  text-size-adjust: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input {
+  font-family: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.sr-only {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

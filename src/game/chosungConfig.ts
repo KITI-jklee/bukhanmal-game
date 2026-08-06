@@ -1,0 +1,74 @@
+/** 초성게임 규칙 상수 — 상세기획서 3장
+ *
+ * 수치는 전부 여기 모아두고 엔진·UI·안내 모달이 같은 값을 참조한다. */
+
+import type { Difficulty } from '../lib/types'
+
+/** 한 판 문제 수 (FR-CH-01) */
+export const QUESTIONS_PER_ROUND = 10
+
+/** 문제당 제한시간. 난이도와 무관하게 동일 (FR-CH-02) */
+export const TIME_LIMIT_SECONDS = 20
+
+/** 문제당 오답 기회 = 하트 개수 (FR-CH-06) */
+export const MAX_WRONG = 3
+
+/** 힌트 최대 단계 (FR-CH-04) */
+export const MAX_HINT_LEVEL = 2
+
+/** 힌트 사용 단계별 정답 시 기본점수 (FR-CH-05)
+ *  index = 사용한 힌트 수 */
+export const HINT_SCORE = [10, 5, 2] as const
+
+/** 난이도별 총점 배수 (FR-CH-10) */
+export const DIFFICULTY_MULTIPLIER: Record<Difficulty, number> = {
+  쉬움: 1.0,
+  보통: 1.2,
+  어려움: 1.5,
+}
+
+/** 무힌트·무오답 연속 정답 수에 따른 콤보 보너스 (FR-CH-09)
+ *  1연속 0점 / 2연속 +2 / 3연속 +3 / 4연속 +4 / 5연속 이상 +5(상한) */
+export function comboBonus(combo: number): number {
+  if (combo >= 5) return 5
+  if (combo >= 2) return combo
+  return 0
+}
+
+/** 정답 비교용 정규화 — 앞뒤 공백 제거 후 연속 공백을 하나로 (FR-CH-11) */
+export function normalizeAnswer(value: string): string {
+  return value.trim().replace(/\s+/g, ' ')
+}
+
+/** 빈 값·공백·특수문자만 있는 제출은 오답으로 처리하지 않는다 (FR-CM-07) */
+export function isSubmittable(value: string): boolean {
+  const normalized = normalizeAnswer(value)
+  if (!normalized) return false
+  // 한글·영문·숫자가 하나도 없으면 의미 없는 입력으로 본다
+  return /[가-힣ㄱ-ㆎa-zA-Z0-9]/.test(normalized)
+}
+
+/** 받침 유무에 따라 알맞은 조사를 고른다. "논리을(를)" 같은 어색한 표기를 피하기 위함. */
+export function particleFor(word: string, withBatchim: string, withoutBatchim: string): string {
+  const code = word.trim().slice(-1).charCodeAt(0) - 0xac00
+  // 한글 음절이 아니면 판단할 수 없으므로 받침 없는 쪽으로 둔다
+  if (Number.isNaN(code) || code < 0 || code > 11171) return withoutBatchim
+  return code % 28 > 0 ? withBatchim : withoutBatchim
+}
+
+/** 2단계 힌트 — 첫 번째 초성을 실제 글자로 바꾼다 (상세 3-3)
+ *  예: ㅇㅇㅂㅅㅇ → 얼ㅇㅂㅅㅇ */
+export function revealFirstLetter(initials: string, firstLetter: string): string {
+  return firstLetter + initials.slice(1)
+}
+
+/* 뜻풀이 마스킹은 더 이상 쓰지 않는다.
+ *
+ * 초기 샘플의 뜻풀이가 "남한말로 풀이하면 ‘근해’입니다." 형태라 1단계 힌트를
+ * 미리 노출해 버려서 가림 처리를 넣었었다. 실제 사전형 뜻풀이("육지에서 비교적
+ * 가까운 바다.")로 교체되면서 기본 정보 → 1단계 힌트 → 2단계 힌트가
+ * 기획서 3-3대로 각각 다른 정보를 주게 되어 가릴 이유가 없어졌다.
+ *
+ * 부분 문자열 때문에 오히려 해로웠다 — "골문"의 '골', "행복한"의 '복'처럼
+ * 남한말이 다른 단어 안에 들어 있으면 멀쩡한 뜻풀이를 "○문", "행○한"으로
+ * 망가뜨린다. */

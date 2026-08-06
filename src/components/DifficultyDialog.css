@@ -1,0 +1,226 @@
+.difficulty-dialog {
+  width: min(100%, 760px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  padding: clamp(18px, 4vw, 28px);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 30px 75px #06140f3d;
+  animation: dialog-in 0.22s ease-out;
+}
+
+.dialog-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.dialog-kicker {
+  font: 500 11px/1 var(--font-display);
+  letter-spacing: 0.1em;
+  color: var(--green);
+}
+
+.dialog-head h3 {
+  margin: 8px 0 6px;
+  font-size: clamp(19px, 4vw, 23px);
+  letter-spacing: -0.05em;
+}
+
+.dialog-head p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  color: #718179;
+}
+
+.difficulty-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: clamp(16px, 3vw, 24px) 0 14px;
+}
+
+.difficulty-option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 16px 12px;
+  border: 1px solid #e1e8e5;
+  border-radius: 12px;
+  background: #fbfcfb;
+  text-align: left;
+  transition: all 0.18s;
+}
+
+.difficulty-option:hover {
+  border-color: #b8cfc6;
+}
+
+.difficulty-option.is-selected {
+  border: 2px solid var(--green);
+  padding: 15px 11px;
+  background: #f2faf7;
+  box-shadow: 0 7px 16px #158c6c14;
+}
+
+/* 난이도 이름이 잘리지 않도록 배지는 내용에 맞춰 가로로 늘어난다. */
+.level-badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 54px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.level-badge--mint {
+  background: #daf2e9;
+  color: #08765a;
+}
+
+.level-badge--amber {
+  background: #fff0c8;
+  color: #a36d08;
+}
+
+.level-badge--red {
+  background: #ffdcd6;
+  color: #b83f32;
+}
+
+.difficulty-copy {
+  display: grid;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.difficulty-copy strong {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.difficulty-copy small {
+  font-size: 11px;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: #778881;
+}
+
+@media (min-width: 720px) {
+  .difficulty-copy small {
+    white-space: nowrap;
+  }
+}
+
+/* 라디오 표시 자리는 .difficulty-option 의 우측 패딩이 이미 비워둔다 */
+.difficulty-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.difficulty-tag {
+  padding: 4px 7px;
+  border-radius: 5px;
+  background: var(--green-soft);
+  font-size: 9px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #0b7a5d;
+}
+
+.radio-mark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #cdd9d4;
+  border-radius: 50%;
+  background: #fff;
+  color: #fff;
+}
+
+.is-selected .radio-mark {
+  border-color: var(--green);
+  background: var(--green);
+}
+
+.dialog-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  margin: 0;
+  padding: 9px 12px;
+  border-radius: 9px;
+  background: #f3f6f4;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: #52645c;
+}
+
+.dialog-note svg {
+  flex: none;
+  color: #c68c1d;
+}
+
+.dialog-actions {
+  display: grid;
+  grid-template-columns: 0.6fr 1.4fr;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+@media (max-width: 560px) {
+  .difficulty-list {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .difficulty-option,
+  .difficulty-option.is-selected {
+    flex-direction: row;
+    align-items: center;
+    gap: 11px;
+    min-height: 64px;
+    padding: 10px 38px 10px 10px;
+  }
+
+  .difficulty-option.is-selected {
+    padding: 9px 37px 9px 9px;
+  }
+
+  .difficulty-copy {
+    flex: 1;
+    margin: 0;
+  }
+
+  .difficulty-tag {
+    display: none;
+  }
+
+  .difficulty-head,
+  .level-badge {
+    flex: none;
+  }
+
+  .radio-mark {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

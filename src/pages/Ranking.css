@@ -1,0 +1,346 @@
+.ranking-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(34px, 5vw, 64px) clamp(20px, 5vw, 56px) 64px;
+}
+
+.ranking-title h1 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font-size: clamp(24px, 5vw, 32px);
+  letter-spacing: -0.055em;
+}
+
+.ranking-title h1 svg {
+  flex: none;
+  color: var(--green);
+}
+
+.ranking-title p {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #7a8983;
+}
+
+.ranking-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: clamp(28px, 4vw, 38px) 0 16px;
+}
+
+.segmented-tabs {
+  display: flex;
+  padding: 3px;
+  border: 1px solid #dfe7e3;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.segmented-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 7px;
+  background: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #76877f;
+}
+
+.segmented-tabs button.is-active {
+  background: var(--ink);
+  color: #fff;
+}
+
+.level-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.level-tabs button {
+  min-width: 62px;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #dce6e1;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  color: #708178;
+}
+
+.level-tabs button.is-active {
+  border-color: var(--green);
+  background: var(--green);
+  color: #fff;
+}
+
+.ranking-card {
+  overflow: hidden;
+  border: 1px solid #d4dfda;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 16px 38px #25413612;
+}
+
+.ranking-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 62px;
+  padding: 0 clamp(18px, 3vw, 26px);
+  border-bottom: 1px solid #e5ebe8;
+}
+
+.ranking-card-head span {
+  font: 600 13px/1 var(--font-display);
+  letter-spacing: 0.08em;
+  color: var(--green);
+}
+
+.ranking-card-head small {
+  font-size: 11px;
+  color: #96a39e;
+}
+
+.ranking-list {
+  padding: 10px clamp(14px, 2.5vw, 22px) 14px;
+}
+
+.ranking-list--single {
+  padding-bottom: 20px;
+}
+
+.ranking-row {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 72px;
+  padding: 8px 14px;
+  border-bottom: 1px solid #edf1ef;
+}
+
+.ranking-row--master {
+  margin: 3px 0 5px;
+  border: 1px solid #f1d897;
+  border-radius: 12px;
+  background: #fffaed;
+}
+
+.ranking-list--single .ranking-row--master {
+  margin-bottom: 0;
+}
+
+.rank-number {
+  display: grid;
+  place-items: center;
+  font: 600 13px/1 var(--font-display);
+  color: #83938c;
+}
+
+.ranking-row--master .rank-number {
+  color: #dc9d23;
+}
+
+.ranking-row--silver .rank-number {
+  color: #879792;
+}
+
+.ranking-row--bronze .rank-number {
+  color: #b77642;
+}
+
+.ranking-row > strong {
+  overflow: hidden;
+  min-width: 0;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.score-value {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font: 600 17px/1 var(--font-display);
+  color: var(--ink);
+}
+
+/* 숫자와 '점'은 한 덩어리로 유지한다 */
+.score-number {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.score-value small {
+  margin-left: 2px;
+  font: 500 11px/1 var(--font-sans);
+  color: #8c9a94;
+}
+
+.stage-tag {
+  padding: 3px 6px;
+  border-radius: 5px;
+  background: var(--green-soft);
+  font: 600 9px/1 var(--font-display);
+  font-style: normal;
+  color: #0b7a5d;
+}
+
+.ranking-empty {
+  margin: 0;
+  padding: 40px 20px;
+  font-size: 13px;
+  text-align: center;
+  color: #8b9993;
+}
+
+.ranking-empty p {
+  margin: 0;
+}
+
+.ranking-card-cta {
+  display: flex;
+  justify-content: center;
+  padding: 2px clamp(14px, 2.5vw, 22px) 20px;
+}
+
+.ranking-challenge-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  margin-top: 20px;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--green);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 8px 18px #158c6c2e;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.18s;
+}
+
+.ranking-challenge-button:hover {
+  background: var(--green-dark);
+  box-shadow: 0 11px 22px #158c6c3d;
+  transform: translateY(-2px);
+}
+
+.ranking-challenge-button:active {
+  transform: translateY(0);
+}
+
+.ranking-challenge-button:focus-visible {
+  outline: 3px solid #158c6c40;
+  outline-offset: 3px;
+}
+
+.ranking-footnote {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin: 10px 2px 0;
+  font-size: 11px;
+  color: #93a099;
+}
+
+/* ── 내 최근 기록 ───────────────────────────────── */
+
+.my-records {
+  margin-top: 40px;
+}
+
+.my-records h2 {
+  margin: 0 0 10px;
+  font-size: 15px;
+}
+
+.my-records-list {
+  display: grid;
+  gap: 6px;
+}
+
+.my-record {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border: 1px solid #e3eae7;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 13px;
+}
+
+.my-record span {
+  color: #8b9993;
+}
+
+.my-record strong {
+  margin-left: auto;
+  font: 600 15px/1 var(--font-display);
+}
+
+.my-record em {
+  padding: 3px 6px;
+  border-radius: 5px;
+  background: var(--green-soft);
+  font: 600 9px/1 var(--font-display);
+  font-style: normal;
+  color: #0b7a5d;
+}
+
+@media (max-width: 560px) {
+  .ranking-content {
+    padding: 24px 14px 48px;
+  }
+
+  .ranking-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .segmented-tabs button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .level-tabs button {
+    flex: 1;
+    width: auto;
+  }
+
+  .ranking-row {
+    grid-template-columns: 28px minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 6px 8px;
+    min-height: 62px;
+  }
+
+  .score-value {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+
+  .ranking-challenge-button {
+    width: 100%;
+  }
+}

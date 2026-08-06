@@ -1,0 +1,6953 @@
+[
+  {
+    "id": "nk_001",
+    "word": "가까운바다",
+    "accepted_answers": [
+      "가까운바다"
+    ],
+    "meaning": "육지에서 비교적 가까운 바다.",
+    "south_expression": "근해",
+    "initials": "ㄱㄲㅇㅂㄷ",
+    "first_letter": "가",
+    "length": 5,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_002",
+    "word": "가닿다",
+    "accepted_answers": [
+      "가닿다"
+    ],
+    "meaning": "목적지나 정해진 곳에 이르다.",
+    "south_expression": "도착하다",
+    "initials": "ㄱㄷㄷ",
+    "first_letter": "가",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_003",
+    "word": "가두배추",
+    "accepted_answers": [
+      "가두배추"
+    ],
+    "meaning": "잎이 여러 겹으로 둥글게 말려 자라는 채소.",
+    "south_expression": "양배추",
+    "initials": "ㄱㄷㅂㅊ",
+    "first_letter": "가",
+    "length": 4,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_004",
+    "word": "가락지빵",
+    "accepted_answers": [
+      "가락지빵"
+    ],
+    "meaning": "밀가루 반죽을 고리 모양으로 만들어 기름에 튀긴 빵.",
+    "south_expression": "도넛",
+    "initials": "ㄱㄹㅈㅃ",
+    "first_letter": "가",
+    "length": 4,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_005",
+    "word": "가루젖",
+    "accepted_answers": [
+      "가루젖"
+    ],
+    "meaning": "우유의 수분을 없애 가루로 만든 영유아용 식품.",
+    "south_expression": "분유",
+    "initials": "ㄱㄹㅈ",
+    "first_letter": "가",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_006",
+    "word": "가마치",
+    "accepted_answers": [
+      "가마치"
+    ],
+    "meaning": "솥이나 냄비 바닥에 눌어붙어 노릇하게 된 밥.",
+    "south_expression": "누룽지",
+    "initials": "ㄱㅁㅊ",
+    "first_letter": "가",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_007",
+    "word": "가무이야기",
+    "accepted_answers": [
+      "가무이야기"
+    ],
+    "meaning": "노래와 춤, 연기를 결합하여 이야기를 표현하는 무대극.",
+    "south_expression": "뮤지컬",
+    "initials": "ㄱㅁㅇㅇㄱ",
+    "first_letter": "가",
+    "length": 5,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_008",
+    "word": "가슴띠",
+    "accepted_answers": [
+      "가슴띠"
+    ],
+    "meaning": "여성의 가슴을 받치고 감싸는 속옷.",
+    "south_expression": "브래지어",
+    "initials": "ㄱㅅㄸ",
+    "first_letter": "가",
+    "length": 3,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_009",
+    "word": "가슴헤염",
+    "accepted_answers": [
+      "가슴헤염"
+    ],
+    "meaning": "두 팔을 동시에 앞으로 뻗고 다리를 개구리처럼 차는 수영법.",
+    "south_expression": "평영",
+    "initials": "ㄱㅅㅎㅇ",
+    "first_letter": "가",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_010",
+    "word": "가시아버지",
+    "accepted_answers": [
+      "가시아버지"
+    ],
+    "meaning": "아내의 아버지.",
+    "south_expression": "장인",
+    "initials": "ㄱㅅㅇㅂㅈ",
+    "first_letter": "가",
+    "length": 5,
+    "category": "사람·가족",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_011",
+    "word": "가시어머니",
+    "accepted_answers": [
+      "가시어머니"
+    ],
+    "meaning": "아내의 어머니.",
+    "south_expression": "장모",
+    "initials": "ㄱㅅㅇㅁㄴ",
+    "first_letter": "가",
+    "length": 5,
+    "category": "사람·가족",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_012",
+    "word": "가위주먹",
+    "accepted_answers": [
+      "가위주먹"
+    ],
+    "meaning": "손 모양을 내어 승부를 정하는 놀이.",
+    "south_expression": "가위바위보",
+    "initials": "ㄱㅇㅈㅁ",
+    "first_letter": "가",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_013",
+    "word": "가을붙임",
+    "accepted_answers": [
+      "가을붙임"
+    ],
+    "meaning": "가을에 씨앗을 뿌리는 일.",
+    "south_expression": "가을뿌림",
+    "initials": "ㄱㅇㅂㅇ",
+    "first_letter": "가",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_014",
+    "word": "갈구리눈",
+    "accepted_answers": [
+      "갈구리눈"
+    ],
+    "meaning": "눈초리가 갈고리처럼 굽어 보이는 눈.",
+    "south_expression": "갈고리눈",
+    "initials": "ㄱㄱㄹㄴ",
+    "first_letter": "갈",
+    "length": 4,
+    "category": "의료·신체",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_015",
+    "word": "갈이땅",
+    "accepted_answers": [
+      "갈이땅"
+    ],
+    "meaning": "농작물을 심고 가꾸는 데 사용하는 땅.",
+    "south_expression": "경작지",
+    "initials": "ㄱㅇㄸ",
+    "first_letter": "갈",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_016",
+    "word": "갈이종이",
+    "accepted_answers": [
+      "갈이종이"
+    ],
+    "meaning": "물체의 겉면을 갈아 매끄럽게 하는 거친 종이.",
+    "south_expression": "사포",
+    "initials": "ㄱㅇㅈㅇ",
+    "first_letter": "갈",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_017",
+    "word": "갑작바람",
+    "accepted_answers": [
+      "갑작바람"
+    ],
+    "meaning": "갑자기 세게 불어오는 짧고 강한 바람.",
+    "south_expression": "돌풍",
+    "initials": "ㄱㅈㅂㄹ",
+    "first_letter": "갑",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_018",
+    "word": "갑작변이",
+    "accepted_answers": [
+      "갑작변이"
+    ],
+    "meaning": "생물의 유전 물질에 갑자기 생기는 변화.",
+    "south_expression": "돌연변이",
+    "initials": "ㄱㅈㅂㅇ",
+    "first_letter": "갑",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_019",
+    "word": "갑작부자",
+    "accepted_answers": [
+      "갑작부자"
+    ],
+    "meaning": "갑자기 큰돈을 벌어 부자가 된 사람.",
+    "south_expression": "벼락부자",
+    "initials": "ㄱㅈㅂㅈ",
+    "first_letter": "갑",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_020",
+    "word": "강보리밥",
+    "accepted_answers": [
+      "강보리밥"
+    ],
+    "meaning": "쌀을 섞지 않고 보리만으로 지은 밥.",
+    "south_expression": "깡보리밥",
+    "initials": "ㄱㅂㄹㅂ",
+    "first_letter": "강",
+    "length": 4,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_021",
+    "word": "같기식",
+    "accepted_answers": [
+      "같기식"
+    ],
+    "meaning": "두 식이나 수량이 서로 같음을 나타낸 식.",
+    "south_expression": "등식",
+    "initials": "ㄱㄱㅅ",
+    "first_letter": "같",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_022",
+    "word": "같기표",
+    "accepted_answers": [
+      "같기표"
+    ],
+    "meaning": "두 수나 식이 서로 같음을 나타내는 기호.",
+    "south_expression": "같음표",
+    "initials": "ㄱㄱㅍ",
+    "first_letter": "같",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_023",
+    "word": "객부",
+    "accepted_answers": [
+      "객부"
+    ],
+    "meaning": "숙박 시설 이용자가 이름과 주소 등을 적는 기록표.",
+    "south_expression": "숙박계",
+    "initials": "ㄱㅂ",
+    "first_letter": "객",
+    "length": 2,
+    "category": "사회·행정",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_024",
+    "word": "갤판",
+    "accepted_answers": [
+      "갤판"
+    ],
+    "meaning": "그림물감을 짜 놓고 섞어 쓰는 넓적한 판.",
+    "south_expression": "팔레트",
+    "initials": "ㄱㅍ",
+    "first_letter": "갤",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_025",
+    "word": "거꿀셈법",
+    "accepted_answers": [
+      "거꿀셈법"
+    ],
+    "meaning": "계산 결과에서 거꾸로 원래 값을 알아내는 계산법.",
+    "south_expression": "역산",
+    "initials": "ㄱㄲㅅㅂ",
+    "first_letter": "거",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_026",
+    "word": "거님길",
+    "accepted_answers": [
+      "거님길"
+    ],
+    "meaning": "걷거나 천천히 돌아다니도록 마련한 길.",
+    "south_expression": "산책로",
+    "initials": "ㄱㄴㄱ",
+    "first_letter": "거",
+    "length": 3,
+    "category": "교통·시설",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_027",
+    "word": "거드치다",
+    "accepted_answers": [
+      "거드치다"
+    ],
+    "meaning": "소매나 바짓단 따위를 위쪽으로 말아 올리다.",
+    "south_expression": "걷어붙이다",
+    "initials": "ㄱㄷㅊㄷ",
+    "first_letter": "거",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_028",
+    "word": "거르기종이",
+    "accepted_answers": [
+      "거르기종이"
+    ],
+    "meaning": "액체 속의 찌꺼기를 걸러 내는 데 쓰는 종이.",
+    "south_expression": "거름종이",
+    "initials": "ㄱㄹㄱㅈㅇ",
+    "first_letter": "거",
+    "length": 5,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_029",
+    "word": "거부기",
+    "accepted_answers": [
+      "거부기"
+    ],
+    "meaning": "단단한 등딱지를 지고 네 다리로 기어 다니는 파충류.",
+    "south_expression": "거북",
+    "initials": "ㄱㅂㄱ",
+    "first_letter": "거",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_030",
+    "word": "거의없다",
+    "accepted_answers": [
+      "거의없다"
+    ],
+    "meaning": "의심할 여지가 없이 확실하다.",
+    "south_expression": "틀림없다",
+    "initials": "ㄱㅇㅇㄷ",
+    "first_letter": "거",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_031",
+    "word": "건늠길",
+    "accepted_answers": [
+      "건늠길"
+    ],
+    "meaning": "사람이나 차량이 철길 또는 도로를 건너도록 만든 곳.",
+    "south_expression": "건널목",
+    "initials": "ㄱㄴㄱ",
+    "first_letter": "건",
+    "length": 3,
+    "category": "교통·시설",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_032",
+    "word": "건병",
+    "accepted_answers": [
+      "건병"
+    ],
+    "meaning": "아프지 않으면서 아픈 척하는 거짓 병.",
+    "south_expression": "꾀병",
+    "initials": "ㄱㅂ",
+    "first_letter": "건",
+    "length": 2,
+    "category": "의료·신체",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_033",
+    "word": "걷기경기",
+    "accepted_answers": [
+      "걷기경기"
+    ],
+    "meaning": "한쪽 발이 땅에 닿은 상태를 유지하며 빠르게 걷는 육상 경기.",
+    "south_expression": "경보",
+    "initials": "ㄱㄱㄱㄱ",
+    "first_letter": "걷",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_034",
+    "word": "걸고들다",
+    "accepted_answers": [
+      "걸고들다"
+    ],
+    "meaning": "상대의 말이나 행동을 트집 잡아 다투려 하다.",
+    "south_expression": "시비걸다",
+    "initials": "ㄱㄱㄷㄷ",
+    "first_letter": "걸",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_035",
+    "word": "걸구",
+    "accepted_answers": [
+      "걸구"
+    ],
+    "meaning": "몹시 배가 고파 음식을 탐내는 사람이나 상태.",
+    "south_expression": "걸귀",
+    "initials": "ㄱㄱ",
+    "first_letter": "걸",
+    "length": 2,
+    "category": "의료·신체",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_036",
+    "word": "걸그물",
+    "accepted_answers": [
+      "걸그물"
+    ],
+    "meaning": "물고기가 지나가다 그물코에 걸리게 만든 어구.",
+    "south_expression": "자망",
+    "initials": "ㄱㄱㅁ",
+    "first_letter": "걸",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_037",
+    "word": "걸음어김",
+    "accepted_answers": [
+      "걸음어김"
+    ],
+    "meaning": "경기 중 정해진 보행 규칙을 어기는 반칙.",
+    "south_expression": "워킹",
+    "initials": "ㄱㅇㅇㄱ",
+    "first_letter": "걸",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_038",
+    "word": "검밝기",
+    "accepted_answers": [
+      "검밝기"
+    ],
+    "meaning": "밝고 어두운 정도의 차이.",
+    "south_expression": "명암",
+    "initials": "ㄱㅂㄱ",
+    "first_letter": "검",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_039",
+    "word": "게사니",
+    "accepted_answers": [
+      "게사니"
+    ],
+    "meaning": "목이 길고 몸집이 큰 물새.",
+    "south_expression": "거위",
+    "initials": "ㄱㅅㄴ",
+    "first_letter": "게",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_040",
+    "word": "겨울나이",
+    "accepted_answers": [
+      "겨울나이"
+    ],
+    "meaning": "동식물이 추운 계절을 견디며 지내는 일.",
+    "south_expression": "월동",
+    "initials": "ㄱㅇㄴㅇ",
+    "first_letter": "겨",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_041",
+    "word": "고리운동",
+    "accepted_answers": [
+      "고리운동",
+      "륜"
+    ],
+    "meaning": "체조에서 두 개의 고리에 매달려 동작하는 종목 또는 그 기구.",
+    "south_expression": "링",
+    "initials": "ㄱㄹㅇㄷ",
+    "first_letter": "고",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_042",
+    "word": "고모아버지",
+    "accepted_answers": [
+      "고모아버지"
+    ],
+    "meaning": "아버지의 누이인 고모의 남편.",
+    "south_expression": "고모부",
+    "initials": "ㄱㅁㅇㅂㅈ",
+    "first_letter": "고",
+    "length": 5,
+    "category": "사람·가족",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_043",
+    "word": "고모어머니",
+    "accepted_answers": [
+      "고모어머니"
+    ],
+    "meaning": "아버지의 여자 형제.",
+    "south_expression": "고모",
+    "initials": "ㄱㅁㅇㅁㄴ",
+    "first_letter": "고",
+    "length": 5,
+    "category": "사람·가족",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_044",
+    "word": "고뿌",
+    "accepted_answers": [
+      "고뿌"
+    ],
+    "meaning": "물을 마시거나 음료를 담는 작은 그릇.",
+    "south_expression": "컵",
+    "initials": "ㄱㅃ",
+    "first_letter": "고",
+    "length": 2,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_045",
+    "word": "고성기",
+    "accepted_answers": [
+      "고성기"
+    ],
+    "meaning": "목소리나 소리를 크게 퍼지게 하는 기구.",
+    "south_expression": "확성기",
+    "initials": "ㄱㅅㄱ",
+    "first_letter": "고",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_046",
+    "word": "곧추치기",
+    "accepted_answers": [
+      "곧추치기"
+    ],
+    "meaning": "복싱에서 팔을 곧게 뻗어 정면으로 치는 공격.",
+    "south_expression": "스트레이트",
+    "initials": "ㄱㅊㅊㄱ",
+    "first_letter": "곧",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_047",
+    "word": "공격어김",
+    "accepted_answers": [
+      "공격어김"
+    ],
+    "meaning": "공격 선수가 공보다 앞에서 상대 골문 가까이에 있어 생기는 축구 반칙.",
+    "south_expression": "오프사이드",
+    "initials": "ㄱㄱㅇㄱ",
+    "first_letter": "공",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_048",
+    "word": "공기갈이",
+    "accepted_answers": [
+      "공기갈이"
+    ],
+    "meaning": "실내의 탁한 공기를 내보내고 새 공기를 들이는 일.",
+    "south_expression": "환기",
+    "initials": "ㄱㄱㄱㅇ",
+    "first_letter": "공",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_049",
+    "word": "공민증",
+    "accepted_answers": [
+      "공민증"
+    ],
+    "meaning": "개인의 주민 등록 사실을 증명하는 신분증.",
+    "south_expression": "주민등록증",
+    "initials": "ㄱㅁㅈ",
+    "first_letter": "공",
+    "length": 3,
+    "category": "사회·행정",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_050",
+    "word": "과일단물",
+    "accepted_answers": [
+      "과일단물"
+    ],
+    "meaning": "과일에서 짜낸 즙이나 그 즙으로 만든 음료.",
+    "south_expression": "주스",
+    "initials": "ㄱㅇㄷㅁ",
+    "first_letter": "과",
+    "length": 4,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_051",
+    "word": "과일단졸임",
+    "accepted_answers": [
+      "과일단졸임"
+    ],
+    "meaning": "과일에 설탕을 넣고 걸쭉하게 졸여 만든 식품.",
+    "south_expression": "잼",
+    "initials": "ㄱㅇㄷㅈㅇ",
+    "first_letter": "과",
+    "length": 5,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_052",
+    "word": "곽밥",
+    "accepted_answers": [
+      "곽밥"
+    ],
+    "meaning": "한 끼 식사를 상자나 용기에 담아 가지고 다니는 음식.",
+    "south_expression": "도시락",
+    "initials": "ㄱㅂ",
+    "first_letter": "곽",
+    "length": 2,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_053",
+    "word": "관묶음",
+    "accepted_answers": [
+      "관묶음"
+    ],
+    "meaning": "식물에서 물과 양분이 이동하는 가느다란 관들이 모인 조직.",
+    "south_expression": "관다발",
+    "initials": "ㄱㅁㅇ",
+    "first_letter": "관",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_054",
+    "word": "구름자",
+    "accepted_answers": [
+      "구름자"
+    ],
+    "meaning": "여러 곡선을 그리는 데 쓰는 구름 모양의 자.",
+    "south_expression": "운형자",
+    "initials": "ㄱㄹㅈ",
+    "first_letter": "구",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_055",
+    "word": "구석차기",
+    "accepted_answers": [
+      "구석차기"
+    ],
+    "meaning": "축구에서 공이 골라인 밖으로 나갔을 때 경기장 모서리에서 차는 킥.",
+    "south_expression": "코너 킥",
+    "initials": "ㄱㅅㅊㄱ",
+    "first_letter": "구",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_056",
+    "word": "구역막기",
+    "accepted_answers": [
+      "구역막기"
+    ],
+    "meaning": "각 선수가 맡은 구역을 중심으로 상대를 막는 수비 방식.",
+    "south_expression": "지역 방어",
+    "initials": "ㄱㅇㅁㄱ",
+    "first_letter": "구",
+    "length": 4,
+    "category": "교통·시설",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_057",
+    "word": "군중가요",
+    "accepted_answers": [
+      "군중가요"
+    ],
+    "meaning": "많은 사람이 즐겨 부르고 듣는 노래.",
+    "south_expression": "대중 가요",
+    "initials": "ㄱㅈㄱㅇ",
+    "first_letter": "군",
+    "length": 4,
+    "category": "사회·행정",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_058",
+    "word": "굴개",
+    "accepted_answers": [
+      "굴개"
+    ],
+    "meaning": "바닥을 눌러 다지거나 물체를 굴리는 원통형 기구.",
+    "south_expression": "롤러",
+    "initials": "ㄱㄱ",
+    "first_letter": "굴",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_059",
+    "word": "굽석굽석",
+    "accepted_answers": [
+      "굽석굽석"
+    ],
+    "meaning": "비위를 맞추려고 자꾸 허리를 굽히는 모양.",
+    "south_expression": "굽실굽실",
+    "initials": "ㄱㅅㄱㅅ",
+    "first_letter": "굽",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_060",
+    "word": "귀쏘기",
+    "accepted_answers": [
+      "귀쏘기"
+    ],
+    "meaning": "귀 안쪽에서 쑤시거나 찌르는 듯 느껴지는 통증.",
+    "south_expression": "이통",
+    "initials": "ㄱㅆㄱ",
+    "first_letter": "귀",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_061",
+    "word": "귀에고리",
+    "accepted_answers": [
+      "귀에고리"
+    ],
+    "meaning": "귓불에 달아 꾸미는 장신구.",
+    "south_expression": "귀고리",
+    "initials": "ㄱㅇㄱㄹ",
+    "first_letter": "귀",
+    "length": 4,
+    "category": "의료·신체",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_062",
+    "word": "귀울이",
+    "accepted_answers": [
+      "귀울이"
+    ],
+    "meaning": "밖에서 소리가 나지 않는데도 귀에서 소리가 들리는 증상.",
+    "south_expression": "이명",
+    "initials": "ㄱㅇㅇ",
+    "first_letter": "귀",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_063",
+    "word": "규률",
+    "accepted_answers": [
+      "규률"
+    ],
+    "meaning": "사람들이 지켜야 할 질서와 행동 기준.",
+    "south_expression": "규율",
+    "initials": "ㄱㄹ",
+    "first_letter": "규",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_064",
+    "word": "그림영화",
+    "accepted_answers": [
+      "그림영화"
+    ],
+    "meaning": "그림을 연속으로 보여 움직이는 것처럼 만든 영상 작품.",
+    "south_expression": "만화영화",
+    "initials": "ㄱㄹㅇㅎ",
+    "first_letter": "그",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_065",
+    "word": "그물넘기",
+    "accepted_answers": [
+      "그물넘기",
+      "손넘기"
+    ],
+    "meaning": "배구에서 손이나 몸이 네트 너머로 넘어가 발생하는 반칙.",
+    "south_expression": "오버네트",
+    "initials": "ㄱㅁㄴㄱ",
+    "first_letter": "그",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_066",
+    "word": "글장님",
+    "accepted_answers": [
+      "글장님"
+    ],
+    "meaning": "글을 읽거나 쓰지 못하는 사람.",
+    "south_expression": "문맹자",
+    "initials": "ㄱㅈㄴ",
+    "first_letter": "글",
+    "length": 3,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_067",
+    "word": "기름밥",
+    "accepted_answers": [
+      "기름밥"
+    ],
+    "meaning": "밥을 기름에 볶고 여러 재료를 섞어 만든 음식.",
+    "south_expression": "볶음밥",
+    "initials": "ㄱㄹㅂ",
+    "first_letter": "기",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_068",
+    "word": "기름사탕",
+    "accepted_answers": [
+      "기름사탕"
+    ],
+    "meaning": "설탕과 우유 등을 가열해 갈색으로 굳힌 사탕.",
+    "south_expression": "캐러멜",
+    "initials": "ㄱㄹㅅㅌ",
+    "first_letter": "기",
+    "length": 4,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_069",
+    "word": "기발",
+    "accepted_answers": [
+      "기발"
+    ],
+    "meaning": "천이나 종이에 일정한 모양과 색을 넣어 매단 표지.",
+    "south_expression": "깃발",
+    "initials": "ㄱㅂ",
+    "first_letter": "기",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_070",
+    "word": "기쁨슬픔병",
+    "accepted_answers": [
+      "기쁨슬픔병"
+    ],
+    "meaning": "기분이 지나치게 들뜨는 때와 심하게 가라앉는 때가 번갈아 나타나는 정신 질환.",
+    "south_expression": "조울병",
+    "initials": "ㄱㅃㅅㅍㅂ",
+    "first_letter": "기",
+    "length": 5,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_071",
+    "word": "기윽",
+    "accepted_answers": [
+      "기윽"
+    ],
+    "meaning": "한글 자음의 첫째 글자 이름.",
+    "south_expression": "기역",
+    "initials": "ㄱㅇ",
+    "first_letter": "기",
+    "length": 2,
+    "category": "언어·교육",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_072",
+    "word": "길금",
+    "accepted_answers": [
+      "길금"
+    ],
+    "meaning": "보리에 싹을 틔워 말린 것으로 엿이나 식혜를 만들 때 쓰는 재료.",
+    "south_expression": "엿기름",
+    "initials": "ㄱㄱ",
+    "first_letter": "길",
+    "length": 2,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_073",
+    "word": "까밝히다",
+    "accepted_answers": [
+      "까밝히다"
+    ],
+    "meaning": "숨겨진 일이나 비밀을 거리낌 없이 드러내다.",
+    "south_expression": "까발리다",
+    "initials": "ㄲㅂㅎㄷ",
+    "first_letter": "까",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_074",
+    "word": "깜빠니야",
+    "accepted_answers": [
+      "깜빠니야"
+    ],
+    "meaning": "특정 목적을 알리고 참여를 이끌기 위해 일정 기간 벌이는 활동.",
+    "south_expression": "캠페인",
+    "initials": "ㄲㅃㄴㅇ",
+    "first_letter": "깜",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_075",
+    "word": "깨여지다",
+    "accepted_answers": [
+      "깨여지다"
+    ],
+    "meaning": "온전하던 것이 갈라지거나 부서지다.",
+    "south_expression": "깨어지다",
+    "initials": "ㄲㅇㅈㄷ",
+    "first_letter": "깨",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_077",
+    "word": "꼴문",
+    "accepted_answers": [
+      "꼴문"
+    ],
+    "meaning": "공이 들어가도록 세운 문 모양의 구조물.",
+    "south_expression": "골문",
+    "initials": "ㄲㅁ",
+    "first_letter": "꼴",
+    "length": 2,
+    "category": "스포츠",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_078",
+    "word": "꼴문대",
+    "accepted_answers": [
+      "꼴문대"
+    ],
+    "meaning": "골문을 이루는 기둥과 가로대.",
+    "south_expression": "골대",
+    "initials": "ㄲㅁㄷ",
+    "first_letter": "꼴",
+    "length": 3,
+    "category": "스포츠",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_079",
+    "word": "꼴인",
+    "accepted_answers": [
+      "꼴인"
+    ],
+    "meaning": "공이나 선수가 정해진 도착 지점 안에 들어가는 일.",
+    "south_expression": "골인",
+    "initials": "ㄲㅇ",
+    "first_letter": "꼴",
+    "length": 2,
+    "category": "스포츠",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_080",
+    "word": "꾸레미",
+    "accepted_answers": [
+      "꾸레미"
+    ],
+    "meaning": "여러 물건을 한데 묶거나 싸 놓은 것.",
+    "south_expression": "꾸러미",
+    "initials": "ㄲㄹㅁ",
+    "first_letter": "꾸",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_081",
+    "word": "꾸시시하다",
+    "accepted_answers": [
+      "꾸시시하다"
+    ],
+    "meaning": "머리나 옷차림이 정돈되지 않아 흐트러진 모양.",
+    "south_expression": "부스스하다",
+    "initials": "ㄲㅅㅅㅎㄷ",
+    "first_letter": "꾸",
+    "length": 5,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_082",
+    "word": "꾹돈",
+    "accepted_answers": [
+      "꾹돈"
+    ],
+    "meaning": "일을 부탁하거나 편의를 얻기 위해 몰래 주는 돈이나 물건.",
+    "south_expression": "뇌물",
+    "initials": "ㄲㄷ",
+    "first_letter": "꾹",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_083",
+    "word": "꿀비",
+    "accepted_answers": [
+      "꿀비"
+    ],
+    "meaning": "가뭄 뒤에 내려 농작물에 도움이 되는 반가운 비.",
+    "south_expression": "단비",
+    "initials": "ㄲㅂ",
+    "first_letter": "꿀",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_084",
+    "word": "끌물길",
+    "accepted_answers": [
+      "끌물길"
+    ],
+    "meaning": "물을 필요한 곳으로 끌어 보내기 위해 만든 인공 수로.",
+    "south_expression": "도수로",
+    "initials": "ㄲㅁㄱ",
+    "first_letter": "끌",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_085",
+    "word": "끌배",
+    "accepted_answers": [
+      "끌배"
+    ],
+    "meaning": "다른 배를 끌거나 밀어 이동시키는 배.",
+    "south_expression": "견인선",
+    "initials": "ㄲㅂ",
+    "first_letter": "끌",
+    "length": 2,
+    "category": "교통·시설",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_086",
+    "word": "끌신",
+    "accepted_answers": [
+      "끌신"
+    ],
+    "meaning": "뒤가 트여 발을 쉽게 넣고 빼는 편한 신발.",
+    "south_expression": "슬리퍼",
+    "initials": "ㄲㅅ",
+    "first_letter": "끌",
+    "length": 2,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_087",
+    "word": "끌어올리기",
+    "accepted_answers": [
+      "끌어올리기"
+    ],
+    "meaning": "가격이나 임금, 수준 따위를 높이는 일.",
+    "south_expression": "인상",
+    "initials": "ㄲㅇㅇㄹㄱ",
+    "first_letter": "끌",
+    "length": 5,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_088",
+    "word": "끌차",
+    "accepted_answers": [
+      "끌차"
+    ],
+    "meaning": "고장 난 차나 움직이지 못하는 차를 끌고 가는 차량.",
+    "south_expression": "견인차",
+    "initials": "ㄲㅊ",
+    "first_letter": "끌",
+    "length": 2,
+    "category": "교통·시설",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_089",
+    "word": "끌힘",
+    "accepted_answers": [
+      "끌힘"
+    ],
+    "meaning": "물체를 자기 쪽으로 끌어당기는 힘.",
+    "south_expression": "인력",
+    "initials": "ㄲㅎ",
+    "first_letter": "끌",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_090",
+    "word": "나간권총",
+    "accepted_answers": [
+      "나간권총"
+    ],
+    "meaning": "탄환이 들어 있는 회전식 탄창을 사용하는 권총.",
+    "south_expression": "리볼버",
+    "initials": "ㄴㄱㄱㅊ",
+    "first_letter": "나",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_091",
+    "word": "나뉜옷",
+    "accepted_answers": [
+      "나뉜옷"
+    ],
+    "meaning": "윗옷과 아랫옷이 따로 구성된 여성용 한 벌 옷.",
+    "south_expression": "투피스",
+    "initials": "ㄴㄴㅇ",
+    "first_letter": "나",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_092",
+    "word": "나들문",
+    "accepted_answers": [
+      "나들문"
+    ],
+    "meaning": "건물이나 방으로 드나드는 문.",
+    "south_expression": "출입문",
+    "initials": "ㄴㄷㅁ",
+    "first_letter": "나",
+    "length": 3,
+    "category": "교통·시설",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_093",
+    "word": "나들표",
+    "accepted_answers": [
+      "나들표"
+    ],
+    "meaning": "공연장이나 경기장 등에 들어갈 수 있음을 나타내는 표.",
+    "south_expression": "입장표",
+    "initials": "ㄴㄷㅍ",
+    "first_letter": "나",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_094",
+    "word": "나듬성",
+    "accepted_answers": [
+      "나듬성"
+    ],
+    "meaning": "빛이나 물질 따위가 물체를 통과하는 성질.",
+    "south_expression": "투과성",
+    "initials": "ㄴㄷㅅ",
+    "first_letter": "나",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_095",
+    "word": "나라길",
+    "accepted_answers": [
+      "나라길"
+    ],
+    "meaning": "국가가 관리하는 주요 도로.",
+    "south_expression": "국도",
+    "initials": "ㄴㄹㄱ",
+    "first_letter": "나",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_096",
+    "word": "나리옷",
+    "accepted_answers": [
+      "나리옷"
+    ],
+    "meaning": "몸 전체를 길게 감싸는 여성용 격식 있는 옷.",
+    "south_expression": "드레스",
+    "initials": "ㄴㄹㅇ",
+    "first_letter": "나",
+    "length": 3,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_097",
+    "word": "나무밥",
+    "accepted_answers": [
+      "나무밥"
+    ],
+    "meaning": "나무를 톱으로 켤 때 생기는 작은 부스러기.",
+    "south_expression": "톱밥",
+    "initials": "ㄴㅁㅂ",
+    "first_letter": "나",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_098",
+    "word": "나비헤염",
+    "accepted_answers": [
+      "나비헤염"
+    ],
+    "meaning": "두 팔을 동시에 앞으로 돌리고 두 다리를 모아 차는 수영법.",
+    "south_expression": "접영",
+    "initials": "ㄴㅂㅎㅇ",
+    "first_letter": "나",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_099",
+    "word": "날거리",
+    "accepted_answers": [
+      "날거리"
+    ],
+    "meaning": "비, 바람, 기온 등 대기의 짧은 기간 상태.",
+    "south_expression": "날씨",
+    "initials": "ㄴㄱㄹ",
+    "first_letter": "날",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_100",
+    "word": "날창",
+    "accepted_answers": [
+      "날창"
+    ],
+    "meaning": "총 끝에 달거나 손에 들고 찌르는 긴 칼.",
+    "south_expression": "대검",
+    "initials": "ㄴㅊ",
+    "first_letter": "날",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_101",
+    "word": "남새",
+    "accepted_answers": [
+      "남새"
+    ],
+    "meaning": "밭에서 기르는 먹을 수 있는 잎·줄기·뿌리 등의 식물.",
+    "south_expression": "채소",
+    "initials": "ㄴㅅ",
+    "first_letter": "남",
+    "length": 2,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_102",
+    "word": "남성고음",
+    "accepted_answers": [
+      "남성고음"
+    ],
+    "meaning": "성악에서 비교적 높은 음역을 맡는 남성 목소리.",
+    "south_expression": "테너",
+    "initials": "ㄴㅅㄱㅇ",
+    "first_letter": "남",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_103",
+    "word": "남잡이",
+    "accepted_answers": [
+      "남잡이"
+    ],
+    "meaning": "남에게 일부러 해를 끼치거나 괴롭히는 일.",
+    "south_expression": "해코지",
+    "initials": "ㄴㅈㅇ",
+    "first_letter": "남",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_104",
+    "word": "남포약",
+    "accepted_answers": [
+      "남포약"
+    ],
+    "meaning": "폭발력이 강해 공사나 채굴 등에 쓰는 폭약.",
+    "south_expression": "다이너마이트",
+    "initials": "ㄴㅍㅇ",
+    "first_letter": "남",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_105",
+    "word": "납작납작",
+    "accepted_answers": [
+      "납작납작"
+    ],
+    "meaning": "얼굴이나 물체가 넓고 평평한 모양.",
+    "south_expression": "넓죽",
+    "initials": "ㄴㅈㄴㅈ",
+    "first_letter": "납",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_106",
+    "word": "납작못",
+    "accepted_answers": [
+      "납작못"
+    ],
+    "meaning": "종이나 천 등을 눌러 고정하는 머리가 납작한 작은 못.",
+    "south_expression": "압정",
+    "initials": "ㄴㅈㅁ",
+    "first_letter": "납",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_107",
+    "word": "낮대거리",
+    "accepted_answers": [
+      "낮대거리"
+    ],
+    "meaning": "낮 시간에 근무하는 교대조 또는 근무 차례.",
+    "south_expression": "낮교대",
+    "initials": "ㄴㄷㄱㄹ",
+    "first_letter": "낮",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_108",
+    "word": "낮뒤",
+    "accepted_answers": [
+      "낮뒤"
+    ],
+    "meaning": "정오부터 해가 질 무렵까지의 시간대.",
+    "south_expression": "오후",
+    "initials": "ㄴㄷ",
+    "first_letter": "낮",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_109",
+    "word": "낮전",
+    "accepted_answers": [
+      "낮전"
+    ],
+    "meaning": "자정부터 정오까지의 시간대.",
+    "south_expression": "오전",
+    "initials": "ㄴㅈ",
+    "first_letter": "낮",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_110",
+    "word": "내굴찜",
+    "accepted_answers": [
+      "내굴찜"
+    ],
+    "meaning": "연기에 오래 쐬어 익히거나 향을 입히는 조리 방식.",
+    "south_expression": "훈제",
+    "initials": "ㄴㄱㅉ",
+    "first_letter": "내",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_111",
+    "word": "내뚝",
+    "accepted_answers": [
+      "내뚝"
+    ],
+    "meaning": "냇가의 물이 넘치지 않도록 쌓은 둑.",
+    "south_expression": "냇둑",
+    "initials": "ㄴㄸ",
+    "first_letter": "내",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_112",
+    "word": "내물",
+    "accepted_answers": [
+      "내물"
+    ],
+    "meaning": "작은 하천이나 시내에 흐르는 물.",
+    "south_expression": "냇물",
+    "initials": "ㄴㅁ",
+    "first_letter": "내",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_113",
+    "word": "내밈대",
+    "accepted_answers": [
+      "내밈대"
+    ],
+    "meaning": "건물 바깥쪽으로 내어 휴식이나 빨래 등에 쓰는 공간.",
+    "south_expression": "베란다",
+    "initials": "ㄴㅁㄷ",
+    "first_letter": "내",
+    "length": 3,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_114",
+    "word": "너비뛰기",
+    "accepted_answers": [
+      "너비뛰기"
+    ],
+    "meaning": "달려가 한 발로 구름판을 밟고 최대한 멀리 뛰는 육상 종목.",
+    "south_expression": "멀리뛰기",
+    "initials": "ㄴㅂㄸㄱ",
+    "first_letter": "너",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_115",
+    "word": "넣는사람",
+    "accepted_answers": [
+      "넣는사람"
+    ],
+    "meaning": "야구에서 공을 타자에게 던지는 선수.",
+    "south_expression": "투수",
+    "initials": "ㄴㄴㅅㄹ",
+    "first_letter": "넣",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_116",
+    "word": "네번치기",
+    "accepted_answers": [
+      "네번치기"
+    ],
+    "meaning": "경기가 정규 시간 안에 끝나지 않아 추가로 진행하는 시간.",
+    "south_expression": "오버타임",
+    "initials": "ㄴㅂㅊㄱ",
+    "first_letter": "네",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_117",
+    "word": "녀성고음",
+    "accepted_answers": [
+      "녀성고음"
+    ],
+    "meaning": "성악에서 가장 높은 음역을 맡는 여성 목소리.",
+    "south_expression": "소프라노",
+    "initials": "ㄴㅅㄱㅇ",
+    "first_letter": "녀",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_118",
+    "word": "녀학생",
+    "accepted_answers": [
+      "녀학생"
+    ],
+    "meaning": "학교에 다니는 여자 학생.",
+    "south_expression": "여학생",
+    "initials": "ㄴㅎㅅ",
+    "first_letter": "녀",
+    "length": 3,
+    "category": "사람·가족",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_119",
+    "word": "농마",
+    "accepted_answers": [
+      "농마"
+    ],
+    "meaning": "식물이 광합성으로 만들어 씨나 뿌리 등에 저장하는 탄수화물.",
+    "south_expression": "녹말",
+    "initials": "ㄴㅁ",
+    "first_letter": "농",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_120",
+    "word": "누기막이",
+    "accepted_answers": [
+      "누기막이"
+    ],
+    "meaning": "습기가 스며들거나 차는 것을 막는 일.",
+    "south_expression": "방습",
+    "initials": "ㄴㄱㅁㅇ",
+    "first_letter": "누",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_121",
+    "word": "누운헤염",
+    "accepted_answers": [
+      "누운헤염"
+    ],
+    "meaning": "등을 물 쪽으로 향하고 누운 자세로 헤엄치는 수영법.",
+    "south_expression": "배영",
+    "initials": "ㄴㅇㅎㅇ",
+    "first_letter": "누",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_122",
+    "word": "누워뛰기",
+    "accepted_answers": [
+      "누워뛰기"
+    ],
+    "meaning": "높이뛰기에서 등을 먼저 넘기며 바를 통과하는 방법.",
+    "south_expression": "배면뛰기",
+    "initials": "ㄴㅇㄸㄱ",
+    "first_letter": "누",
+    "length": 4,
+    "category": "교통·시설",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_123",
+    "word": "눈기",
+    "accepted_answers": [
+      "눈기"
+    ],
+    "meaning": "상대의 기분이나 상황을 말하지 않아도 알아차리는 감각.",
+    "south_expression": "눈치",
+    "initials": "ㄴㄱ",
+    "first_letter": "눈",
+    "length": 2,
+    "category": "의료·신체",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_124",
+    "word": "눈딱총",
+    "accepted_answers": [
+      "눈딱총"
+    ],
+    "meaning": "못마땅한 뜻을 담아 매섭게 바라보는 눈길.",
+    "south_expression": "눈총",
+    "initials": "ㄴㄸㅊ",
+    "first_letter": "눈",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_125",
+    "word": "눈허리",
+    "accepted_answers": [
+      "눈허리"
+    ],
+    "meaning": "두 눈 사이에서 코로 이어지는 윗부분.",
+    "south_expression": "코허리",
+    "initials": "ㄴㅎㄹ",
+    "first_letter": "눈",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_126",
+    "word": "능달",
+    "accepted_answers": [
+      "능달"
+    ],
+    "meaning": "햇빛이 들지 않는 그늘진 곳.",
+    "south_expression": "응달",
+    "initials": "ㄴㄷ",
+    "first_letter": "능",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_127",
+    "word": "능쪽",
+    "accepted_answers": [
+      "능쪽"
+    ],
+    "meaning": "볕이 잘 들지 않아 어둡고 습한 쪽.",
+    "south_expression": "음지",
+    "initials": "ㄴㅉ",
+    "first_letter": "능",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_128",
+    "word": "다님표",
+    "accepted_answers": [
+      "다님표"
+    ],
+    "meaning": "교통수단의 출발·도착 시각과 운행 순서를 적은 표.",
+    "south_expression": "운행표",
+    "initials": "ㄷㄴㅍ",
+    "first_letter": "다",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_129",
+    "word": "다락논",
+    "accepted_answers": [
+      "다락논"
+    ],
+    "meaning": "비탈진 땅에 층층이 만든 논.",
+    "south_expression": "계단논",
+    "initials": "ㄷㄹㄴ",
+    "first_letter": "다",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_130",
+    "word": "다리매",
+    "accepted_answers": [
+      "다리매"
+    ],
+    "meaning": "다리의 곡선과 모양에서 느껴지는 아름다움.",
+    "south_expression": "각선미",
+    "initials": "ㄷㄹㅁ",
+    "first_letter": "다",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_131",
+    "word": "다리휘돌리기",
+    "accepted_answers": [
+      "다리휘돌리기"
+    ],
+    "meaning": "다리를 원을 그리듯 크게 돌리는 동작.",
+    "south_expression": "휘돌리기",
+    "initials": "ㄷㄹㅎㄷㄹㄱ",
+    "first_letter": "다",
+    "length": 6,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_132",
+    "word": "다스림",
+    "accepted_answers": [
+      "다스림"
+    ],
+    "meaning": "국악 연주 전에 악기와 호흡을 맞추며 가락을 푸는 짧은 연주.",
+    "south_expression": "다스름",
+    "initials": "ㄷㅅㄹ",
+    "first_letter": "다",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_133",
+    "word": "단고기",
+    "accepted_answers": [
+      "단고기"
+    ],
+    "meaning": "개의 고기를 식재료로 사용한 음식.",
+    "south_expression": "개고기",
+    "initials": "ㄷㄱㄱ",
+    "first_letter": "단",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_134",
+    "word": "단마르크",
+    "accepted_answers": [
+      "단마르크"
+    ],
+    "meaning": "북유럽에 있는 입헌 군주국.",
+    "south_expression": "덴마크",
+    "initials": "ㄷㅁㄹㅋ",
+    "first_letter": "단",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_135",
+    "word": "단맛감",
+    "accepted_answers": [
+      "단맛감"
+    ],
+    "meaning": "음식이나 약 등에 단맛을 내기 위해 넣는 물질.",
+    "south_expression": "감미료",
+    "initials": "ㄷㅁㄱ",
+    "first_letter": "단",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_136",
+    "word": "단얼음",
+    "accepted_answers": [
+      "단얼음"
+    ],
+    "meaning": "곱게 간 얼음에 단맛 나는 재료와 과일 등을 얹은 음식.",
+    "south_expression": "빙수",
+    "initials": "ㄷㅇㅇ",
+    "first_letter": "단",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_137",
+    "word": "단위명사",
+    "accepted_answers": [
+      "단위명사"
+    ],
+    "meaning": "앞말의 뜻이 온전하지 않아 다른 말에 기대어 쓰이는 명사.",
+    "south_expression": "의존 명사",
+    "initials": "ㄷㅇㅁㅅ",
+    "first_letter": "단",
+    "length": 4,
+    "category": "언어·교육",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_138",
+    "word": "달거리아픔",
+    "accepted_answers": [
+      "달거리아픔"
+    ],
+    "meaning": "월경 때 아랫배나 허리 등에 나타나는 통증.",
+    "south_expression": "생리통",
+    "initials": "ㄷㄱㄹㅇㅍ",
+    "first_letter": "달",
+    "length": 5,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_139",
+    "word": "닭공장",
+    "accepted_answers": [
+      "닭공장"
+    ],
+    "meaning": "닭을 대량으로 기르는 시설.",
+    "south_expression": "양계장",
+    "initials": "ㄷㄱㅈ",
+    "first_letter": "닭",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_140",
+    "word": "닭알",
+    "accepted_answers": [
+      "닭알"
+    ],
+    "meaning": "닭이 낳는 알.",
+    "south_expression": "달걀",
+    "initials": "ㄷㅇ",
+    "first_letter": "닭",
+    "length": 2,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_141",
+    "word": "닭알두부",
+    "accepted_answers": [
+      "닭알두부"
+    ],
+    "meaning": "푼 달걀을 간하여 부드럽게 쪄 낸 음식.",
+    "south_expression": "달걀찜",
+    "initials": "ㄷㅇㄷㅂ",
+    "first_letter": "닭",
+    "length": 4,
+    "category": "음식",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_142",
+    "word": "담배질꾼",
+    "accepted_answers": [
+      "담배질꾼"
+    ],
+    "meaning": "담배를 즐겨 자주 피우는 사람.",
+    "south_expression": "애연가",
+    "initials": "ㄷㅂㅈㄲ",
+    "first_letter": "담",
+    "length": 4,
+    "category": "교통·시설",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_143",
+    "word": "담배칸",
+    "accepted_answers": [
+      "담배칸"
+    ],
+    "meaning": "건물 안에서 담배를 피우도록 따로 마련한 공간.",
+    "south_expression": "흡연실",
+    "initials": "ㄷㅂㅋ",
+    "first_letter": "담",
+    "length": 3,
+    "category": "교통·시설",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_144",
+    "word": "당콩",
+    "accepted_answers": [
+      "당콩"
+    ],
+    "meaning": "꼬투리 안에 여러 알이 들어 있는 콩의 한 종류.",
+    "south_expression": "강낭콩",
+    "initials": "ㄷㅋ",
+    "first_letter": "당",
+    "length": 2,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_145",
+    "word": "대괄호",
+    "accepted_answers": [
+      "대괄호"
+    ],
+    "meaning": "문장이나 수식 안에서 다른 괄호보다 큰 범위를 묶는 기호.",
+    "south_expression": "중괄호",
+    "initials": "ㄷㄱㅎ",
+    "first_letter": "대",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_146",
+    "word": "대꼭지",
+    "accepted_answers": [
+      "대꼭지"
+    ],
+    "meaning": "담뱃대에서 담배를 담아 피우는 통 모양 부분.",
+    "south_expression": "대통",
+    "initials": "ㄷㄲㅈ",
+    "first_letter": "대",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_147",
+    "word": "대렬",
+    "accepted_answers": [
+      "대렬"
+    ],
+    "meaning": "여럿이 한 줄이나 여러 줄로 가지런히 늘어선 상태.",
+    "south_expression": "대열",
+    "initials": "ㄷㄹ",
+    "first_letter": "대",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_148",
+    "word": "댈물길",
+    "accepted_answers": [
+      "댈물길"
+    ],
+    "meaning": "농업이나 생활에 필요한 물을 공급하도록 만든 수로.",
+    "south_expression": "용수로",
+    "initials": "ㄷㅁㄱ",
+    "first_letter": "댈",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_149",
+    "word": "댕기",
+    "accepted_answers": [
+      "댕기"
+    ],
+    "meaning": "머리나 옷을 꾸미는 데 쓰는 가늘고 긴 천 장식.",
+    "south_expression": "리본",
+    "initials": "ㄷㄱ",
+    "first_letter": "댕",
+    "length": 2,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_150",
+    "word": "댕기운동",
+    "accepted_answers": [
+      "댕기운동"
+    ],
+    "meaning": "긴 천 장식을 흔들고 던지며 연기하는 리듬 체조 종목.",
+    "south_expression": "리본 체조",
+    "initials": "ㄷㄱㅇㄷ",
+    "first_letter": "댕",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_151",
+    "word": "더넘이",
+    "accepted_answers": [
+      "더넘이"
+    ],
+    "meaning": "정해진 양에 더하여 거저 주거나 받는 것.",
+    "south_expression": "덤",
+    "initials": "ㄷㄴㅇ",
+    "first_letter": "더",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_152",
+    "word": "더덜기법",
+    "accepted_answers": [
+      "더덜기법"
+    ],
+    "meaning": "두 식을 더하거나 빼 미지수를 없애는 연립방정식 풀이법.",
+    "south_expression": "가감법",
+    "initials": "ㄷㄷㄱㅂ",
+    "first_letter": "더",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_153",
+    "word": "더미구름",
+    "accepted_answers": [
+      "더미구름"
+    ],
+    "meaning": "하늘에 솜더미처럼 피어오른 크고 흰 구름.",
+    "south_expression": "뭉게구름",
+    "initials": "ㄷㅁㄱㄹ",
+    "first_letter": "더",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_154",
+    "word": "더운전선",
+    "accepted_answers": [
+      "더운전선"
+    ],
+    "meaning": "따뜻한 공기 덩어리가 찬 공기 위로 올라가며 생기는 전선.",
+    "south_expression": "온난 전선",
+    "initials": "ㄷㅇㅈㅅ",
+    "first_letter": "더",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_155",
+    "word": "덜기",
+    "accepted_answers": [
+      "덜기"
+    ],
+    "meaning": "어떤 수나 양에서 다른 수나 양을 빼는 계산.",
+    "south_expression": "빼기",
+    "initials": "ㄷㄱ",
+    "first_letter": "덜",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_156",
+    "word": "덤장그물",
+    "accepted_answers": [
+      "덤장그물"
+    ],
+    "meaning": "한곳에 고정해 놓고 물고기가 들어오게 하는 대형 그물.",
+    "south_expression": "정치망",
+    "initials": "ㄷㅈㄱㅁ",
+    "first_letter": "덤",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_157",
+    "word": "덧머리",
+    "accepted_answers": [
+      "덧머리"
+    ],
+    "meaning": "머리에 덧씌워 실제 머리카락처럼 보이게 만든 물건.",
+    "south_expression": "가발",
+    "initials": "ㄷㅁㄹ",
+    "first_letter": "덧",
+    "length": 3,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_158",
+    "word": "도간도간",
+    "accepted_answers": [
+      "도간도간"
+    ],
+    "meaning": "사이에 간격을 두고 듬성듬성 있는 모양.",
+    "south_expression": "드문드문",
+    "initials": "ㄷㄱㄷㄱ",
+    "first_letter": "도",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_159",
+    "word": "도는네거리",
+    "accepted_answers": [
+      "도는네거리"
+    ],
+    "meaning": "차량이 중앙의 둥근 공간을 돌아 방향을 바꾸는 교차로.",
+    "south_expression": "로터리",
+    "initials": "ㄷㄴㄴㄱㄹ",
+    "first_letter": "도",
+    "length": 5,
+    "category": "교통·시설",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_160",
+    "word": "도래자",
+    "accepted_answers": [
+      "도래자"
+    ],
+    "meaning": "길이나 물체의 길이를 재는 데 쓰는 띠 모양 측정 도구.",
+    "south_expression": "줄자",
+    "initials": "ㄷㄹㅈ",
+    "first_letter": "도",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_161",
+    "word": "도레라",
+    "accepted_answers": [
+      "도레라"
+    ],
+    "meaning": "화물이나 다른 차량을 연결해 끌고 다니는 차체.",
+    "south_expression": "트레일러",
+    "initials": "ㄷㄹㄹ",
+    "first_letter": "도",
+    "length": 3,
+    "category": "교통·시설",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_162",
+    "word": "도루메기",
+    "accepted_answers": [
+      "도루메기"
+    ],
+    "meaning": "차가운 바다에 사는 길쭉한 물고기의 한 종류.",
+    "south_expression": "도루묵",
+    "initials": "ㄷㄹㅁㄱ",
+    "first_letter": "도",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_163",
+    "word": "도적글",
+    "accepted_answers": [
+      "도적글"
+    ],
+    "meaning": "다른 사람의 글이나 아이디어를 출처 없이 베껴 쓰는 행위.",
+    "south_expression": "표절",
+    "initials": "ㄷㅈㄱ",
+    "first_letter": "도",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_164",
+    "word": "독연극",
+    "accepted_answers": [
+      "독연극"
+    ],
+    "meaning": "한 명의 배우가 중심이 되어 진행하는 극.",
+    "south_expression": "모노드라마",
+    "initials": "ㄷㅇㄱ",
+    "first_letter": "독",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_165",
+    "word": "독장수구구",
+    "accepted_answers": [
+      "독장수구구"
+    ],
+    "meaning": "실현 가능성을 따지지 않고 자기에게 유리하게만 계산하는 셈.",
+    "south_expression": "독장수셈",
+    "initials": "ㄷㅈㅅㄱㄱ",
+    "first_letter": "독",
+    "length": 5,
+    "category": "과학·수학",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_166",
+    "word": "독풀이약",
+    "accepted_answers": [
+      "독풀이약"
+    ],
+    "meaning": "몸에 들어간 독성 물질의 작용을 없애거나 줄이는 약.",
+    "south_expression": "해독약",
+    "initials": "ㄷㅍㅇㅇ",
+    "first_letter": "독",
+    "length": 4,
+    "category": "의료·신체",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_167",
+    "word": "동가슴",
+    "accepted_answers": [
+      "동가슴"
+    ],
+    "meaning": "가슴의 가운데 또는 안쪽 부분.",
+    "south_expression": "앙가슴",
+    "initials": "ㄷㄱㅅ",
+    "first_letter": "동",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_168",
+    "word": "동거살이",
+    "accepted_answers": [
+      "동거살이"
+    ],
+    "meaning": "남의 집이나 방을 빌려 살며 지내는 생활.",
+    "south_expression": "셋방살이",
+    "initials": "ㄷㄱㅅㅇ",
+    "first_letter": "동",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_169",
+    "word": "동기와",
+    "accepted_answers": [
+      "동기와"
+    ],
+    "meaning": "지붕을 덮는 데 쓰는 넓고 얇은 기와의 한 종류.",
+    "south_expression": "너새",
+    "initials": "ㄷㄱㅇ",
+    "first_letter": "동",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_170",
+    "word": "동동이",
+    "accepted_answers": [
+      "동동이"
+    ],
+    "meaning": "낚싯줄에 매달아 물고기가 미끼를 무는 것을 알려 주는 작은 물체.",
+    "south_expression": "낚시찌",
+    "initials": "ㄷㄷㅇ",
+    "first_letter": "동",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_171",
+    "word": "동뚝",
+    "accepted_answers": [
+      "동뚝"
+    ],
+    "meaning": "논밭의 물을 막거나 나누기 위해 쌓은 둑.",
+    "south_expression": "동둑",
+    "initials": "ㄷㄸ",
+    "first_letter": "동",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_172",
+    "word": "동약",
+    "accepted_answers": [
+      "동약"
+    ],
+    "meaning": "동아시아 전통 의학의 재료와 방법으로 만든 약.",
+    "south_expression": "한약",
+    "initials": "ㄷㅇ",
+    "first_letter": "동",
+    "length": 2,
+    "category": "의료·신체",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_173",
+    "word": "되거리",
+    "accepted_answers": [
+      "되거리"
+    ],
+    "meaning": "받은 물건이나 말을 다시 다른 쪽으로 넘기는 일.",
+    "south_expression": "되넘기",
+    "initials": "ㄷㄱㄹ",
+    "first_letter": "되",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_174",
+    "word": "된기윽",
+    "accepted_answers": [
+      "된기윽"
+    ],
+    "meaning": "한글 자음 ㄱ을 두 번 겹쳐 적은 글자.",
+    "south_expression": "쌍기역",
+    "initials": "ㄷㄱㅇ",
+    "first_letter": "된",
+    "length": 3,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_175",
+    "word": "두성꽃",
+    "accepted_answers": [
+      "두성꽃",
+      "짝꽃"
+    ],
+    "meaning": "한 꽃 안에 수술과 암술이 모두 있는 꽃.",
+    "south_expression": "양성화",
+    "initials": "ㄷㅅㄲ",
+    "first_letter": "두",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_176",
+    "word": "두싹잎",
+    "accepted_answers": [
+      "두싹잎"
+    ],
+    "meaning": "싹이 틀 때 떡잎이 두 장 나오는 식물.",
+    "south_expression": "쌍떡잎",
+    "initials": "ㄷㅆㅇ",
+    "first_letter": "두",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_177",
+    "word": "둥글모자",
+    "accepted_answers": [
+      "둥글모자"
+    ],
+    "meaning": "둥글고 납작하며 챙이 거의 없는 모자.",
+    "south_expression": "베레모",
+    "initials": "ㄷㄱㅁㅈ",
+    "first_letter": "둥",
+    "length": 4,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_178",
+    "word": "둥글의자",
+    "accepted_answers": [
+      "둥글의자"
+    ],
+    "meaning": "앉은 부분이 축을 중심으로 돌아가는 의자.",
+    "south_expression": "회전 의자",
+    "initials": "ㄷㄱㅇㅈ",
+    "first_letter": "둥",
+    "length": 4,
+    "category": "생활·의복",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_179",
+    "word": "뒤산",
+    "accepted_answers": [
+      "뒤산"
+    ],
+    "meaning": "집이나 마을 뒤쪽에 있는 산.",
+    "south_expression": "뒷산",
+    "initials": "ㄷㅅ",
+    "first_letter": "뒤",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_180",
+    "word": "드디여",
+    "accepted_answers": [
+      "드디여"
+    ],
+    "meaning": "기다리던 일이 마침내 이루어졌음을 나타내는 말.",
+    "south_expression": "드디어",
+    "initials": "ㄷㄷㅇ",
+    "first_letter": "드",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_181",
+    "word": "드레박",
+    "accepted_answers": [
+      "드레박"
+    ],
+    "meaning": "우물물을 길어 올리는 데 쓰는 통이나 바가지.",
+    "south_expression": "두레박",
+    "initials": "ㄷㄹㅂ",
+    "first_letter": "드",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_182",
+    "word": "드무",
+    "accepted_answers": [
+      "드무"
+    ],
+    "meaning": "물을 담아 두거나 씻는 데 쓰던 큰 독 모양 그릇.",
+    "south_expression": "드므",
+    "initials": "ㄷㅁ",
+    "first_letter": "드",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_183",
+    "word": "들가방",
+    "accepted_answers": [
+      "들가방"
+    ],
+    "meaning": "손잡이가 달려 손에 들고 다니는 작은 가방.",
+    "south_expression": "손가방",
+    "initials": "ㄷㄱㅂ",
+    "first_letter": "들",
+    "length": 3,
+    "category": "생활·의복",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_184",
+    "word": "들어온말",
+    "accepted_answers": [
+      "들어온말"
+    ],
+    "meaning": "다른 언어에서 들어와 우리말처럼 쓰이는 말.",
+    "south_expression": "외래어",
+    "initials": "ㄷㅇㅇㅁ",
+    "first_letter": "들",
+    "length": 4,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_185",
+    "word": "들임말",
+    "accepted_answers": [
+      "들임말"
+    ],
+    "meaning": "다른 사람의 말을 문장 속에 가져와 쓴 표현.",
+    "south_expression": "인용어",
+    "initials": "ㄷㅇㅁ",
+    "first_letter": "들",
+    "length": 3,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_186",
+    "word": "등불게임",
+    "accepted_answers": [
+      "등불게임"
+    ],
+    "meaning": "조명을 밝힌 밤에 열리는 경기.",
+    "south_expression": "야간 경기",
+    "initials": "ㄷㅂㄱㅇ",
+    "first_letter": "등",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_187",
+    "word": "등불끄기",
+    "accepted_answers": [
+      "등불끄기"
+    ],
+    "meaning": "켜진 등이나 조명을 끄는 일.",
+    "south_expression": "소등",
+    "initials": "ㄷㅂㄲㄱ",
+    "first_letter": "등",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_188",
+    "word": "따기군",
+    "accepted_answers": [
+      "따기군"
+    ],
+    "meaning": "남의 주머니나 가방에서 몰래 물건을 훔치는 사람.",
+    "south_expression": "소매치기",
+    "initials": "ㄸㄱㄱ",
+    "first_letter": "따",
+    "length": 3,
+    "category": "사람·가족",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_189",
+    "word": "따꽃",
+    "accepted_answers": [
+      "따꽃"
+    ],
+    "meaning": "줄기 끝에 여러 색의 작은 꽃이 피는 한해살이풀.",
+    "south_expression": "채송화",
+    "initials": "ㄸㄲ",
+    "first_letter": "따",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_190",
+    "word": "따바리",
+    "accepted_answers": [
+      "따바리"
+    ],
+    "meaning": "탄환을 연속해서 빠르게 쏠 수 있는 총.",
+    "south_expression": "따발총",
+    "initials": "ㄸㅂㄹ",
+    "first_letter": "따",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_191",
+    "word": "따슴성",
+    "accepted_answers": [
+      "따슴성"
+    ],
+    "meaning": "열을 밖으로 빼앗기지 않고 따뜻함을 유지하는 성질.",
+    "south_expression": "보온성",
+    "initials": "ㄸㅅㅅ",
+    "first_letter": "따",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_192",
+    "word": "딸기단졸임",
+    "accepted_answers": [
+      "딸기단졸임"
+    ],
+    "meaning": "딸기를 설탕과 함께 걸쭉하게 졸여 만든 식품.",
+    "south_expression": "딸기잼",
+    "initials": "ㄸㄱㄷㅈㅇ",
+    "first_letter": "딸",
+    "length": 5,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_193",
+    "word": "땅겉면",
+    "accepted_answers": [
+      "땅겉면"
+    ],
+    "meaning": "땅의 가장 바깥쪽 표면.",
+    "south_expression": "지표면",
+    "initials": "ㄸㄱㅁ",
+    "first_letter": "땅",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_194",
+    "word": "땅생김",
+    "accepted_answers": [
+      "땅생김"
+    ],
+    "meaning": "산·골짜기·평야 등 땅이 생긴 모양.",
+    "south_expression": "지형",
+    "initials": "ㄸㅅㄱ",
+    "first_letter": "땅",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_195",
+    "word": "땅속물",
+    "accepted_answers": [
+      "땅속물"
+    ],
+    "meaning": "땅속의 빈틈이나 암석층에 고여 흐르는 물.",
+    "south_expression": "지하수",
+    "initials": "ㄸㅅㅁ",
+    "first_letter": "땅",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_196",
+    "word": "땅일구기",
+    "accepted_answers": [
+      "땅일구기"
+    ],
+    "meaning": "황무지나 거친 땅을 일구어 농사를 지을 수 있게 만드는 일.",
+    "south_expression": "개간",
+    "initials": "ㄸㅇㄱㄱ",
+    "first_letter": "땅",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_197",
+    "word": "땅주름",
+    "accepted_answers": [
+      "땅주름"
+    ],
+    "meaning": "지층이 옆에서 힘을 받아 물결 모양으로 휘어진 구조.",
+    "south_expression": "습곡",
+    "initials": "ㄸㅈㄹ",
+    "first_letter": "땅",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_198",
+    "word": "땅크",
+    "accepted_answers": [
+      "땅크",
+      "탕크"
+    ],
+    "meaning": "무한궤도를 달고 두꺼운 장갑과 대포를 갖춘 전투 차량.",
+    "south_expression": "탱크",
+    "initials": "ㄸㅋ",
+    "first_letter": "땅",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_199",
+    "word": "때리기",
+    "accepted_answers": [
+      "때리기",
+      "륙상신"
+    ],
+    "meaning": "배구에서 공을 강하게 내리꽂아 상대 코트로 보내는 공격.",
+    "south_expression": "스파이크",
+    "initials": "ㄸㄹㄱ",
+    "first_letter": "때",
+    "length": 3,
+    "category": "스포츠",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_200",
+    "word": "때식",
+    "accepted_answers": [
+      "때식"
+    ],
+    "meaning": "하루 중 음식을 먹는 한 차례 또는 그 음식.",
+    "south_expression": "끼니",
+    "initials": "ㄸㅅ",
+    "first_letter": "때",
+    "length": 2,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_201",
+    "word": "떡보숭이",
+    "accepted_answers": [
+      "떡보숭이"
+    ],
+    "meaning": "떡의 겉에 묻히거나 떡을 썰 때 생기는 가루와 부스러기.",
+    "south_expression": "떡고물",
+    "initials": "ㄸㅂㅅㅇ",
+    "first_letter": "떡",
+    "length": 4,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_202",
+    "word": "떨기너비",
+    "accepted_answers": [
+      "떨기너비"
+    ],
+    "meaning": "진동하는 물체가 한쪽 끝에서 다른 쪽 끝까지 움직이는 최대 폭.",
+    "south_expression": "진폭",
+    "initials": "ㄸㄱㄴㅂ",
+    "first_letter": "떨",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_203",
+    "word": "뚫음새김",
+    "accepted_answers": [
+      "뚫음새김"
+    ],
+    "meaning": "바탕을 파내고 무늬가 도드라져 보이게 새기는 기법.",
+    "south_expression": "돋을새김",
+    "initials": "ㄸㅇㅅㄱ",
+    "first_letter": "뚫",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_204",
+    "word": "뛰여들기",
+    "accepted_answers": [
+      "뛰여들기"
+    ],
+    "meaning": "높은 곳에서 물속으로 뛰어들거나 잠수하는 활동.",
+    "south_expression": "다이빙",
+    "initials": "ㄸㅇㄷㄱ",
+    "first_letter": "뛰",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_205",
+    "word": "뜨더국",
+    "accepted_answers": [
+      "뜨더국"
+    ],
+    "meaning": "밀가루 반죽을 손으로 떼어 국물에 넣어 끓인 음식.",
+    "south_expression": "수제비",
+    "initials": "ㄸㄷㄱ",
+    "first_letter": "뜨",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_206",
+    "word": "뜨락또르",
+    "accepted_answers": [
+      "뜨락또르"
+    ],
+    "meaning": "논밭을 갈거나 농기계를 끄는 데 쓰는 동력 차량.",
+    "south_expression": "트랙터",
+    "initials": "ㄸㄹㄸㄹ",
+    "first_letter": "뜨",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_207",
+    "word": "뜰주머니",
+    "accepted_answers": [
+      "뜰주머니"
+    ],
+    "meaning": "공기를 넣어 물에 뜨게 만든 둥근 고무 또는 합성수지 용품.",
+    "south_expression": "튜브",
+    "initials": "ㄸㅈㅁㄴ",
+    "first_letter": "뜰",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_208",
+    "word": "뜰힘",
+    "accepted_answers": [
+      "뜰힘"
+    ],
+    "meaning": "물이나 공기 속에서 물체를 위로 밀어 올리는 힘.",
+    "south_expression": "부력",
+    "initials": "ㄸㅎ",
+    "first_letter": "뜰",
+    "length": 2,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_209",
+    "word": "뜻같은말",
+    "accepted_answers": [
+      "뜻같은말"
+    ],
+    "meaning": "뜻이 같거나 매우 비슷한 말.",
+    "south_expression": "동의어",
+    "initials": "ㄸㄱㅇㅁ",
+    "first_letter": "뜻",
+    "length": 4,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_210",
+    "word": "뜻빛갈",
+    "accepted_answers": [
+      "뜻빛갈"
+    ],
+    "meaning": "말이나 표현에 직접 드러나지 않고 미묘하게 느껴지는 뜻이나 느낌.",
+    "south_expression": "뉘앙스",
+    "initials": "ㄸㅂㄱ",
+    "first_letter": "뜻",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_211",
+    "word": "띄여쓰기",
+    "accepted_answers": [
+      "띄여쓰기"
+    ],
+    "meaning": "글을 쓸 때 말과 말 사이를 알맞게 띄우는 일.",
+    "south_expression": "띄어쓰기",
+    "initials": "ㄸㅇㅆㄱ",
+    "first_letter": "띄",
+    "length": 4,
+    "category": "언어·교육",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_212",
+    "word": "띄움표",
+    "accepted_answers": [
+      "띄움표"
+    ],
+    "meaning": "물 위에 띄워 위치나 항로를 표시하는 물체.",
+    "south_expression": "부표",
+    "initials": "ㄸㅇㅍ",
+    "first_letter": "띄",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_213",
+    "word": "띠장",
+    "accepted_answers": [
+      "띠장"
+    ],
+    "meaning": "건축물의 기둥 사이를 연결해 벽체를 받치는 가로재.",
+    "south_expression": "띳장",
+    "initials": "ㄸㅈ",
+    "first_letter": "띠",
+    "length": 2,
+    "category": "생활·의복",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_214",
+    "word": "라지오",
+    "accepted_answers": [
+      "라지오"
+    ],
+    "meaning": "전파를 이용해 소리와 방송을 듣는 기기.",
+    "south_expression": "라디오",
+    "initials": "ㄹㅈㅇ",
+    "first_letter": "라",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_215",
+    "word": "라침판",
+    "accepted_answers": [
+      "라침판"
+    ],
+    "meaning": "방향을 알아보기 위해 자침이 남북을 가리키게 만든 기구.",
+    "south_expression": "나침반",
+    "initials": "ㄹㅊㅍ",
+    "first_letter": "라",
+    "length": 3,
+    "category": "교통·시설",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_216",
+    "word": "락원",
+    "accepted_answers": [
+      "락원"
+    ],
+    "meaning": "아무 걱정이나 괴로움 없이 행복하게 살 수 있다고 여기는 곳.",
+    "south_expression": "낙원",
+    "initials": "ㄹㅇ",
+    "first_letter": "락",
+    "length": 2,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_217",
+    "word": "락자없다",
+    "accepted_answers": [
+      "락자없다"
+    ],
+    "meaning": "조금도 틀림이나 차이가 없이 꼭 같다.",
+    "south_expression": "영락없다",
+    "initials": "ㄹㅈㅇㄷ",
+    "first_letter": "락",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_218",
+    "word": "락착",
+    "accepted_answers": [
+      "락착"
+    ],
+    "meaning": "논의나 일이 일정한 결론에 이르러 결정됨.",
+    "south_expression": "낙착",
+    "initials": "ㄹㅊ",
+    "first_letter": "락",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_219",
+    "word": "랭동고",
+    "accepted_answers": [
+      "랭동고"
+    ],
+    "meaning": "음식과 물건을 차갑게 보관하는 가전제품.",
+    "south_expression": "냉장고",
+    "initials": "ㄹㄷㄱ",
+    "first_letter": "랭",
+    "length": 3,
+    "category": "생활·의복",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_220",
+    "word": "랭랭하다",
+    "accepted_answers": [
+      "랭랭하다"
+    ],
+    "meaning": "태도나 분위기가 차갑고 정이 없다.",
+    "south_expression": "냉랭하다",
+    "initials": "ㄹㄹㅎㄷ",
+    "first_letter": "랭",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_221",
+    "word": "랭상",
+    "accepted_answers": [
+      "랭상"
+    ],
+    "meaning": "몸이 차서 나타나는 병적인 상태 또는 찬 기운.",
+    "south_expression": "냉상",
+    "initials": "ㄹㅅ",
+    "first_letter": "랭",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_222",
+    "word": "랭채",
+    "accepted_answers": [
+      "랭채"
+    ],
+    "meaning": "차게 식힌 고기나 채소에 양념을 무쳐 만든 음식.",
+    "south_expression": "냉채",
+    "initials": "ㄹㅊ",
+    "first_letter": "랭",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_223",
+    "word": "량면",
+    "accepted_answers": [
+      "량면"
+    ],
+    "meaning": "앞과 뒤 또는 두 개의 면.",
+    "south_expression": "양면",
+    "initials": "ㄹㅁ",
+    "first_letter": "량",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_224",
+    "word": "량식",
+    "accepted_answers": [
+      "량식"
+    ],
+    "meaning": "사람이 살아가는 데 필요한 먹을거리.",
+    "south_expression": "양식",
+    "initials": "ㄹㅅ",
+    "first_letter": "량",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_225",
+    "word": "량심",
+    "accepted_answers": [
+      "량심"
+    ],
+    "meaning": "옳고 그름을 스스로 판단하고 바른 행동을 하게 하는 마음.",
+    "south_expression": "양심",
+    "initials": "ㄹㅅ",
+    "first_letter": "량",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_226",
+    "word": "량정",
+    "accepted_answers": [
+      "량정"
+    ],
+    "meaning": "곡식의 양을 정하고 관리하거나 공급하는 일.",
+    "south_expression": "양정",
+    "initials": "ㄹㅈ",
+    "first_letter": "량",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_227",
+    "word": "량쪽",
+    "accepted_answers": [
+      "량쪽"
+    ],
+    "meaning": "서로 마주 보는 두 방향이나 두 편.",
+    "south_expression": "양쪽",
+    "initials": "ㄹㅉ",
+    "first_letter": "량",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_228",
+    "word": "레루",
+    "accepted_answers": [
+      "레루"
+    ],
+    "meaning": "기차나 전차의 바퀴가 굴러가도록 놓은 쇠길.",
+    "south_expression": "레일",
+    "initials": "ㄹㄹ",
+    "first_letter": "레",
+    "length": 2,
+    "category": "교통·시설",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_229",
+    "word": "려과담배",
+    "accepted_answers": [
+      "려과담배"
+    ],
+    "meaning": "연기 속의 해로운 성분 일부를 걸러 내는 장치를 단 담배.",
+    "south_expression": "필터 담배",
+    "initials": "ㄹㄱㄷㅂ",
+    "first_letter": "려",
+    "length": 4,
+    "category": "교통·시설",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_230",
+    "word": "려행",
+    "accepted_answers": [
+      "려행"
+    ],
+    "meaning": "일상생활의 장소를 떠나 다른 지역이나 나라를 다녀오는 일.",
+    "south_expression": "여행",
+    "initials": "ㄹㅎ",
+    "first_letter": "려",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_231",
+    "word": "련락",
+    "accepted_answers": [
+      "련락"
+    ],
+    "meaning": "소식이나 정보를 주고받아 서로 이어지는 일.",
+    "south_expression": "연락",
+    "initials": "ㄹㄹ",
+    "first_letter": "련",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_232",
+    "word": "련못",
+    "accepted_answers": [
+      "련못"
+    ],
+    "meaning": "물이 고이도록 땅을 파거나 둑을 쌓아 만든 작은 못.",
+    "south_expression": "연못",
+    "initials": "ㄹㅁ",
+    "first_letter": "련",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_233",
+    "word": "련습",
+    "accepted_answers": [
+      "련습"
+    ],
+    "meaning": "기술이나 동작을 익히기 위해 되풀이하여 해 보는 일.",
+    "south_expression": "연습",
+    "initials": "ㄹㅅ",
+    "first_letter": "련",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_234",
+    "word": "련애",
+    "accepted_answers": [
+      "련애"
+    ],
+    "meaning": "서로 사랑하는 두 사람이 사귀는 일.",
+    "south_expression": "연애",
+    "initials": "ㄹㅇ",
+    "first_letter": "련",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_235",
+    "word": "련애군",
+    "accepted_answers": [
+      "련애군"
+    ],
+    "meaning": "여러 사람과 가볍게 사랑 관계를 맺는 사람.",
+    "south_expression": "바람둥이",
+    "initials": "ㄹㅇㄱ",
+    "first_letter": "련",
+    "length": 3,
+    "category": "사람·가족",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_236",
+    "word": "련일련야",
+    "accepted_answers": [
+      "련일련야"
+    ],
+    "meaning": "여러 날과 밤을 계속하여 쉬지 않고 이어서.",
+    "south_expression": "연일연야",
+    "initials": "ㄹㅇㄹㅇ",
+    "first_letter": "련",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_237",
+    "word": "련재",
+    "accepted_answers": [
+      "련재"
+    ],
+    "meaning": "신문이나 잡지 등에 글이나 작품을 여러 차례 나누어 싣는 일.",
+    "south_expression": "연재",
+    "initials": "ㄹㅈ",
+    "first_letter": "련",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_238",
+    "word": "렬차원",
+    "accepted_answers": [
+      "렬차원"
+    ],
+    "meaning": "열차 안에서 승객의 안전과 서비스를 담당하는 직원.",
+    "south_expression": "승무원",
+    "initials": "ㄹㅊㅇ",
+    "first_letter": "렬",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_239",
+    "word": "령군술",
+    "accepted_answers": [
+      "령군술"
+    ],
+    "meaning": "군대나 사람을 상황에 맞게 지휘하고 부리는 방법.",
+    "south_expression": "용병술",
+    "initials": "ㄹㄱㅅ",
+    "first_letter": "령",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_240",
+    "word": "령점",
+    "accepted_answers": [
+      "령점"
+    ],
+    "meaning": "측정이나 좌표에서 기준으로 삼는 값이 0인 지점.",
+    "south_expression": "영점",
+    "initials": "ㄹㅈ",
+    "first_letter": "령",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_242",
+    "word": "례절",
+    "accepted_answers": [
+      "례절"
+    ],
+    "meaning": "사람 사이에서 지켜야 할 공손한 태도와 행동 규범.",
+    "south_expression": "예절",
+    "initials": "ㄹㅈ",
+    "first_letter": "례",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_243",
+    "word": "로동",
+    "accepted_answers": [
+      "로동"
+    ],
+    "meaning": "사람이 힘이나 지식으로 재화와 서비스를 만들어 내는 활동.",
+    "south_expression": "노동",
+    "initials": "ㄹㄷ",
+    "first_letter": "로",
+    "length": 2,
+    "category": "사회·행정",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_244",
+    "word": "로동개미",
+    "accepted_answers": [
+      "로동개미"
+    ],
+    "meaning": "무리 안에서 먹이를 모으고 집을 관리하는 역할을 하는 개미.",
+    "south_expression": "일개미",
+    "initials": "ㄹㄷㄱㅁ",
+    "first_letter": "로",
+    "length": 4,
+    "category": "사회·행정",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_245",
+    "word": "로동력",
+    "accepted_answers": [
+      "로동력"
+    ],
+    "meaning": "일할 수 있는 사람의 능력이나 그 사람이 제공하는 힘.",
+    "south_expression": "노동력",
+    "initials": "ㄹㄷㄹ",
+    "first_letter": "로",
+    "length": 3,
+    "category": "사회·행정",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_246",
+    "word": "로동자",
+    "accepted_answers": [
+      "로동자"
+    ],
+    "meaning": "임금을 받고 생산이나 서비스 일을 하는 사람.",
+    "south_expression": "노동자",
+    "initials": "ㄹㄷㅈ",
+    "first_letter": "로",
+    "length": 3,
+    "category": "사람·가족",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_247",
+    "word": "로두",
+    "accepted_answers": [
+      "로두"
+    ],
+    "meaning": "광물층이나 암석이 땅 위로 드러난 부분.",
+    "south_expression": "노두",
+    "initials": "ㄹㄷ",
+    "first_letter": "로",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_248",
+    "word": "로므니아",
+    "accepted_answers": [
+      "로므니아"
+    ],
+    "meaning": "동남유럽에 있는 나라.",
+    "south_expression": "루마니아",
+    "initials": "ㄹㅁㄴㅇ",
+    "first_letter": "로",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_249",
+    "word": "로송",
+    "accepted_answers": [
+      "로송"
+    ],
+    "meaning": "오래 자라 줄기가 굵고 큰 소나무.",
+    "south_expression": "노송",
+    "initials": "ㄹㅅ",
+    "first_letter": "로",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_250",
+    "word": "로씨아",
+    "accepted_answers": [
+      "로씨아"
+    ],
+    "meaning": "유럽과 아시아에 걸쳐 있는 넓은 영토의 나라.",
+    "south_expression": "러시아",
+    "initials": "ㄹㅆㅇ",
+    "first_letter": "로",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_251",
+    "word": "로천",
+    "accepted_answers": [
+      "로천"
+    ],
+    "meaning": "지붕이나 덮개 없이 하늘에 그대로 드러난 곳.",
+    "south_expression": "노천",
+    "initials": "ㄹㅊ",
+    "first_letter": "로",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_252",
+    "word": "록비작물",
+    "accepted_answers": [
+      "록비작물"
+    ],
+    "meaning": "땅에 갈아 넣어 비료로 쓰기 위해 기르는 작물.",
+    "south_expression": "녹비 작물",
+    "initials": "ㄹㅂㅈㅁ",
+    "first_letter": "록",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_253",
+    "word": "론리",
+    "accepted_answers": [
+      "론리"
+    ],
+    "meaning": "생각이나 주장 사이의 관계를 이치에 맞게 세우는 원리.",
+    "south_expression": "논리",
+    "initials": "ㄹㄹ",
+    "first_letter": "론",
+    "length": 2,
+    "category": "언어·교육",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_254",
+    "word": "론리변수",
+    "accepted_answers": [
+      "론리변수"
+    ],
+    "meaning": "참과 거짓 두 값 가운데 하나를 가지는 변수.",
+    "south_expression": "논리 변수",
+    "initials": "ㄹㄹㅂㅅ",
+    "first_letter": "론",
+    "length": 4,
+    "category": "언어·교육",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_255",
+    "word": "롱구",
+    "accepted_answers": [
+      "롱구"
+    ],
+    "meaning": "두 팀이 공을 상대편 바구니에 넣어 점수를 겨루는 경기.",
+    "south_expression": "농구",
+    "initials": "ㄹㄱ",
+    "first_letter": "롱",
+    "length": 2,
+    "category": "스포츠",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_256",
+    "word": "롱맹아",
+    "accepted_answers": [
+      "롱맹아"
+    ],
+    "meaning": "농사일이나 농촌 생활을 잘 알지 못하는 사람.",
+    "south_expression": "농맹아",
+    "initials": "ㄹㅁㅇ",
+    "first_letter": "롱",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_257",
+    "word": "롱탕",
+    "accepted_answers": [
+      "롱탕"
+    ],
+    "meaning": "행동이나 말이 제멋대로이고 난잡한 상태.",
+    "south_expression": "농탕",
+    "initials": "ㄹㅌ",
+    "first_letter": "롱",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_258",
+    "word": "롱필",
+    "accepted_answers": [
+      "롱필"
+    ],
+    "meaning": "농촌 생활이나 농사일을 소재로 쓴 글.",
+    "south_expression": "농필",
+    "initials": "ㄹㅍ",
+    "first_letter": "롱",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_259",
+    "word": "료리차림표",
+    "accepted_answers": [
+      "료리차림표"
+    ],
+    "meaning": "식당에서 주문할 수 있는 음식과 가격을 적은 목록.",
+    "south_expression": "메뉴",
+    "initials": "ㄹㄹㅊㄹㅍ",
+    "first_letter": "료",
+    "length": 5,
+    "category": "음식",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_260",
+    "word": "료해하다",
+    "accepted_answers": [
+      "료해하다"
+    ],
+    "meaning": "사물이나 사실의 내용과 까닭을 깨달아 이해하다.",
+    "south_expression": "알다",
+    "initials": "ㄹㅎㅎㄷ",
+    "first_letter": "료",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_261",
+    "word": "룡올림",
+    "accepted_answers": [
+      "룡올림"
+    ],
+    "meaning": "회오리바람이 물이나 먼지를 기둥 모양으로 말아 올리는 현상.",
+    "south_expression": "용오름",
+    "initials": "ㄹㅇㄹ",
+    "first_letter": "룡",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_262",
+    "word": "룡틀임",
+    "accepted_answers": [
+      "룡틀임"
+    ],
+    "meaning": "몸이나 물체를 용이 꿈틀거리듯 세게 비트는 모양.",
+    "south_expression": "용틀임",
+    "initials": "ㄹㅌㅇ",
+    "first_letter": "룡",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_263",
+    "word": "루루이",
+    "accepted_answers": [
+      "루루이"
+    ],
+    "meaning": "같은 말을 여러 번 거듭하여.",
+    "south_expression": "누누이",
+    "initials": "ㄹㄹㅇ",
+    "first_letter": "루",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_264",
+    "word": "루추하다",
+    "accepted_answers": [
+      "루추하다"
+    ],
+    "meaning": "사는 곳이나 차림새가 지저분하고 초라하다.",
+    "south_expression": "누추하다",
+    "initials": "ㄹㅊㅎㄷ",
+    "first_letter": "루",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_265",
+    "word": "륙교",
+    "accepted_answers": [
+      "륙교"
+    ],
+    "meaning": "사람이 도로 위를 안전하게 건너도록 높이 설치한 다리.",
+    "south_expression": "육교",
+    "initials": "ㄹㄱ",
+    "first_letter": "륙",
+    "length": 2,
+    "category": "교통·시설",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_266",
+    "word": "륜번",
+    "accepted_answers": [
+      "륜번"
+    ],
+    "meaning": "일정한 순서를 정해 차례로 번갈아 맡는 일.",
+    "south_expression": "윤번",
+    "initials": "ㄹㅂ",
+    "first_letter": "륜",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_267",
+    "word": "리끗",
+    "accepted_answers": [
+      "리끗"
+    ],
+    "meaning": "이익을 얻을 수 있는 기회나 몫.",
+    "south_expression": "이끗",
+    "initials": "ㄹㄲ",
+    "first_letter": "리",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_268",
+    "word": "리면경계",
+    "accepted_answers": [
+      "리면경계"
+    ],
+    "meaning": "물체나 영역의 뒤쪽 면에 있는 경계.",
+    "south_expression": "이면 경계",
+    "initials": "ㄹㅁㄱㄱ",
+    "first_letter": "리",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_269",
+    "word": "리산가족",
+    "accepted_answers": [
+      "리산가족"
+    ],
+    "meaning": "전쟁이나 분단 등으로 서로 떨어져 살게 된 가족.",
+    "south_expression": "이산 가족",
+    "initials": "ㄹㅅㄱㅈ",
+    "first_letter": "리",
+    "length": 4,
+    "category": "사람·가족",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_270",
+    "word": "리유",
+    "accepted_answers": [
+      "리유"
+    ],
+    "meaning": "어떤 결과나 행동이 생긴 까닭.",
+    "south_expression": "이유",
+    "initials": "ㄹㅇ",
+    "first_letter": "리",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_271",
+    "word": "리정표",
+    "accepted_answers": [
+      "리정표"
+    ],
+    "meaning": "거리와 방향을 알려 주거나 앞으로 나아갈 기준이 되는 표지.",
+    "south_expression": "이정표",
+    "initials": "ㄹㅈㅍ",
+    "first_letter": "리",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_272",
+    "word": "린방",
+    "accepted_answers": [
+      "린방"
+    ],
+    "meaning": "창문이나 문 위쪽에서 벽의 무게를 받치는 가로 부재.",
+    "south_expression": "인방",
+    "initials": "ㄹㅂ",
+    "first_letter": "린",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_273",
+    "word": "림산",
+    "accepted_answers": [
+      "림산"
+    ],
+    "meaning": "산림에서 생산되는 목재·버섯·약초 등의 자원.",
+    "south_expression": "임산",
+    "initials": "ㄹㅅ",
+    "first_letter": "림",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_274",
+    "word": "마가을",
+    "accepted_answers": [
+      "마가을"
+    ],
+    "meaning": "가을이 거의 끝나 겨울에 가까운 시기.",
+    "south_expression": "늦가을",
+    "initials": "ㅁㄱㅇ",
+    "first_letter": "마",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_275",
+    "word": "마감역",
+    "accepted_answers": [
+      "마감역"
+    ],
+    "meaning": "기차나 지하철 노선의 마지막 역.",
+    "south_expression": "종착역",
+    "initials": "ㅁㄱㅇ",
+    "first_letter": "마",
+    "length": 3,
+    "category": "교통·시설",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_276",
+    "word": "마구다지",
+    "accepted_answers": [
+      "마구다지"
+    ],
+    "meaning": "계획이나 기준 없이 함부로 하는 모양.",
+    "south_expression": "마구잡이",
+    "initials": "ㅁㄱㄷㅈ",
+    "first_letter": "마",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_277",
+    "word": "마라손경기",
+    "accepted_answers": [
+      "마라손경기"
+    ],
+    "meaning": "42.195킬로미터를 달리는 장거리 육상 경기.",
+    "south_expression": "마라톤",
+    "initials": "ㅁㄹㅅㄱㄱ",
+    "first_letter": "마",
+    "length": 5,
+    "category": "스포츠",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_278",
+    "word": "마라초",
+    "accepted_answers": [
+      "마라초"
+    ],
+    "meaning": "잘게 썬 담배를 종이에 말아 만든 담배.",
+    "south_expression": "궐련",
+    "initials": "ㅁㄹㅊ",
+    "first_letter": "마",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_279",
+    "word": "마술경기",
+    "accepted_answers": [
+      "마술경기"
+    ],
+    "meaning": "말을 타고 속도나 기술을 겨루는 경기.",
+    "south_expression": "승마 경기",
+    "initials": "ㅁㅅㄱㄱ",
+    "first_letter": "마",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_280",
+    "word": "마스다",
+    "accepted_answers": [
+      "마스다",
+      "부시다"
+    ],
+    "meaning": "단단한 물체를 힘으로 깨뜨리거나 망가뜨리다.",
+    "south_expression": "부수다",
+    "initials": "ㅁㅅㄷ",
+    "first_letter": "마",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_281",
+    "word": "마여름",
+    "accepted_answers": [
+      "마여름"
+    ],
+    "meaning": "여름이 거의 끝나 가을에 가까운 시기.",
+    "south_expression": "늦여름",
+    "initials": "ㅁㅇㄹ",
+    "first_letter": "마",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_282",
+    "word": "막기",
+    "accepted_answers": [
+      "막기"
+    ],
+    "meaning": "상대의 공격이나 공의 진행을 몸이나 손으로 막는 동작.",
+    "south_expression": "블로킹",
+    "initials": "ㅁㄱ",
+    "first_letter": "막",
+    "length": 2,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_283",
+    "word": "막난눈",
+    "accepted_answers": [
+      "막난눈"
+    ],
+    "meaning": "사물을 정확히 분별하거나 보는 능력이 부족한 눈.",
+    "south_expression": "막눈",
+    "initials": "ㅁㄴㄴ",
+    "first_letter": "막",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_284",
+    "word": "막머리",
+    "accepted_answers": [
+      "막머리"
+    ],
+    "meaning": "머리카락을 매우 짧게 깎은 머리 모양.",
+    "south_expression": "까까머리",
+    "initials": "ㅁㅁㄹ",
+    "first_letter": "막",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_285",
+    "word": "막물",
+    "accepted_answers": [
+      "막물"
+    ],
+    "meaning": "철이 끝날 무렵 마지막으로 나오는 농산물이나 상품.",
+    "south_expression": "끝물",
+    "initials": "ㅁㅁ",
+    "first_letter": "막",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_286",
+    "word": "막팔기",
+    "accepted_answers": [
+      "막팔기"
+    ],
+    "meaning": "상품을 정상 가격보다 매우 싸게 대량으로 내다 파는 일.",
+    "south_expression": "덤핑",
+    "initials": "ㅁㅍㄱ",
+    "first_letter": "막",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_287",
+    "word": "만문하다",
+    "accepted_answers": [
+      "만문하다"
+    ],
+    "meaning": "상대하기 쉽거나 일이 어렵지 않다.",
+    "south_expression": "만만하다",
+    "initials": "ㅁㅁㅎㄷ",
+    "first_letter": "만",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_288",
+    "word": "말공부",
+    "accepted_answers": [
+      "말공부"
+    ],
+    "meaning": "실천은 하지 않고 말로만 되풀이하는 헛된 행동.",
+    "south_expression": "공염불",
+    "initials": "ㅁㄱㅂ",
+    "first_letter": "말",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_289",
+    "word": "말바꿈법",
+    "accepted_answers": [
+      "말바꿈법"
+    ],
+    "meaning": "한 사물의 이름을 다른 사물에 빗대어 표현하는 방법.",
+    "south_expression": "은유법",
+    "initials": "ㅁㅂㄲㅂ",
+    "first_letter": "말",
+    "length": 4,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_290",
+    "word": "말뿌리",
+    "accepted_answers": [
+      "말뿌리"
+    ],
+    "meaning": "단어에서 실질적인 뜻을 나타내는 중심 부분.",
+    "south_expression": "어근",
+    "initials": "ㅁㅃㄹ",
+    "first_letter": "말",
+    "length": 3,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_291",
+    "word": "말하기법",
+    "accepted_answers": [
+      "말하기법"
+    ],
+    "meaning": "말하는 방식과 표현의 원칙 또는 대화에서 쓰는 말투.",
+    "south_expression": "화법",
+    "initials": "ㅁㅎㄱㅂ",
+    "first_letter": "말",
+    "length": 4,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_292",
+    "word": "망돌",
+    "accepted_answers": [
+      "망돌"
+    ],
+    "meaning": "곡식을 갈거나 껍질을 벗기는 데 쓰는 둥근 돌 기구.",
+    "south_expression": "맷돌",
+    "initials": "ㅁㄷ",
+    "first_letter": "망",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_293",
+    "word": "맞머리못",
+    "accepted_answers": [
+      "맞머리못"
+    ],
+    "meaning": "두 판이나 부품을 영구적으로 연결하는 머리 달린 금속 못.",
+    "south_expression": "리벳",
+    "initials": "ㅁㅁㄹㅁ",
+    "first_letter": "맞",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_294",
+    "word": "맞아넘어지기",
+    "accepted_answers": [
+      "맞아넘어지기"
+    ],
+    "meaning": "격투 경기에서 충격을 받아 바닥에 쓰러진 상태.",
+    "south_expression": "다운",
+    "initials": "ㅁㅇㄴㅇㅈㄱ",
+    "first_letter": "맞",
+    "length": 6,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_295",
+    "word": "맞은각",
+    "accepted_answers": [
+      "맞은각"
+    ],
+    "meaning": "서로 마주 보는 꼭짓점이나 선을 잇는 방향의 각.",
+    "south_expression": "대각",
+    "initials": "ㅁㅇㄱ",
+    "first_letter": "맞",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_296",
+    "word": "맞혼인",
+    "accepted_answers": [
+      "맞혼인"
+    ],
+    "meaning": "당사자들이 서로 사랑하여 선택한 혼인.",
+    "south_expression": "연애 결혼",
+    "initials": "ㅁㅎㅇ",
+    "first_letter": "맞",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_297",
+    "word": "맺음이야기",
+    "accepted_answers": [
+      "맺음이야기"
+    ],
+    "meaning": "작품의 끝부분에서 이야기를 마무리하거나 이후 상황을 설명하는 부분.",
+    "south_expression": "에필로그",
+    "initials": "ㅁㅇㅇㅇㄱ",
+    "first_letter": "맺",
+    "length": 5,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_298",
+    "word": "맺음표",
+    "accepted_answers": [
+      "맺음표"
+    ],
+    "meaning": "문장의 끝에서 말하는 이의 태도와 문장 종류를 나타내는 어미.",
+    "south_expression": "종결 어미",
+    "initials": "ㅁㅇㅍ",
+    "first_letter": "맺",
+    "length": 3,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_299",
+    "word": "머리받기",
+    "accepted_answers": [
+      "머리받기"
+    ],
+    "meaning": "축구에서 머리로 공을 치거나 보내는 기술.",
+    "south_expression": "헤딩",
+    "initials": "ㅁㄹㅂㄱ",
+    "first_letter": "머",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_300",
+    "word": "머리비누",
+    "accepted_answers": [
+      "머리비누"
+    ],
+    "meaning": "머리카락과 두피의 때를 씻는 액체 또는 고체 세정제.",
+    "south_expression": "샴푸",
+    "initials": "ㅁㄹㅂㄴ",
+    "first_letter": "머",
+    "length": 4,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_301",
+    "word": "머리살",
+    "accepted_answers": [
+      "머리살"
+    ],
+    "meaning": "머리의 피부와 그 아래에 붙은 살.",
+    "south_expression": "머릿살",
+    "initials": "ㅁㄹㅅ",
+    "first_letter": "머",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_302",
+    "word": "머리이야기",
+    "accepted_answers": [
+      "머리이야기"
+    ],
+    "meaning": "작품이 본격적으로 시작되기 전에 배경이나 내용을 소개하는 앞부분.",
+    "south_expression": "프롤로그",
+    "initials": "ㅁㄹㅇㅇㄱ",
+    "first_letter": "머",
+    "length": 5,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_303",
+    "word": "머물기",
+    "accepted_answers": [
+      "머물기"
+    ],
+    "meaning": "경기에서 상대 선수나 공의 움직임을 규칙에 어긋나게 붙잡아 멈추는 행위.",
+    "south_expression": "홀딩",
+    "initials": "ㅁㅁㄱ",
+    "first_letter": "머",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_304",
+    "word": "메돼지",
+    "accepted_answers": [
+      "메돼지"
+    ],
+    "meaning": "산과 들에 사는 몸집이 크고 힘센 야생 돼지.",
+    "south_expression": "멧돼지",
+    "initials": "ㅁㄷㅈ",
+    "first_letter": "메",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_305",
+    "word": "멱들이",
+    "accepted_answers": [
+      "멱들이"
+    ],
+    "meaning": "짚이나 새끼로 엮어 곡식 등을 담는 그릇의 한 종류.",
+    "south_expression": "멱서리",
+    "initials": "ㅁㄷㅇ",
+    "first_letter": "멱",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_306",
+    "word": "멱주머니",
+    "accepted_answers": [
+      "멱주머니"
+    ],
+    "meaning": "새가 먹이를 잠시 저장하거나 불리는 소화 기관.",
+    "south_expression": "모이주머니",
+    "initials": "ㅁㅈㅁㄴ",
+    "first_letter": "멱",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_307",
+    "word": "면비교육",
+    "accepted_answers": [
+      "면비교육"
+    ],
+    "meaning": "학생에게 수업료를 받지 않고 제공하는 교육.",
+    "south_expression": "무상 교육",
+    "initials": "ㅁㅂㄱㅇ",
+    "first_letter": "면",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_308",
+    "word": "모두매",
+    "accepted_answers": [
+      "모두매"
+    ],
+    "meaning": "여러 사람이 한 사람을 한꺼번에 때리는 행위.",
+    "south_expression": "집단 구타",
+    "initials": "ㅁㄷㅁ",
+    "first_letter": "모",
+    "length": 3,
+    "category": "사회·행정",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_309",
+    "word": "모습갈이",
+    "accepted_answers": [
+      "모습갈이"
+    ],
+    "meaning": "성장 과정에서 몸의 형태나 생활 방식이 크게 달라지는 변화.",
+    "south_expression": "변태",
+    "initials": "ㅁㅅㄱㅇ",
+    "first_letter": "모",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_310",
+    "word": "모양글자",
+    "accepted_answers": [
+      "모양글자"
+    ],
+    "meaning": "사물의 모양을 본떠 뜻을 나타내도록 만든 문자.",
+    "south_expression": "상형문자",
+    "initials": "ㅁㅇㄱㅈ",
+    "first_letter": "모",
+    "length": 4,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_311",
+    "word": "모양닮기",
+    "accepted_answers": [
+      "모양닮기"
+    ],
+    "meaning": "사물의 모양이나 움직임을 그대로 흉내 내는 표현 방식.",
+    "south_expression": "의태",
+    "initials": "ㅁㅇㄷㄱ",
+    "first_letter": "모",
+    "length": 4,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_312",
+    "word": "모양본딴말",
+    "accepted_answers": [
+      "모양본딴말"
+    ],
+    "meaning": "사람이나 동물, 사물의 모양과 움직임을 본떠 만든 말.",
+    "south_expression": "의태어",
+    "initials": "ㅁㅇㅂㄸㅁ",
+    "first_letter": "모",
+    "length": 5,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_313",
+    "word": "모임",
+    "accepted_answers": [
+      "모임"
+    ],
+    "meaning": "일정한 조건에 맞는 대상들을 하나로 묶어 놓은 것.",
+    "south_expression": "집합",
+    "initials": "ㅁㅇ",
+    "first_letter": "모",
+    "length": 2,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_314",
+    "word": "모지름",
+    "accepted_answers": [
+      "모지름"
+    ],
+    "meaning": "성질이나 행동이 거칠고 인정이 없는 정도.",
+    "south_expression": "모질음",
+    "initials": "ㅁㅈㄹ",
+    "first_letter": "모",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_315",
+    "word": "목달개",
+    "accepted_answers": [
+      "목달개"
+    ],
+    "meaning": "셔츠나 외투의 목 둘레에 달린 부분.",
+    "south_expression": "칼라",
+    "initials": "ㅁㄷㄱ",
+    "first_letter": "목",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_316",
+    "word": "몰몰",
+    "accepted_answers": [
+      "몰몰"
+    ],
+    "meaning": "연기나 김이 조금씩 계속 피어오르는 모양.",
+    "south_expression": "모락모락",
+    "initials": "ㅁㅁ",
+    "first_letter": "몰",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_317",
+    "word": "몸짓극",
+    "accepted_answers": [
+      "몸짓극"
+    ],
+    "meaning": "말을 하지 않고 몸짓과 표정만으로 내용을 표현하는 극.",
+    "south_expression": "팬터마임",
+    "initials": "ㅁㅈㄱ",
+    "first_letter": "몸",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_318",
+    "word": "무더기비",
+    "accepted_answers": [
+      "무더기비"
+    ],
+    "meaning": "짧은 시간에 많은 양이 세차게 내리는 비.",
+    "south_expression": "호우",
+    "initials": "ㅁㄷㄱㅂ",
+    "first_letter": "무",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_319",
+    "word": "무딘각",
+    "accepted_answers": [
+      "무딘각"
+    ],
+    "meaning": "크기가 90도보다 크고 180도보다 작은 각.",
+    "south_expression": "둔각",
+    "initials": "ㅁㄷㄱ",
+    "first_letter": "무",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_320",
+    "word": "무뜨라기",
+    "accepted_answers": [
+      "무뜨라기"
+    ],
+    "meaning": "크기나 모양이 작고 변변하지 않은 물건 또는 사람을 낮잡아 이르는 말.",
+    "south_expression": "무따래기",
+    "initials": "ㅁㄸㄹㄱ",
+    "first_letter": "무",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_321",
+    "word": "문지기",
+    "accepted_answers": [
+      "문지기"
+    ],
+    "meaning": "축구에서 골문을 지키며 상대의 득점을 막는 선수.",
+    "south_expression": "골키퍼",
+    "initials": "ㅁㅈㄱ",
+    "first_letter": "문",
+    "length": 3,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_322",
+    "word": "문화어",
+    "accepted_answers": [
+      "문화어"
+    ],
+    "meaning": "북한에서 규범으로 정해 공적인 언어생활에 쓰는 표준적인 말.",
+    "south_expression": "표준어",
+    "initials": "ㅁㅎㅇ",
+    "first_letter": "문",
+    "length": 3,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_323",
+    "word": "물결길이",
+    "accepted_answers": [
+      "물결길이"
+    ],
+    "meaning": "파동에서 같은 상태가 반복되는 두 지점 사이의 거리.",
+    "south_expression": "파장",
+    "initials": "ㅁㄱㄱㅇ",
+    "first_letter": "물",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_324",
+    "word": "물결높이",
+    "accepted_answers": [
+      "물결높이"
+    ],
+    "meaning": "바다 물결의 골에서 마루까지 이르는 높이.",
+    "south_expression": "파고",
+    "initials": "ㅁㄱㄴㅇ",
+    "first_letter": "물",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_325",
+    "word": "물결속도",
+    "accepted_answers": [
+      "물결속도"
+    ],
+    "meaning": "물결이나 파동이 일정한 거리를 전달되는 속도.",
+    "south_expression": "파속",
+    "initials": "ㅁㄱㅅㄷ",
+    "first_letter": "물",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_326",
+    "word": "물고뿌",
+    "accepted_answers": [
+      "물고뿌"
+    ],
+    "meaning": "물을 마실 때 쓰는 컵.",
+    "south_expression": "물컵",
+    "initials": "ㅁㄱㅃ",
+    "first_letter": "물",
+    "length": 3,
+    "category": "생활·의복",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_327",
+    "word": "물공원",
+    "accepted_answers": [
+      "물공원"
+    ],
+    "meaning": "수영하거나 물놀이를 할 수 있도록 인공적으로 만든 시설.",
+    "south_expression": "풀장",
+    "initials": "ㅁㄱㅇ",
+    "first_letter": "물",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_328",
+    "word": "물들이기",
+    "accepted_answers": [
+      "물들이기"
+    ],
+    "meaning": "섬유나 머리카락 등에 색소를 스며들게 해 색을 바꾸는 일.",
+    "south_expression": "염색",
+    "initials": "ㅁㄷㅇㄱ",
+    "first_letter": "물",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_329",
+    "word": "물들체",
+    "accepted_answers": [
+      "물들체"
+    ],
+    "meaning": "세포핵 속에서 유전 정보를 담고 있는 실 모양 구조.",
+    "south_expression": "염색체",
+    "initials": "ㅁㄷㅊ",
+    "first_letter": "물",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_330",
+    "word": "물막이",
+    "accepted_answers": [
+      "물막이"
+    ],
+    "meaning": "물이 스며들거나 새지 못하도록 막는 처리.",
+    "south_expression": "방수",
+    "initials": "ㅁㅁㅇ",
+    "first_letter": "물",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_331",
+    "word": "물밑굴",
+    "accepted_answers": [
+      "물밑굴"
+    ],
+    "meaning": "바다 밑을 지나도록 만든 터널.",
+    "south_expression": "해저 터널",
+    "initials": "ㅁㅁㄱ",
+    "first_letter": "물",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_332",
+    "word": "물스키",
+    "accepted_answers": [
+      "물스키"
+    ],
+    "meaning": "물 위에서 스키를 신고 보트에 끌려 달리는 운동.",
+    "south_expression": "수상 스키",
+    "initials": "ㅁㅅㅋ",
+    "first_letter": "물",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_333",
+    "word": "물올리기",
+    "accepted_answers": [
+      "물올리기"
+    ],
+    "meaning": "낮은 곳의 물을 기계나 힘으로 높은 곳에 퍼 올리는 일.",
+    "south_expression": "양수",
+    "initials": "ㅁㅇㄹㄱ",
+    "first_letter": "물",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_334",
+    "word": "물찬때",
+    "accepted_answers": [
+      "물찬때"
+    ],
+    "meaning": "저수지나 강의 물이 가장 많이 차는 시기.",
+    "south_expression": "만수기",
+    "initials": "ㅁㅊㄸ",
+    "first_letter": "물",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_335",
+    "word": "물힘",
+    "accepted_answers": [
+      "물힘"
+    ],
+    "meaning": "흐르거나 떨어지는 물을 이용하여 얻는 힘이나 에너지.",
+    "south_expression": "수력",
+    "initials": "ㅁㅎ",
+    "first_letter": "물",
+    "length": 2,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_336",
+    "word": "미리막이",
+    "accepted_answers": [
+      "미리막이"
+    ],
+    "meaning": "질병이나 사고가 생기기 전에 미리 막는 일.",
+    "south_expression": "예방",
+    "initials": "ㅁㄹㅁㅇ",
+    "first_letter": "미",
+    "length": 4,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_337",
+    "word": "미세기뚝",
+    "accepted_answers": [
+      "미세기뚝"
+    ],
+    "meaning": "바닷물이 들어오는 것을 막아 농지나 육지를 보호하는 둑.",
+    "south_expression": "방조제",
+    "initials": "ㅁㅅㄱㄸ",
+    "first_letter": "미",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_338",
+    "word": "미우다",
+    "accepted_answers": [
+      "미우다"
+    ],
+    "meaning": "사람을 차갑게 대하고 친절하게 보살피지 않다.",
+    "south_expression": "냉대하다",
+    "initials": "ㅁㅇㄷ",
+    "first_letter": "미",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_339",
+    "word": "민간오락",
+    "accepted_answers": [
+      "민간오락"
+    ],
+    "meaning": "예로부터 민간에 전해 내려오며 여러 사람이 함께 즐기는 놀이.",
+    "south_expression": "민속놀이",
+    "initials": "ㅁㄱㅇㄹ",
+    "first_letter": "민",
+    "length": 4,
+    "category": "사회·행정",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_340",
+    "word": "바깥각",
+    "accepted_answers": [
+      "바깥각"
+    ],
+    "meaning": "두 직선을 다른 직선이 가로지를 때 바깥쪽에 생기는 각.",
+    "south_expression": "외각",
+    "initials": "ㅂㄲㄱ",
+    "first_letter": "바",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_341",
+    "word": "바깥권",
+    "accepted_answers": [
+      "바깥권"
+    ],
+    "meaning": "지구 대기권의 가장 바깥쪽에 있는 매우 희박한 층.",
+    "south_expression": "외기권",
+    "initials": "ㅂㄲㄱ",
+    "first_letter": "바",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_342",
+    "word": "바깥무대",
+    "accepted_answers": [
+      "바깥무대"
+    ],
+    "meaning": "건물 밖에 설치해 공연이나 행사를 하는 무대.",
+    "south_expression": "야외 무대",
+    "initials": "ㅂㄲㅁㄷ",
+    "first_letter": "바",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_343",
+    "word": "바느질동고리",
+    "accepted_answers": [
+      "바느질동고리"
+    ],
+    "meaning": "바늘·실·가위 등 바느질 도구를 담아 두는 작은 그릇이나 상자.",
+    "south_expression": "반짇고리",
+    "initials": "ㅂㄴㅈㄷㄱㄹ",
+    "first_letter": "바",
+    "length": 6,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_344",
+    "word": "바다가",
+    "accepted_answers": [
+      "바다가"
+    ],
+    "meaning": "바다와 육지가 맞닿아 있는 곳.",
+    "south_expression": "바닷가",
+    "initials": "ㅂㄷㄱ",
+    "first_letter": "바",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_345",
+    "word": "바다깎기",
+    "accepted_answers": [
+      "바다깎기"
+    ],
+    "meaning": "파도나 바닷물이 해안을 깎아 내는 작용.",
+    "south_expression": "해식",
+    "initials": "ㅂㄷㄲㄱ",
+    "first_letter": "바",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_346",
+    "word": "바다마름류",
+    "accepted_answers": [
+      "바다마름류"
+    ],
+    "meaning": "바다에서 자라는 미역·김·다시마 같은 식물성 생물 무리.",
+    "south_expression": "해조",
+    "initials": "ㅂㄷㅁㄹㄹ",
+    "first_letter": "바",
+    "length": 5,
+    "category": "자연·지리",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_347",
+    "word": "바다자리호수",
+    "accepted_answers": [
+      "바다자리호수"
+    ],
+    "meaning": "해안의 모래톱이 만의 일부를 막아 바다와 분리되어 생긴 호수.",
+    "south_expression": "석호",
+    "initials": "ㅂㄷㅈㄹㅎㅅ",
+    "first_letter": "바",
+    "length": 6,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_348",
+    "word": "바다흐름",
+    "accepted_answers": [
+      "바다흐름"
+    ],
+    "meaning": "바닷물이 일정한 방향으로 계속 흐르는 현상.",
+    "south_expression": "해류",
+    "initials": "ㅂㄷㅎㄹ",
+    "first_letter": "바",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_349",
+    "word": "바둑개",
+    "accepted_answers": [
+      "바둑개"
+    ],
+    "meaning": "털에 검고 흰 얼룩무늬가 있는 개를 흔히 부르는 이름.",
+    "south_expression": "바둑이",
+    "initials": "ㅂㄷㄱ",
+    "first_letter": "바",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_350",
+    "word": "바띠까노",
+    "accepted_answers": [
+      "바띠까노"
+    ],
+    "meaning": "이탈리아 로마 안에 있는 세계에서 가장 작은 독립국.",
+    "south_expression": "바티칸",
+    "initials": "ㅂㄸㄲㄴ",
+    "first_letter": "바",
+    "length": 4,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_351",
+    "word": "바람갈이",
+    "accepted_answers": [
+      "바람갈이"
+    ],
+    "meaning": "몸이나 건물 안으로 공기가 잘 드나들게 하는 일.",
+    "south_expression": "통풍",
+    "initials": "ㅂㄹㄱㅇ",
+    "first_letter": "바",
+    "length": 4,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_352",
+    "word": "바람깎기",
+    "accepted_answers": [
+      "바람깎기"
+    ],
+    "meaning": "바람이 모래나 흙, 바위 표면을 깎고 옮기는 작용.",
+    "south_expression": "풍식",
+    "initials": "ㅂㄹㄲㄱ",
+    "first_letter": "바",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_353",
+    "word": "바람이",
+    "accepted_answers": [
+      "바람이"
+    ],
+    "meaning": "경치가 아름답고 보기 좋은 모습.",
+    "south_expression": "풍치",
+    "initials": "ㅂㄹㅇ",
+    "first_letter": "바",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_354",
+    "word": "바르기흙손",
+    "accepted_answers": [
+      "바르기흙손"
+    ],
+    "meaning": "벽이나 바닥에 흙이나 모르타르를 펴 바르는 손도구.",
+    "south_expression": "흙손",
+    "initials": "ㅂㄹㄱㅎㅅ",
+    "first_letter": "바",
+    "length": 5,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_355",
+    "word": "바위짬",
+    "accepted_answers": [
+      "바위짬"
+    ],
+    "meaning": "바위와 바위 사이에 벌어진 좁은 틈.",
+    "south_expression": "바위 틈",
+    "initials": "ㅂㅇㅉ",
+    "first_letter": "바",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_356",
+    "word": "박절기",
+    "accepted_answers": [
+      "박절기"
+    ],
+    "meaning": "일정한 속도로 소리를 내어 음악의 박자를 맞추는 기구.",
+    "south_expression": "메트로놈",
+    "initials": "ㅂㅈㄱ",
+    "first_letter": "박",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_357",
+    "word": "반땀침",
+    "accepted_answers": [
+      "반땀침"
+    ],
+    "meaning": "천의 양쪽을 조금씩 떠서 이어 붙이는 바느질 방법.",
+    "south_expression": "반박음질",
+    "initials": "ㅂㄸㅊ",
+    "first_letter": "반",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_358",
+    "word": "발더듬이",
+    "accepted_answers": [
+      "발더듬이"
+    ],
+    "meaning": "발로 밟아 천이나 옷감의 구김을 펴는 옛 도구.",
+    "south_expression": "밟다듬이",
+    "initials": "ㅂㄷㄷㅇ",
+    "first_letter": "발",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_359",
+    "word": "발디디개",
+    "accepted_answers": [
+      "발디디개"
+    ],
+    "meaning": "기계나 차량을 발로 눌러 작동시키는 발판.",
+    "south_expression": "페달",
+    "initials": "ㅂㄷㄷㄱ",
+    "first_letter": "발",
+    "length": 4,
+    "category": "교통·시설",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_360",
+    "word": "발딱코",
+    "accepted_answers": [
+      "발딱코"
+    ],
+    "meaning": "콧구멍이 위로 들려 보이는 코.",
+    "south_expression": "들창코",
+    "initials": "ㅂㄸㅋ",
+    "first_letter": "발",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_361",
+    "word": "발방아",
+    "accepted_answers": [
+      "발방아"
+    ],
+    "meaning": "발로 디디는 힘을 이용해 곡식을 찧는 방아.",
+    "south_expression": "디딜방아",
+    "initials": "ㅂㅂㅇ",
+    "first_letter": "발",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_362",
+    "word": "발쪽찜",
+    "accepted_answers": [
+      "발쪽찜"
+    ],
+    "meaning": "돼지의 발을 삶아 양념해 먹는 음식.",
+    "south_expression": "족발",
+    "initials": "ㅂㅉㅉ",
+    "first_letter": "발",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_363",
+    "word": "발헤염",
+    "accepted_answers": [
+      "발헤염"
+    ],
+    "meaning": "팔을 쓰지 않거나 적게 쓰고 발의 움직임으로 헤엄치는 것.",
+    "south_expression": "발헤엄",
+    "initials": "ㅂㅎㅇ",
+    "first_letter": "발",
+    "length": 3,
+    "category": "스포츠",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_364",
+    "word": "밝은모음",
+    "accepted_answers": [
+      "밝은모음"
+    ],
+    "meaning": "입을 벌릴 때 혀의 위치가 높고 밝은 느낌을 주는 모음 계열.",
+    "south_expression": "양성모음",
+    "initials": "ㅂㅇㅁㅇ",
+    "first_letter": "밝",
+    "length": 4,
+    "category": "언어·교육",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_365",
+    "word": "밝음도",
+    "accepted_answers": [
+      "밝음도"
+    ],
+    "meaning": "색이 얼마나 밝거나 어두운지를 나타내는 정도.",
+    "south_expression": "명도",
+    "initials": "ㅂㅇㄷ",
+    "first_letter": "밝",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_366",
+    "word": "밟아달리기",
+    "accepted_answers": [
+      "밟아달리기"
+    ],
+    "meaning": "도약 전에 속도를 얻기 위해 달려가는 동작.",
+    "south_expression": "도움닫기",
+    "initials": "ㅂㅇㄷㄹㄱ",
+    "first_letter": "밟",
+    "length": 5,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_367",
+    "word": "밤눈증",
+    "accepted_answers": [
+      "밤눈증"
+    ],
+    "meaning": "어두운 곳이나 밤에 잘 보지 못하는 눈 질환.",
+    "south_expression": "야맹증",
+    "initials": "ㅂㄴㅈ",
+    "first_letter": "밤",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_368",
+    "word": "밤오줌증",
+    "accepted_answers": [
+      "밤오줌증"
+    ],
+    "meaning": "잠자는 동안 자신도 모르게 오줌을 누는 증상.",
+    "south_expression": "야뇨증",
+    "initials": "ㅂㅇㅈㅈ",
+    "first_letter": "밤",
+    "length": 4,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_369",
+    "word": "밥도적",
+    "accepted_answers": [
+      "밥도적"
+    ],
+    "meaning": "일은 하지 않으면서 남이 마련한 밥만 축내는 사람.",
+    "south_expression": "밥벌레",
+    "initials": "ㅂㄷㅈ",
+    "first_letter": "밥",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_370",
+    "word": "밥상칼",
+    "accepted_answers": [
+      "밥상칼"
+    ],
+    "meaning": "식탁에서 음식을 써는 데 쓰는 칼.",
+    "south_expression": "나이프",
+    "initials": "ㅂㅅㅋ",
+    "first_letter": "밥",
+    "length": 3,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_371",
+    "word": "방거두매",
+    "accepted_answers": [
+      "방거두매"
+    ],
+    "meaning": "방 안의 먼지와 쓰레기를 치우고 정돈하는 일.",
+    "south_expression": "방 청소",
+    "initials": "ㅂㄱㄷㅁ",
+    "first_letter": "방",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_372",
+    "word": "배구그물",
+    "accepted_answers": [
+      "배구그물"
+    ],
+    "meaning": "배구 코트 가운데를 나누어 설치한 그물.",
+    "south_expression": "네트",
+    "initials": "ㅂㄱㄱㅁ",
+    "first_letter": "배",
+    "length": 4,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_373",
+    "word": "배껏",
+    "accepted_answers": [
+      "배껏"
+    ],
+    "meaning": "원하거나 먹을 수 있는 만큼 충분히.",
+    "south_expression": "양껏",
+    "initials": "ㅂㄲ",
+    "first_letter": "배",
+    "length": 2,
+    "category": "교통·시설",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_374",
+    "word": "배때끈",
+    "accepted_answers": [
+      "배때끈"
+    ],
+    "meaning": "배의 가운데 부분을 단단히 묶거나 고정하는 끈.",
+    "south_expression": "뱃대끈",
+    "initials": "ㅂㄸㄲ",
+    "first_letter": "배",
+    "length": 3,
+    "category": "교통·시설",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_375",
+    "word": "배띠",
+    "accepted_answers": [
+      "배띠"
+    ],
+    "meaning": "배를 따뜻하게 감싸거나 힘을 받쳐 주는 띠 모양 용품.",
+    "south_expression": "복대",
+    "initials": "ㅂㄸ",
+    "first_letter": "배",
+    "length": 2,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_376",
+    "word": "배렬",
+    "accepted_answers": [
+      "배렬"
+    ],
+    "meaning": "일정한 순서나 모양에 따라 나란히 늘어놓음.",
+    "south_expression": "배열",
+    "initials": "ㅂㄹ",
+    "first_letter": "배",
+    "length": 2,
+    "category": "교통·시설",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_377",
+    "word": "배막",
+    "accepted_answers": [
+      "배막"
+    ],
+    "meaning": "배 안의 장기를 둘러싸고 있는 얇은 막.",
+    "south_expression": "복막",
+    "initials": "ㅂㅁ",
+    "first_letter": "배",
+    "length": 2,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_378",
+    "word": "배살",
+    "accepted_answers": [
+      "배살"
+    ],
+    "meaning": "배 부분에 붙은 살.",
+    "south_expression": "뱃살",
+    "initials": "ㅂㅅ",
+    "first_letter": "배",
+    "length": 2,
+    "category": "교통·시설",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_379",
+    "word": "배열기",
+    "accepted_answers": [
+      "배열기"
+    ],
+    "meaning": "배를 갈라 내부 장기를 치료하는 외과 수술.",
+    "south_expression": "개복 수술",
+    "initials": "ㅂㅇㄱ",
+    "first_letter": "배",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_380",
+    "word": "배타기",
+    "accepted_answers": [
+      "배타기"
+    ],
+    "meaning": "배나 선박에 올라타는 일.",
+    "south_expression": "승선",
+    "initials": "ㅂㅌㄱ",
+    "first_letter": "배",
+    "length": 3,
+    "category": "교통·시설",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_381",
+    "word": "백날기침",
+    "accepted_answers": [
+      "백날기침"
+    ],
+    "meaning": "심한 기침이 오래 이어지는 전염성 호흡기 질환.",
+    "south_expression": "백일해",
+    "initials": "ㅂㄴㄱㅊ",
+    "first_letter": "백",
+    "length": 4,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_383",
+    "word": "밸젓",
+    "accepted_answers": [
+      "밸젓"
+    ],
+    "meaning": "명태의 창자를 소금에 절여 발효시킨 젓갈.",
+    "south_expression": "창란젓",
+    "initials": "ㅂㅈ",
+    "first_letter": "밸",
+    "length": 2,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_384",
+    "word": "밸풀이",
+    "accepted_answers": [
+      "밸풀이"
+    ],
+    "meaning": "속에 쌓인 화나 억울함을 다른 대상에게 풀어 버리는 일.",
+    "south_expression": "분풀이",
+    "initials": "ㅂㅍㅇ",
+    "first_letter": "밸",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_385",
+    "word": "버림물",
+    "accepted_answers": [
+      "버림물"
+    ],
+    "meaning": "공장이나 생활 시설에서 사용한 뒤 버려지는 더러운 물.",
+    "south_expression": "폐수",
+    "initials": "ㅂㄹㅁ",
+    "first_letter": "버",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_386",
+    "word": "벌넣기",
+    "accepted_answers": [
+      "벌넣기"
+    ],
+    "meaning": "농구에서 상대 반칙으로 얻어 방해 없이 던지는 슛.",
+    "south_expression": "자유투",
+    "initials": "ㅂㄴㄱ",
+    "first_letter": "벌",
+    "length": 3,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_387",
+    "word": "벌둥지",
+    "accepted_answers": [
+      "벌둥지"
+    ],
+    "meaning": "벌이 꿀과 애벌레를 보관하며 사는 집.",
+    "south_expression": "벌집",
+    "initials": "ㅂㄷㅈ",
+    "first_letter": "벌",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_388",
+    "word": "벌레잡이약",
+    "accepted_answers": [
+      "벌레잡이약"
+    ],
+    "meaning": "해로운 곤충을 죽이거나 없애는 데 쓰는 약제.",
+    "south_expression": "살충제",
+    "initials": "ㅂㄹㅈㅇㅇ",
+    "first_letter": "벌",
+    "length": 5,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_389",
+    "word": "벌림대",
+    "accepted_answers": [
+      "벌림대"
+    ],
+    "meaning": "상품이나 물건을 펼쳐 놓아 보여 주는 선반이나 받침대.",
+    "south_expression": "진열대",
+    "initials": "ㅂㄹㄷ",
+    "first_letter": "벌",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_390",
+    "word": "벌차기",
+    "accepted_answers": [
+      "벌차기"
+    ],
+    "meaning": "축구에서 상대의 반칙 뒤 방해 없이 공을 차는 것.",
+    "south_expression": "프리킥",
+    "initials": "ㅂㅊㄱ",
+    "first_letter": "벌",
+    "length": 3,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_391",
+    "word": "벼락촉",
+    "accepted_answers": [
+      "벼락촉"
+    ],
+    "meaning": "건물이나 시설을 번개 피해로부터 보호하는 뾰족한 금속 장치.",
+    "south_expression": "피뢰침",
+    "initials": "ㅂㄹㅊ",
+    "first_letter": "벼",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_392",
+    "word": "벼랑부처",
+    "accepted_answers": [
+      "벼랑부처"
+    ],
+    "meaning": "바위 절벽의 표면을 파거나 새겨 만든 불상.",
+    "south_expression": "마애불",
+    "initials": "ㅂㄹㅂㅊ",
+    "first_letter": "벼",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_393",
+    "word": "변놓이",
+    "accepted_answers": [
+      "변놓이"
+    ],
+    "meaning": "돈을 빌려주고 원금 외의 돈을 받아 이익을 얻는 행위.",
+    "south_expression": "이자놀이",
+    "initials": "ㅂㄴㅇ",
+    "first_letter": "변",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_394",
+    "word": "별찌",
+    "accepted_answers": [
+      "별찌"
+    ],
+    "meaning": "밤하늘에서 밝은 빛을 내며 빠르게 떨어지는 천체 현상.",
+    "south_expression": "별똥",
+    "initials": "ㅂㅉ",
+    "first_letter": "별",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_395",
+    "word": "별찌돌",
+    "accepted_answers": [
+      "별찌돌"
+    ],
+    "meaning": "우주 공간에서 지구로 떨어진 암석이나 금속 조각.",
+    "south_expression": "운석",
+    "initials": "ㅂㅉㄷ",
+    "first_letter": "별",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_396",
+    "word": "병사개미",
+    "accepted_answers": [
+      "병사개미"
+    ],
+    "meaning": "무리와 집을 지키거나 싸우는 역할을 하는 개미.",
+    "south_expression": "수개미",
+    "initials": "ㅂㅅㄱㅁ",
+    "first_letter": "병",
+    "length": 4,
+    "category": "의료·신체",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_397",
+    "word": "보가지",
+    "accepted_answers": [
+      "보가지"
+    ],
+    "meaning": "사람이 누리는 좋은 운이나 행복한 기운.",
+    "south_expression": "복",
+    "initials": "ㅂㄱㅈ",
+    "first_letter": "보",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_398",
+    "word": "보는각",
+    "accepted_answers": [
+      "보는각"
+    ],
+    "meaning": "눈에서 물체의 양 끝으로 그은 두 선이 이루는 각.",
+    "south_expression": "시각",
+    "initials": "ㅂㄴㄱ",
+    "first_letter": "보",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_399",
+    "word": "보도랑",
+    "accepted_answers": [
+      "보도랑"
+    ],
+    "meaning": "논에 물을 대기 위해 만든 작은 도랑.",
+    "south_expression": "봇도랑",
+    "initials": "ㅂㄷㄹ",
+    "first_letter": "보",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_400",
+    "word": "보돌",
+    "accepted_answers": [
+      "보돌"
+    ],
+    "meaning": "보의 물길을 막거나 조절할 때 쓰는 돌.",
+    "south_expression": "봇돌",
+    "initials": "ㅂㄷ",
+    "first_letter": "보",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_401",
+    "word": "보숭이",
+    "accepted_answers": [
+      "보숭이"
+    ],
+    "meaning": "떡이나 인절미의 겉에 묻히는 콩가루 같은 가루 재료.",
+    "south_expression": "고물",
+    "initials": "ㅂㅅㅇ",
+    "first_letter": "보",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_402",
+    "word": "보정속옷",
+    "accepted_answers": [
+      "보정속옷"
+    ],
+    "meaning": "몸매를 보정하고 받쳐 주기 위해 입는 여성용 속옷.",
+    "south_expression": "파운데이션",
+    "initials": "ㅂㅈㅅㅇ",
+    "first_letter": "보",
+    "length": 4,
+    "category": "생활·의복",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_403",
+    "word": "보탬각",
+    "accepted_answers": [
+      "보탬각"
+    ],
+    "meaning": "두 각의 크기를 더했을 때 90도가 되는 관계의 각.",
+    "south_expression": "보각",
+    "initials": "ㅂㅌㄱ",
+    "first_letter": "보",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_404",
+    "word": "보호새",
+    "accepted_answers": [
+      "보호새"
+    ],
+    "meaning": "멸종 위험이나 생태적 가치 때문에 법이나 제도로 지키는 새.",
+    "south_expression": "보호조",
+    "initials": "ㅂㅎㅅ",
+    "first_letter": "보",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_405",
+    "word": "복종선",
+    "accepted_answers": [
+      "복종선"
+    ],
+    "meaning": "악보에서 음악의 한 부분을 구분하거나 끝맺음을 나타내는 두 줄의 세로선.",
+    "south_expression": "겹세로줄",
+    "initials": "ㅂㅈㅅ",
+    "first_letter": "복",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_406",
+    "word": "볶음머리",
+    "accepted_answers": [
+      "볶음머리"
+    ],
+    "meaning": "머리카락에 열이나 약품을 사용하여 곱슬거리게 만든 머리 모양.",
+    "south_expression": "파마 머리",
+    "initials": "ㅂㅇㅁㄹ",
+    "first_letter": "볶",
+    "length": 4,
+    "category": "생활·의복",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_407",
+    "word": "볼먹은소리",
+    "accepted_answers": [
+      "볼먹은소리"
+    ],
+    "meaning": "불만이나 토라진 마음이 묻어나는 말투.",
+    "south_expression": "볼멘소리",
+    "initials": "ㅂㅁㅇㅅㄹ",
+    "first_letter": "볼",
+    "length": 5,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_408",
+    "word": "부대밭",
+    "accepted_answers": [
+      "부대밭"
+    ],
+    "meaning": "산이나 들의 나무를 태운 자리에 농사를 짓는 밭.",
+    "south_expression": "화전",
+    "initials": "ㅂㄷㅂ",
+    "first_letter": "부",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_409",
+    "word": "부들털",
+    "accepted_answers": [
+      "부들털"
+    ],
+    "meaning": "작은창자 안쪽에 돋아 영양분 흡수를 돕는 매우 작은 돌기.",
+    "south_expression": "융털",
+    "initials": "ㅂㄷㅌ",
+    "first_letter": "부",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_410",
+    "word": "부리촉",
+    "accepted_answers": [
+      "부리촉"
+    ],
+    "meaning": "새의 부리 끝이 검거나 단단한 부분을 이르는 말.",
+    "south_expression": "가막부리",
+    "initials": "ㅂㄹㅊ",
+    "first_letter": "부",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_411",
+    "word": "부침땅",
+    "accepted_answers": [
+      "부침땅"
+    ],
+    "meaning": "씨앗을 뿌리거나 모종을 옮겨 심는 농사용 땅.",
+    "south_expression": "경지",
+    "initials": "ㅂㅊㄸ",
+    "first_letter": "부",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_412",
+    "word": "부피불음",
+    "accepted_answers": [
+      "부피불음"
+    ],
+    "meaning": "물체의 부피가 늘어나거나 범위가 커지는 현상.",
+    "south_expression": "팽창",
+    "initials": "ㅂㅍㅂㅇ",
+    "first_letter": "부",
+    "length": 4,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_413",
+    "word": "부화사건",
+    "accepted_answers": [
+      "부화사건"
+    ],
+    "meaning": "배우자가 아닌 사람과 부정한 성관계를 맺어 문제가 된 사건.",
+    "south_expression": "간통 사건",
+    "initials": "ㅂㅎㅅㄱ",
+    "first_letter": "부",
+    "length": 4,
+    "category": "의료·신체",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_414",
+    "word": "분첩갑",
+    "accepted_answers": [
+      "분첩갑"
+    ],
+    "meaning": "분가루와 거울 등을 넣어 휴대하는 작은 화장품 용기.",
+    "south_expression": "콤팩트",
+    "initials": "ㅂㅊㄱ",
+    "first_letter": "분",
+    "length": 3,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_415",
+    "word": "분필그림",
+    "accepted_answers": [
+      "분필그림"
+    ],
+    "meaning": "마른 안료를 막대 모양으로 굳힌 재료로 그린 그림.",
+    "south_expression": "파스텔화",
+    "initials": "ㅂㅍㄱㄹ",
+    "first_letter": "분",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_416",
+    "word": "불꾸레미",
+    "accepted_answers": [
+      "불꾸레미"
+    ],
+    "meaning": "불이 붙은 물건이나 불씨를 한데 모아 놓은 것.",
+    "south_expression": "불꾸러미",
+    "initials": "ㅂㄲㄹㅁ",
+    "first_letter": "불",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_417",
+    "word": "불끌탄",
+    "accepted_answers": [
+      "불끌탄"
+    ],
+    "meaning": "불을 끄거나 불길의 확산을 막는 데 사용하는 특수 탄.",
+    "south_expression": "방화탄",
+    "initials": "ㅂㄲㅌ",
+    "first_letter": "불",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_418",
+    "word": "불당김성",
+    "accepted_answers": [
+      "불당김성"
+    ],
+    "meaning": "불꽃에 닿았을 때 쉽게 불이 붙는 성질.",
+    "south_expression": "인화성",
+    "initials": "ㅂㄷㄱㅅ",
+    "first_letter": "불",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_419",
+    "word": "불당김점",
+    "accepted_answers": [
+      "불당김점"
+    ],
+    "meaning": "액체에서 불이 붙을 수 있는 증기가 생기는 가장 낮은 온도.",
+    "south_expression": "인화점",
+    "initials": "ㅂㄷㄱㅈ",
+    "first_letter": "불",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_420",
+    "word": "불막이",
+    "accepted_answers": [
+      "불막이"
+    ],
+    "meaning": "불이 나거나 번지는 것을 막는 일.",
+    "south_expression": "방화",
+    "initials": "ㅂㅁㅇ",
+    "first_letter": "불",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_421",
+    "word": "불막이벽",
+    "accepted_answers": [
+      "불막이벽"
+    ],
+    "meaning": "불길과 연기가 다른 구역으로 퍼지는 것을 막는 벽.",
+    "south_expression": "방화벽",
+    "initials": "ㅂㅁㅇㅂ",
+    "first_letter": "불",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_422",
+    "word": "불벌레",
+    "accepted_answers": [
+      "불벌레"
+    ],
+    "meaning": "밤에 스스로 빛을 내는 작은 곤충.",
+    "south_expression": "반딧불이",
+    "initials": "ㅂㅂㄹ",
+    "first_letter": "불",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_423",
+    "word": "불심지",
+    "accepted_answers": [
+      "불심지"
+    ],
+    "meaning": "폭약에 불을 전달하여 폭발하게 하는 줄 모양 장치.",
+    "south_expression": "도화선",
+    "initials": "ㅂㅅㅈ",
+    "first_letter": "불",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_424",
+    "word": "불완전꽃",
+    "accepted_answers": [
+      "불완전꽃"
+    ],
+    "meaning": "꽃받침·꽃잎·수술·암술 가운데 하나 이상이 없는 꽃.",
+    "south_expression": "안갖춘꽃",
+    "initials": "ㅂㅇㅈㄲ",
+    "first_letter": "불",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_425",
+    "word": "불카하다",
+    "accepted_answers": [
+      "불카하다"
+    ],
+    "meaning": "술기운이나 더운 기운으로 얼굴이 약간 붉고 뜨겁다.",
+    "south_expression": "불콰하다",
+    "initials": "ㅂㅋㅎㄷ",
+    "first_letter": "불",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_426",
+    "word": "불탈성",
+    "accepted_answers": [
+      "불탈성"
+    ],
+    "meaning": "불에 타서 연소할 수 있는 성질.",
+    "south_expression": "가연성",
+    "initials": "ㅂㅌㅅ",
+    "first_letter": "불",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_427",
+    "word": "붉은마름색소",
+    "accepted_answers": [
+      "붉은마름색소"
+    ],
+    "meaning": "붉은 조류가 붉은빛을 띠게 하는 색소.",
+    "south_expression": "홍조소",
+    "initials": "ㅂㅇㅁㄹㅅㅅ",
+    "first_letter": "붉",
+    "length": 6,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_428",
+    "word": "붉은피알",
+    "accepted_answers": [
+      "붉은피알"
+    ],
+    "meaning": "혈액에서 산소를 운반하는 붉은색의 세포.",
+    "south_expression": "적혈구",
+    "initials": "ㅂㅇㅍㅇ",
+    "first_letter": "붉",
+    "length": 4,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_429",
+    "word": "붓기",
+    "accepted_answers": [
+      "붓기"
+    ],
+    "meaning": "체액이 조직에 쌓여 몸의 일부가 부어오르는 증상.",
+    "south_expression": "부종",
+    "initials": "ㅂㄱ",
+    "first_letter": "붓",
+    "length": 2,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_430",
+    "word": "붙기",
+    "accepted_answers": [
+      "붙기"
+    ],
+    "meaning": "두 물체가 서로 달라붙거나 붙여짐.",
+    "south_expression": "부착",
+    "initials": "ㅂㄱ",
+    "first_letter": "붙",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_431",
+    "word": "붙어살이",
+    "accepted_answers": [
+      "붙어살이"
+    ],
+    "meaning": "다른 생물의 몸에 붙어 영양을 빼앗으며 사는 생활 방식.",
+    "south_expression": "기생",
+    "initials": "ㅂㅇㅅㅇ",
+    "first_letter": "붙",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_432",
+    "word": "붙을힘",
+    "accepted_answers": [
+      "붙을힘"
+    ],
+    "meaning": "두 물체가 서로 달라붙어 떨어지지 않게 하는 힘.",
+    "south_expression": "부착력",
+    "initials": "ㅂㅇㅎ",
+    "first_letter": "붙",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_433",
+    "word": "붙임쪽지",
+    "accepted_answers": [
+      "붙임쪽지"
+    ],
+    "meaning": "문서나 물건에 덧붙여 참고 사항을 적는 작은 쪽지.",
+    "south_expression": "부전지",
+    "initials": "ㅂㅇㅉㅈ",
+    "first_letter": "붙",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_434",
+    "word": "비닐온실",
+    "accepted_answers": [
+      "비닐온실"
+    ],
+    "meaning": "비닐 막으로 덮어 온도와 습도를 조절하며 작물을 기르는 시설.",
+    "south_expression": "비닐 하우스",
+    "initials": "ㅂㄴㅇㅅ",
+    "first_letter": "비",
+    "length": 4,
+    "category": "생활·의복",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_435",
+    "word": "비렬하다",
+    "accepted_answers": [
+      "비렬하다"
+    ],
+    "meaning": "사람의 행동이나 성품이 야비하고 떳떳하지 못하다.",
+    "south_expression": "비열하다",
+    "initials": "ㅂㄹㅎㄷ",
+    "first_letter": "비",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_436",
+    "word": "비물골",
+    "accepted_answers": [
+      "비물골"
+    ],
+    "meaning": "비가 많이 흘러 산비탈이나 땅에 길게 파인 골짜기.",
+    "south_expression": "우곡",
+    "initials": "ㅂㅁㄱ",
+    "first_letter": "비",
+    "length": 3,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_437",
+    "word": "비물닦개",
+    "accepted_answers": [
+      "비물닦개"
+    ],
+    "meaning": "차량의 앞유리나 뒤유리에 묻은 빗물을 닦는 장치.",
+    "south_expression": "와이퍼",
+    "initials": "ㅂㅁㄷㄱ",
+    "first_letter": "비",
+    "length": 4,
+    "category": "생활·의복",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_438",
+    "word": "비침종이",
+    "accepted_answers": [
+      "비침종이"
+    ],
+    "meaning": "밑의 그림이나 글씨가 비쳐 보이도록 얇게 만든 종이.",
+    "south_expression": "투사지",
+    "initials": "ㅂㅊㅈㅇ",
+    "first_letter": "비",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_439",
+    "word": "비탈각",
+    "accepted_answers": [
+      "비탈각"
+    ],
+    "meaning": "수평면과 비탈진 선 또는 면 사이에 생기는 각.",
+    "south_expression": "경사각",
+    "initials": "ㅂㅌㄱ",
+    "first_letter": "비",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_440",
+    "word": "비탈도",
+    "accepted_answers": [
+      "비탈도"
+    ],
+    "meaning": "한쪽으로 비스듬히 기운 정도.",
+    "south_expression": "기울기",
+    "initials": "ㅂㅌㄷ",
+    "first_letter": "비",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_441",
+    "word": "비탈면",
+    "accepted_answers": [
+      "비탈면"
+    ],
+    "meaning": "수평면에 대해 기울어져 있는 면.",
+    "south_expression": "경사면",
+    "initials": "ㅂㅌㅁ",
+    "first_letter": "비",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_442",
+    "word": "비트",
+    "accepted_answers": [
+      "비트"
+    ],
+    "meaning": "몸을 숨기거나 비밀 활동을 하기 위해 마련한 은밀한 장소.",
+    "south_expression": "비밀 아지트",
+    "initials": "ㅂㅌ",
+    "first_letter": "비",
+    "length": 2,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_443",
+    "word": "비행기길",
+    "accepted_answers": [
+      "비행기길"
+    ],
+    "meaning": "비행기가 일정하게 오가도록 정해 놓은 하늘길.",
+    "south_expression": "항공로",
+    "initials": "ㅂㅎㄱㄱ",
+    "first_letter": "비",
+    "length": 4,
+    "category": "교통·시설",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_444",
+    "word": "빗바람",
+    "accepted_answers": [
+      "빗바람"
+    ],
+    "meaning": "비와 함께 세차게 부는 바람.",
+    "south_expression": "비바람",
+    "initials": "ㅂㅂㄹ",
+    "first_letter": "빗",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_445",
+    "word": "빛갈색",
+    "accepted_answers": [
+      "빛갈색"
+    ],
+    "meaning": "검정·하양·회색을 제외하고 색조가 있는 색.",
+    "south_expression": "유채색",
+    "initials": "ㅂㄱㅅ",
+    "first_letter": "빛",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_446",
+    "word": "빛굽힘성",
+    "accepted_answers": [
+      "빛굽힘성"
+    ],
+    "meaning": "식물의 줄기나 잎이 빛이 오는 방향으로 굽어 자라는 성질.",
+    "south_expression": "굴광성",
+    "initials": "ㅂㄱㅎㅅ",
+    "first_letter": "빛",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_447",
+    "word": "빛너울",
+    "accepted_answers": [
+      "빛너울"
+    ],
+    "meaning": "빛이 물체 둘레에서 퍼져 나오는 것처럼 보이는 밝은 테두리.",
+    "south_expression": "후광",
+    "initials": "ㅂㄴㅇ",
+    "first_letter": "빛",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_448",
+    "word": "빛느낌약",
+    "accepted_answers": [
+      "빛느낌약"
+    ],
+    "meaning": "빛을 받으면 화학적으로 변해 사진이나 인쇄에 쓰이는 물질.",
+    "south_expression": "감광제",
+    "initials": "ㅂㄴㄲㅇ",
+    "first_letter": "빛",
+    "length": 4,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_449",
+    "word": "빨래방치",
+    "accepted_answers": [
+      "빨래방치"
+    ],
+    "meaning": "빨랫감을 두드려 때를 빼고 물기를 털 때 쓰던 방망이.",
+    "south_expression": "빨랫방망이",
+    "initials": "ㅃㄹㅂㅊ",
+    "first_letter": "빨",
+    "length": 4,
+    "category": "생활·의복",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_450",
+    "word": "빨래집",
+    "accepted_answers": [
+      "빨래집",
+      "화학빨래집"
+    ],
+    "meaning": "옷이나 천을 빨고 말리거나 다림질해 주는 가게.",
+    "south_expression": "세탁소",
+    "initials": "ㅃㄹㅈ",
+    "first_letter": "빨",
+    "length": 3,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_451",
+    "word": "뺄헤염",
+    "accepted_answers": [
+      "뺄헤염"
+    ],
+    "meaning": "수영 경기에서 정해진 영법 제한 없이 가장 빠른 방법으로 헤엄치는 종목.",
+    "south_expression": "자유형",
+    "initials": "ㅃㅎㅇ",
+    "first_letter": "뺄",
+    "length": 3,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_452",
+    "word": "뼈마디아픔",
+    "accepted_answers": [
+      "뼈마디아픔"
+    ],
+    "meaning": "뼈와 뼈가 만나는 부위에서 느껴지는 통증.",
+    "south_expression": "관절통",
+    "initials": "ㅃㅁㄷㅇㅍ",
+    "first_letter": "뼈",
+    "length": 5,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_453",
+    "word": "뼈막염",
+    "accepted_answers": [
+      "뼈막염"
+    ],
+    "meaning": "뼈의 겉을 싸는 막에 염증이 생기는 질환.",
+    "south_expression": "골막염",
+    "initials": "ㅃㅁㅇ",
+    "first_letter": "뼈",
+    "length": 3,
+    "category": "스포츠",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_454",
+    "word": "뼈부러지기",
+    "accepted_answers": [
+      "뼈부러지기"
+    ],
+    "meaning": "뼈가 금이 가거나 완전히 부러진 상태.",
+    "south_expression": "골절",
+    "initials": "ㅃㅂㄹㅈㄱ",
+    "first_letter": "뼈",
+    "length": 5,
+    "category": "스포츠",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_455",
+    "word": "뼈어김",
+    "accepted_answers": [
+      "뼈어김"
+    ],
+    "meaning": "관절을 이루는 뼈가 정상 위치에서 빠져나온 상태.",
+    "south_expression": "탈구",
+    "initials": "ㅃㅇㄱ",
+    "first_letter": "뼈",
+    "length": 3,
+    "category": "의료·신체",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_457",
+    "word": "뽈스카",
+    "accepted_answers": [
+      "뽈스카"
+    ],
+    "meaning": "중부 유럽에 있는 나라.",
+    "south_expression": "폴란드",
+    "initials": "ㅃㅅㅋ",
+    "first_letter": "뽈",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_458",
+    "word": "뾰족각",
+    "accepted_answers": [
+      "뾰족각"
+    ],
+    "meaning": "크기가 0도보다 크고 90도보다 작은 각.",
+    "south_expression": "예각",
+    "initials": "ㅃㅈㄱ",
+    "first_letter": "뾰",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_459",
+    "word": "뿌리기호",
+    "accepted_answers": [
+      "뿌리기호"
+    ],
+    "meaning": "제곱근을 나타낼 때 수나 식 위에 씌우는 수학 기호.",
+    "south_expression": "근호",
+    "initials": "ㅃㄹㄱㅎ",
+    "first_letter": "뿌",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_460",
+    "word": "뿌무개",
+    "accepted_answers": [
+      "뿌무개"
+    ],
+    "meaning": "액체를 안개처럼 잘게 뿜어내는 기구 또는 분사액.",
+    "south_expression": "스프레이",
+    "initials": "ㅃㅁㄱ",
+    "first_letter": "뿌",
+    "length": 3,
+    "category": "생활·의복",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_461",
+    "word": "뿔질",
+    "accepted_answers": [
+      "뿔질"
+    ],
+    "meaning": "피부나 머리카락, 손발톱의 바깥층을 이루는 단단한 물질.",
+    "south_expression": "각질",
+    "initials": "ㅃㅈ",
+    "first_letter": "뿔",
+    "length": 2,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_462",
+    "word": "뿜이구멍",
+    "accepted_answers": [
+      "뿜이구멍"
+    ],
+    "meaning": "기체·액체·용암 등이 밖으로 세게 뿜어져 나오는 구멍.",
+    "south_expression": "분출구",
+    "initials": "ㅃㅇㄱㅁ",
+    "first_letter": "뿜",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_463",
+    "word": "사과단졸임",
+    "accepted_answers": [
+      "사과단졸임"
+    ],
+    "meaning": "사과에 설탕을 넣어 걸쭉하게 졸여 만든 식품.",
+    "south_expression": "사과잼",
+    "initials": "ㅅㄱㄷㅈㅇ",
+    "first_letter": "사",
+    "length": 5,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_464",
+    "word": "사귐각",
+    "accepted_answers": [
+      "사귐각"
+    ],
+    "meaning": "두 직선이나 두 평면이 서로 만날 때 이루는 각.",
+    "south_expression": "교각",
+    "initials": "ㅅㄱㄱ",
+    "first_letter": "사",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_465",
+    "word": "사방미인",
+    "accepted_answers": [
+      "사방미인"
+    ],
+    "meaning": "여러 방면에서 재능이 뛰어나고 무엇이든 잘하는 사람.",
+    "south_expression": "팔방미인",
+    "initials": "ㅅㅂㅁㅇ",
+    "first_letter": "사",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_466",
+    "word": "사이그루",
+    "accepted_answers": [
+      "사이그루"
+    ],
+    "meaning": "한 작물의 줄 사이에 다른 작물을 함께 심어 기르는 농사법.",
+    "south_expression": "사이짓기",
+    "initials": "ㅅㅇㄱㄹ",
+    "first_letter": "사",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_467",
+    "word": "사이극",
+    "accepted_answers": [
+      "사이극"
+    ],
+    "meaning": "연극이나 공연의 막과 막 사이에 짧게 넣는 장면.",
+    "south_expression": "막간극",
+    "initials": "ㅅㅇㄱ",
+    "first_letter": "사",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_468",
+    "word": "사이색",
+    "accepted_answers": [
+      "사이색"
+    ],
+    "meaning": "두 색을 섞었을 때 그 사이에 나타나는 색.",
+    "south_expression": "중간 색",
+    "initials": "ㅅㅇㅅ",
+    "first_letter": "사",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_469",
+    "word": "사이치기",
+    "accepted_answers": [
+      "사이치기"
+    ],
+    "meaning": "줄을 서거나 차례를 기다리는 사람들 사이에 먼저 끼어드는 행동.",
+    "south_expression": "새치기",
+    "initials": "ㅅㅇㅊㄱ",
+    "first_letter": "사",
+    "length": 4,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_470",
+    "word": "사자고추",
+    "accepted_answers": [
+      "사자고추"
+    ],
+    "meaning": "속이 비어 있고 씨가 많은 두꺼운 열매를 먹는 채소.",
+    "south_expression": "피망",
+    "initials": "ㅅㅈㄱㅊ",
+    "first_letter": "사",
+    "length": 4,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_471",
+    "word": "사진종이",
+    "accepted_answers": [
+      "사진종이"
+    ],
+    "meaning": "사진을 빛으로 현상하여 인쇄하는 데 쓰는 감광 종이.",
+    "south_expression": "인화지",
+    "initials": "ㅅㅈㅈㅇ",
+    "first_letter": "사",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_472",
+    "word": "사회사람",
+    "accepted_answers": [
+      "사회사람"
+    ],
+    "meaning": "군인이나 공무원이 아닌 일반 시민.",
+    "south_expression": "민간인",
+    "initials": "ㅅㅎㅅㄹ",
+    "first_letter": "사",
+    "length": 4,
+    "category": "사람·가족",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_473",
+    "word": "삭기",
+    "accepted_answers": [
+      "삭기"
+    ],
+    "meaning": "전분이 효소나 산의 작용으로 당으로 바뀌는 과정.",
+    "south_expression": "당화",
+    "initials": "ㅅㄱ",
+    "first_letter": "삭",
+    "length": 2,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_474",
+    "word": "삭뼈",
+    "accepted_answers": [
+      "삭뼈"
+    ],
+    "meaning": "뼈보다 부드럽고 탄력이 있어 관절이나 코·귀 등을 이루는 조직.",
+    "south_expression": "연골",
+    "initials": "ㅅㅃ",
+    "first_letter": "삭",
+    "length": 2,
+    "category": "스포츠",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_475",
+    "word": "삭뼈물고기",
+    "accepted_answers": [
+      "삭뼈물고기"
+    ],
+    "meaning": "뼈가 단단하지 않고 연한 조직으로 이루어진 물고기 무리.",
+    "south_expression": "연골어류",
+    "initials": "ㅅㅃㅁㄱㄱ",
+    "first_letter": "삭",
+    "length": 5,
+    "category": "음식",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_476",
+    "word": "산썩음",
+    "accepted_answers": [
+      "산썩음"
+    ],
+    "meaning": "기름이나 지방이 공기와 만나 변질되어 나쁜 냄새와 맛이 나는 현상.",
+    "south_expression": "산패",
+    "initials": "ㅅㅆㅇ",
+    "first_letter": "산",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_477",
+    "word": "살결물",
+    "accepted_answers": [
+      "살결물"
+    ],
+    "meaning": "세안 뒤 피부에 수분을 주고 결을 정돈하는 액체 화장품.",
+    "south_expression": "화장수",
+    "initials": "ㅅㄱㅁ",
+    "first_letter": "살",
+    "length": 3,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_478",
+    "word": "살구단졸임",
+    "accepted_answers": [
+      "살구단졸임"
+    ],
+    "meaning": "살구에 설탕을 넣어 걸쭉하게 졸여 만든 식품.",
+    "south_expression": "살구잼",
+    "initials": "ㅅㄱㄷㅈㅇ",
+    "first_letter": "살",
+    "length": 5,
+    "category": "음식",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_479",
+    "word": "살림집",
+    "accepted_answers": [
+      "살림집"
+    ],
+    "meaning": "사람이 가족과 함께 일상생활을 하는 집.",
+    "south_expression": "주택",
+    "initials": "ㅅㄹㅈ",
+    "first_letter": "살",
+    "length": 3,
+    "category": "생활·의복",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_480",
+    "word": "살진뿌리",
+    "accepted_answers": [
+      "살진뿌리"
+    ],
+    "meaning": "영양분을 저장하기 위해 굵고 둥글게 자란 식물의 뿌리나 줄기.",
+    "south_expression": "알뿌리",
+    "initials": "ㅅㅈㅃㄹ",
+    "first_letter": "살",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_481",
+    "word": "삼각살",
+    "accepted_answers": [
+      "삼각살"
+    ],
+    "meaning": "어깨를 덮고 팔을 옆으로 들어 올리는 데 쓰이는 세모 모양 근육.",
+    "south_expression": "삼각근",
+    "initials": "ㅅㄱㅅ",
+    "first_letter": "삼",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_482",
+    "word": "새바람",
+    "accepted_answers": [
+      "새바람"
+    ],
+    "meaning": "동쪽에서 불어오는 바람.",
+    "south_expression": "샛바람",
+    "initials": "ㅅㅂㄹ",
+    "first_letter": "새",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_483",
+    "word": "새짐승",
+    "accepted_answers": [
+      "새짐승"
+    ],
+    "meaning": "날개가 있어 하늘을 날아다니는 짐승.",
+    "south_expression": "날짐승",
+    "initials": "ㅅㅈㅅ",
+    "first_letter": "새",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_484",
+    "word": "색갈",
+    "accepted_answers": [
+      "색갈"
+    ],
+    "meaning": "물체가 빛을 반사하여 눈에 보이는 빛깔.",
+    "south_expression": "색깔",
+    "initials": "ㅅㄱ",
+    "first_letter": "색",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_485",
+    "word": "색날기",
+    "accepted_answers": [
+      "색날기"
+    ],
+    "meaning": "염료나 색소가 빠져 본래 색이 옅어지거나 없어지는 일.",
+    "south_expression": "탈색",
+    "initials": "ㅅㄴㄱ",
+    "first_letter": "색",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_486",
+    "word": "색쌈",
+    "accepted_answers": [
+      "색쌈"
+    ],
+    "meaning": "푼 달걀을 얇게 부쳐 속을 넣거나 말아 만든 음식.",
+    "south_expression": "계란말이",
+    "initials": "ㅅㅆ",
+    "first_letter": "색",
+    "length": 2,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_487",
+    "word": "생둥이",
+    "accepted_answers": [
+      "생둥이"
+    ],
+    "meaning": "어떤 일에 익숙하지 않고 경험이 적은 사람.",
+    "south_expression": "풋내기",
+    "initials": "ㅅㄷㅇ",
+    "first_letter": "생",
+    "length": 3,
+    "category": "사람·가족",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_488",
+    "word": "생활비",
+    "accepted_answers": [
+      "생활비"
+    ],
+    "meaning": "생활을 유지하기 위해 정기적으로 받는 돈이나 임금.",
+    "south_expression": "급료",
+    "initials": "ㅅㅎㅂ",
+    "first_letter": "생",
+    "length": 3,
+    "category": "자연·지리",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_489",
+    "word": "샴팡",
+    "accepted_answers": [
+      "샴팡"
+    ],
+    "meaning": "포도주에 탄산이 생기도록 만든 거품이 나는 술.",
+    "south_expression": "샴페인",
+    "initials": "ㅅㅍ",
+    "first_letter": "샴",
+    "length": 2,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_490",
+    "word": "섞붙임",
+    "accepted_answers": [
+      "섞붙임"
+    ],
+    "meaning": "서로 다른 품종이나 종을 교배하여 새로운 개체를 만드는 일.",
+    "south_expression": "교잡",
+    "initials": "ㅅㅂㅇ",
+    "first_letter": "섞",
+    "length": 3,
+    "category": "과학·수학",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_491",
+    "word": "선손치기",
+    "accepted_answers": [
+      "선손치기"
+    ],
+    "meaning": "복싱에서 앞손을 빠르고 짧게 뻗어 치는 공격.",
+    "south_expression": "잽",
+    "initials": "ㅅㅅㅊㄱ",
+    "first_letter": "선",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_492",
+    "word": "선자리걸음",
+    "accepted_answers": [
+      "선자리걸음"
+    ],
+    "meaning": "앞으로 나아가지 않고 같은 자리에서 발만 움직이는 동작 또는 발전이 없는 상태.",
+    "south_expression": "제자리걸음",
+    "initials": "ㅅㅈㄹㄱㅇ",
+    "first_letter": "선",
+    "length": 5,
+    "category": "일상·기타",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_493",
+    "word": "설기과자",
+    "accepted_answers": [
+      "설기과자"
+    ],
+    "meaning": "밀가루·달걀·설탕을 거품 내어 부드럽게 구운 빵과자.",
+    "south_expression": "카스테라",
+    "initials": "ㅅㄱㄱㅈ",
+    "first_letter": "설",
+    "length": 4,
+    "category": "음식",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_494",
+    "word": "셈따지기",
+    "accepted_answers": [
+      "셈따지기"
+    ],
+    "meaning": "계산한 결과가 맞는지 다시 계산하여 확인하는 일.",
+    "south_expression": "검산",
+    "initials": "ㅅㄸㅈㄱ",
+    "first_letter": "셈",
+    "length": 4,
+    "category": "과학·수학",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_495",
+    "word": "소젖",
+    "accepted_answers": [
+      "소젖"
+    ],
+    "meaning": "소에서 짜낸 흰색의 영양 음료.",
+    "south_expression": "우유",
+    "initials": "ㅅㅈ",
+    "first_letter": "소",
+    "length": 2,
+    "category": "음식",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_496",
+    "word": "소학교",
+    "accepted_answers": [
+      "소학교"
+    ],
+    "meaning": "어린이가 기초 교육을 받는 학교.",
+    "south_expression": "초등학교",
+    "initials": "ㅅㅎㄱ",
+    "first_letter": "소",
+    "length": 3,
+    "category": "사회·행정",
+    "difficulty": "쉬움"
+  },
+  {
+    "id": "nk_497",
+    "word": "속임동작",
+    "accepted_answers": [
+      "속임동작"
+    ],
+    "meaning": "상대를 속이기 위해 실제 행동과 다른 방향으로 하는 가짜 동작.",
+    "south_expression": "페인트",
+    "initials": "ㅅㅇㄷㅈ",
+    "first_letter": "속",
+    "length": 4,
+    "category": "일상·기타",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_498",
+    "word": "손가락말",
+    "accepted_answers": [
+      "손가락말"
+    ],
+    "meaning": "손과 손가락의 모양과 움직임으로 뜻을 전달하는 언어.",
+    "south_expression": "수화",
+    "initials": "ㅅㄱㄹㅁ",
+    "first_letter": "손",
+    "length": 4,
+    "category": "언어·교육",
+    "difficulty": "어려움"
+  },
+  {
+    "id": "nk_499",
+    "word": "손기척",
+    "accepted_answers": [
+      "손기척"
+    ],
+    "meaning": "문이나 벽을 손이나 도구로 두드려 안에 있는 사람에게 알리는 행동.",
+    "south_expression": "노크",
+    "initials": "ㅅㄱㅊ",
+    "first_letter": "손",
+    "length": 3,
+    "category": "일상·기타",
+    "difficulty": "보통"
+  },
+  {
+    "id": "nk_500",
+    "word": "손님맞이방",
+    "accepted_answers": [
+      "손님맞이방"
+    ],
+    "meaning": "손님을 맞아 대화하거나 쉬게 하도록 꾸민 방.",
+    "south_expression": "응접실",
+    "initials": "ㅅㄴㅁㅇㅂ",
+    "first_letter": "손",
+    "length": 5,
+    "category": "생활·의복",
+    "difficulty": "어려움"
+  }
+]

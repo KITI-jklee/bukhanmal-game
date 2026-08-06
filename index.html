@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#158c6c" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!--
+      CSP는 여기(meta 태그)가 아니라 public/_headers에서 HTTP 헤더로 건다.
+      이유 두 가지:
+      1) meta 태그로는 frame-ancestors를 걸 수 없다(스펙상 무시됨) — 헤더로만
+         가능하다. _headers가 이미 이걸 포함하고 있어 사실상 더 강한 정책이다.
+      2) meta 태그는 dev·build 어느 쪽으로 실행해도 항상 같은 index.html이
+         쓰여서, "운영은 https만 허용 / 로컬 개발은 http 백엔드도 허용"처럼
+         환경별로 다르게 둘 수가 없다. vite.config.ts의 server.headers가
+         dev 서버에서만 적용되는 별도의(느슨한) 정책을 맡는다.
+    -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      name="description"
+      content="통일부 공공데이터로 만든 북한말 학습 웹 게임. 남북한말 산성비게임으로 언어 차이를 재미있게 익혀보세요."
+    />
+    <title>통일부 워드게임 · 북한말 학습 게임</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

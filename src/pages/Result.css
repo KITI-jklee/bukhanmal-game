@@ -1,0 +1,320 @@
+.screen--result {
+  background: #f4f7f5;
+}
+
+.result-topbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 56px;
+  padding: 0 clamp(12px, 3.4vw, 28px);
+  background: #fff;
+  border-bottom: 1px solid #e2e9e6;
+}
+
+.result-topbar > span:nth-child(2) {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.result-topbar .icon-button {
+  justify-self: end;
+}
+
+.result-content {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-content: start;
+  gap: clamp(12px, 2vw, 18px);
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 28px) clamp(14px, 4vw, 40px) 32px;
+}
+
+.result-summary,
+.review-card {
+  min-width: 0;
+  border: 1px solid #dfe7e3;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 24px #2541360f;
+}
+
+.result-summary {
+  padding: clamp(18px, 3vw, 28px);
+  text-align: center;
+}
+
+.result-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #ae7710;
+}
+
+.result-badge > span {
+  font: 600 13px/1 var(--font-display);
+  letter-spacing: 0.08em;
+}
+
+.result-summary > p {
+  margin: 9px 0 3px;
+  font-size: 12px;
+  color: #7c8b84;
+}
+
+.result-summary > h3 {
+  margin: 0;
+  font: 600 clamp(34px, 7vw, 50px) / 1.15 var(--font-display);
+  letter-spacing: -0.04em;
+}
+
+.result-summary > h3 span {
+  margin-left: 4px;
+  font: 600 14px/1 var(--font-sans);
+  color: #788a81;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: clamp(14px, 2.3vw, 20px) 0 0;
+  overflow: hidden;
+  border: 1px solid #e4ebe8;
+  border-radius: 11px;
+}
+
+.stat-grid--sub {
+  margin-top: 8px;
+  background: #fafcfb;
+}
+
+.stat-item {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 12px 4px;
+  border-right: 1px solid #e4ebe8;
+}
+
+.stat-item:last-child {
+  border-right: 0;
+}
+
+.stat-item > strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font: 600 16px/1 var(--font-display);
+}
+
+.stat-item > small {
+  font-size: 10px;
+  color: #84938d;
+}
+
+.stat-item--highlight {
+  background: #f1faf6;
+}
+
+.stat-item--highlight > strong {
+  color: var(--green);
+}
+
+.rank-callout {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 7px;
+  min-height: 52px;
+  margin-top: clamp(14px, 2.3vw, 20px);
+  padding: 9px 13px;
+  border-radius: 11px;
+  background: var(--amber-soft);
+  color: #977016;
+  text-align: left;
+}
+
+.rank-callout > span {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.rank-callout > strong {
+  justify-self: end;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #695018;
+}
+
+.rank-callout b {
+  font-size: 1.2em;
+  color: #a66f08;
+}
+
+.rank-callout--pending,
+.rank-callout--error {
+  grid-template-columns: 1fr auto;
+  background: #f1f5f3;
+  color: #6c7b74;
+}
+
+/* ── 복습 노트 ──────────────────────────────────── */
+
+.review-card {
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.review-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.review-head span {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green);
+}
+
+.review-head h4 {
+  margin: 5px 0 0;
+  font-size: 17px;
+}
+
+.review-head h4 b {
+  color: var(--danger);
+}
+
+.review-empty {
+  margin: 18px 0 0;
+  padding: 22px;
+  border-radius: 10px;
+  background: #f6f8f7;
+  font-size: 13px;
+  text-align: center;
+  color: #7c8b84;
+}
+
+.missed-list {
+  display: grid;
+  gap: 6px;
+  margin-top: clamp(12px, 2vw, 18px);
+}
+
+.missed-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  background: #f6f8f7;
+}
+
+.missed-side {
+  padding: 4px 7px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.missed-side--north {
+  background: #dcf3ea;
+  color: #0b7a5d;
+}
+
+.missed-side--south {
+  background: #fdf0d2;
+  color: #9a6a13;
+}
+
+.missed-item > div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.missed-item > div strong {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.missed-item > div small {
+  overflow: hidden;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #84938d;
+}
+
+.missed-tag {
+  padding: 4px 6px;
+  border-radius: 5px;
+  background: #fde9e5;
+  font-size: 10px;
+  font-weight: 600;
+  color: #ae5145;
+}
+
+.more-link {
+  display: flex;
+  align-items: center;
+  margin: 12px auto 0;
+  border: 0;
+  background: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: #73857c;
+}
+
+.result-actions {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.result-empty {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 16px;
+  flex: 1;
+  color: var(--muted-text);
+}
+
+@media (max-width: 820px) {
+  .result-content {
+    grid-template-columns: 1fr;
+  }
+
+  .result-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .result-actions .button--ghost {
+    grid-column: 1 / -1;
+  }
+}
+
+/* 초성게임 총점 계산식 — 합계 × 난이도 배수 (FR-CH-10) */
+.score-formula {
+  margin: -6px 0 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8a9993;
+}
+
+/* 맞힌 문제 수의 분모(/10) */
+.stat-item strong em {
+  font-style: normal;
+  font-size: 0.62em;
+  font-weight: 600;
+  color: #a3b0aa;
+}
