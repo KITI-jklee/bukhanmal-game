@@ -40,6 +40,56 @@ export function useViewportMetrics(): void {
   }, [])
 }
 
+/** 모바일(뷰포트 폭 ≤ breakpoint)에서만 게임 화면이 떠 있는 동안 html·body의
+ * 스크롤·터치 제스처를 잠근다. 가상 키보드가 뜰 때 브라우저가 "입력창을
+ * 보이게" 문서를 스크롤시키는 걸 막기 위함이다.
+ *
+ * 데스크톱(> breakpoint)에서는 전혀 손대지 않는다 — matchMedia로 조건을
+ * 걸고, 창 크기 조절·화면 회전으로 경계를 넘나들 때도 실시간으로
+ * 잠금/해제한다(모바일 전용 CSS와 같은 기준선을 써야 하므로 breakpoint
+ * 인자를 CSS의 @media (max-width: 768px)와 반드시 맞춰야 한다). */
+export function useLockBodyScroll(breakpoint = 768): void {
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return
+
+    const mql = window.matchMedia(`(max-width: ${breakpoint}px)`)
+    const html = document.documentElement
+    const { body } = document
+    const prev = {
+      htmlOverflow: html.style.overflow,
+      htmlTouchAction: html.style.touchAction,
+      bodyOverflow: body.style.overflow,
+      bodyTouchAction: body.style.touchAction,
+    }
+
+    const restore = () => {
+      html.style.overflow = prev.htmlOverflow
+      html.style.touchAction = prev.htmlTouchAction
+      body.style.overflow = prev.bodyOverflow
+      body.style.touchAction = prev.bodyTouchAction
+    }
+
+    const apply = () => {
+      if (mql.matches) {
+        html.style.overflow = 'hidden'
+        html.style.touchAction = 'none'
+        body.style.overflow = 'hidden'
+        body.style.touchAction = 'none'
+      } else {
+        restore()
+      }
+    }
+
+    apply()
+    mql.addEventListener('change', apply)
+
+    return () => {
+      mql.removeEventListener('change', apply)
+      restore()
+    }
+  }, [breakpoint])
+}
+
 /** 탭 이탈·앱 전환·화면 회전 시 자동 일시정지 — FR-CM-05 */
 export function useAutoPause(onPause: () => void, enabled: boolean): void {
   useEffect(() => {

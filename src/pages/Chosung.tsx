@@ -7,7 +7,7 @@ import { HINT_SCORE, MAX_WRONG, TIME_LIMIT_SECONDS, particleFor } from '../game/
 import words from '../data/chosung_words.json'
 import type { ChosungWord, Difficulty } from '../lib/types'
 import { normalizeDifficulty } from '../lib/types'
-import { useAutoPause } from '../lib/useViewport'
+import { useAutoPause, useLockBodyScroll } from '../lib/useViewport'
 import './Chosung.css'
 
 const ALL_WORDS = words as ChosungWord[]
@@ -34,6 +34,18 @@ export function Chosung() {
   const [input, setInput] = useState('')
   const composingRef = useRef(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const answerFormRef = useRef<HTMLFormElement>(null)
+
+  // 모바일 전용 힌트 팝오버 — 데스크톱은 하단 독의 기존 힌트 보기 버튼을
+  // 그대로 쓰고, 이 상태는 절대 true가 되지 않는다(handleHintTap의
+  // matchMedia 가드 참고).
+  const [hintPopupOpen, setHintPopupOpen] = useState(false)
+  const hintPopupTimerRef = useRef<number | undefined>(undefined)
+  useEffect(() => {
+    return () => {
+      if (hintPopupTimerRef.current !== undefined) window.clearTimeout(hintPopupTimerRef.current)
+    }
+  }, [])
 
   useEffect(() => engine.subscribe(setSnapshot), [engine])
   useEffect(() => () => engine.destroy(), [engine])
@@ -48,10 +60,30 @@ export function Chosung() {
     setInput('')
   }, [snapshot.questionNumber])
 
+  // 오답 피드백 강화 — 화면 흔들림 + (지원 기기에서) 진동. shake는
+  // .shake에 애니메이션이 걸린 CSS가 모바일 전용 미디어 쿼리 안에만
+  // 있어서 데스크톱에서는 클래스만 붙었다 떨어질 뿐 아무 효과가 없다.
+  // navigator.vibrate도 진동 하드웨어가 없는 데스크톱에서는 조용히
+  // 무시된다.
+  useEffect(() => {
+    if (snapshot.feedback?.kind !== 'wrong') return
+    const el = answerFormRef.current
+    if (el) {
+      el.classList.remove('shake')
+      void el.offsetWidth // 강제 리플로우 — 같은 애니메이션이 처음부터 다시 재생되게 함
+      el.classList.add('shake')
+    }
+    navigator.vibrate?.(120)
+  }, [snapshot.feedback])
+
   useEffect(() => {
     if (counting || snapshot.status !== 'playing' || snapshot.reveal) return
-    const frame = requestAnimationFrame(() => inputRef.current?.focus())
-    return () => cancelAnimationFrame(frame)
+    // requestAnimationFrame이 아니라 setTimeout을 쓴다 — 탭이 백그라운드로
+    // 밀리는 등 화면이 실제로 그려지지 않는 순간에는 rAF 콜백 자체가 브라우저
+    // 정책상 멈춰서 포커스 복원이 씹힐 수 있다. setTimeout은 그런 상태와
+    // 무관하게 항상 실행된다.
+    const timer = window.setTimeout(() => inputRef.current?.focus(), 0)
+    return () => window.clearTimeout(timer)
   }, [counting, snapshot.status, snapshot.reveal])
 
   // 10문제를 마치면 결과 화면으로
@@ -62,6 +94,7 @@ export function Chosung() {
 
   const pause = useCallback(() => engine.pause(), [engine])
   useAutoPause(pause, snapshot.status === 'playing')
+  useLockBodyScroll()
 
   const handleStart = useCallback(() => {
     setCounting(false)
@@ -75,6 +108,11 @@ export function Chosung() {
     if (composingRef.current) return
     engine.submit(input)
     setInput('')
+    // "제출" 버튼 클릭은(엔터와 달리) 브라우저가 포커스를 버튼으로
+    // 옮겨버린다 — 모바일에서는 이때 키보드가 내려가 버려서 다음 문제를
+    // 바로 이어 풀 수가 없다. 다음 렌더(비활성화 여부 반영)가 끝난
+    // 다음 프레임에 입력창으로 포커스를 되돌린다.
+    window.setTimeout(() => inputRef.current?.focus(), 0)
   }
 
   const isPaused = snapshot.status === 'paused'
@@ -82,6 +120,20 @@ export function Chosung() {
   const blocked = isPaused || counting || snapshot.reveal !== null
   const hintsLeft = snapshot.maxHintLevel - snapshot.hintLevel
   const nextHintScore = HINT_SCORE[Math.min(snapshot.hintLevel + 1, HINT_SCORE.length - 1)]
+
+  // 모바일(≤768px)에서만 상단 상태바의 힌트 아이콘을 눌러 힌트를 쓸 수
+  // 있게 한다 — 데스크톱은 하단 독의 기존 버튼만 동작해야 하므로, CSS
+  // 미디어 쿼리와 같은 기준선을 여기서도 그대로 검사해 데스크톱에서는
+  // 아무 일도 안 일어나게 막는다(버튼 자체는 항상 존재하지만 동작은
+  // 모바일에서만).
+  const handleHintTap = () => {
+    if (typeof window === 'undefined' || !window.matchMedia('(max-width: 768px)').matches) return
+    if (blocked || hintsLeft === 0) return
+    engine.useHint()
+    setHintPopupOpen(true)
+    if (hintPopupTimerRef.current !== undefined) window.clearTimeout(hintPopupTimerRef.current)
+    hintPopupTimerRef.current = window.setTimeout(() => setHintPopupOpen(false), 2400)
+  }
 
   return (
     <div className="app-shell screen--quiz">
@@ -128,15 +180,33 @@ export function Chosung() {
             <HeartIcon key={i} size={15} filled={i < snapshot.hearts} />
           ))}
         </div>
-        <div
-          className="chance-group chance-group--hint"
-          aria-label={`남은 힌트 ${hintsLeft}개`}
-        >
-          <span>힌트</span>
-          {/* 왼쪽 전구부터 하나씩 꺼진다 (상세 3-3) */}
-          {Array.from({ length: snapshot.maxHintLevel }, (_, i) => (
-            <BulbIcon key={i} size={15} filled={i >= snapshot.hintLevel} />
-          ))}
+        <div className="chance-group chance-group--hint">
+          {/* 모바일(≤768px)에서는 이 아이콘 자체가 힌트 보기 버튼이 된다
+           * (하단 독의 독립된 힌트 영역은 그쪽에서 숨김). 데스크톱에서는
+           * handleHintTap이 아무 동작도 안 해서 예전처럼 그냥 표시용이다. */}
+          <button
+            type="button"
+            className="hint-trigger"
+            aria-label={`남은 힌트 ${hintsLeft}개`}
+            onClick={handleHintTap}
+          >
+            {/* 데스크톱은 "힌트"(표시 전용이던 예전 문구 그대로), 모바일은
+             * 클릭 가능한 버튼이 됐다는 게 드러나게 "힌트보기"로 다르게
+             * 보여준다 — 텍스트만 다르고 나머지는 동일해서 span 두 개를
+             * 두고 CSS(@media max-width:768px)로 토글한다. */}
+            <span className="hint-trigger-label hint-trigger-label--desktop">힌트</span>
+            <span className="hint-trigger-label hint-trigger-label--mobile">힌트보기</span>
+            {/* 왼쪽 전구부터 하나씩 꺼진다 (상세 3-3) */}
+            {Array.from({ length: snapshot.maxHintLevel }, (_, i) => (
+              <BulbIcon key={i} size={15} filled={i >= snapshot.hintLevel} />
+            ))}
+          </button>
+
+          {hintPopupOpen ? (
+            <div className="hint-popover" role="status">
+              {hintsLeft > 0 ? `${hintsLeft}개 남음 · 정답 시 ${nextHintScore}점` : '모두 사용함'}
+            </div>
+          ) : null}
         </div>
       </div>
 
@@ -173,7 +243,7 @@ export function Chosung() {
           </span>
         </button>
 
-        <form className="answer-form" onSubmit={handleSubmit}>
+        <form className="answer-form" ref={answerFormRef} onSubmit={handleSubmit}>
           <label className="sr-only" htmlFor="chosung-input">
             정답 입력
           </label>
@@ -182,6 +252,7 @@ export function Chosung() {
             ref={inputRef}
             value={input}
             autoComplete="off"
+            autoCorrect="off"
             autoCapitalize="off"
             spellCheck={false}
             placeholder="정답 입력"
@@ -213,7 +284,7 @@ export function Chosung() {
               {snapshot.feedback.message}
             </span>
           ) : (
-            'Enter를 눌러도 제출할 수 있어요'
+            <span className="dock-hint-text">Enter를 눌러도 제출할 수 있어요</span>
           )}
         </p>
       </div>
@@ -253,7 +324,16 @@ export function Chosung() {
               )}
             </div>
 
-            <button className="button button--primary reveal-next-button" onClick={() => engine.next()}>
+            <button
+              className="button button--primary reveal-next-button"
+              onClick={() => {
+                engine.next()
+                // 다음 문제로 넘어갈 때 입력창 포커스를 되살린다 — 안
+                // 하면 이 버튼에 포커스가 남아 모바일에서 키보드가
+                // 다시 뜨지 않는다.
+                window.setTimeout(() => inputRef.current?.focus(), 0)
+              }}
+            >
               {snapshot.questionNumber >= snapshot.totalQuestions ? '결과 보기' : '다음 문제'}
             </button>
           </div>
@@ -312,7 +392,13 @@ export function Chosung() {
               준비되면 이어서 진행하세요.
             </p>
             <div className="overlay-actions">
-              <button className="button button--primary" onClick={() => engine.resume()}>
+              <button
+                className="button button--primary"
+                onClick={() => {
+                  engine.resume()
+                  window.setTimeout(() => inputRef.current?.focus(), 0)
+                }}
+              >
                 이어하기
               </button>
               <button

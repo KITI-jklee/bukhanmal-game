@@ -2,13 +2,6 @@
  * 낙하 단어만 진한 칩으로 띄워 게임 영역이 한눈에 읽히게 한다. */
 
 .screen--rain {
-  /* position: fixed로 문서 자체를 고정한다. 모바일에서 입력창에 포커스가
-   * 가면 브라우저가 "입력창을 화면에 보이게" 문서를 스크롤시키는데,
-   * 이 화면이 일반 흐름(고정 안 됨)이면 그 스크롤에 같이 밀려 올라가서
-   * HUD·낙하 영역이 화면 밖으로 사라진다. fixed로 뷰포트에 고정해 두면
-   * 문서 스크롤과 무관하게 항상 같은 자리에 그대로 보인다. */
-  position: fixed;
-  inset: 0;
   display: flex;
   flex-direction: column;
   height: var(--viewport-height);
@@ -427,6 +420,13 @@
   margin: 12px auto 0;
 }
 
+/* 모바일 전용 방어 게이지 사본(.fall-field 안에 있음) — 데스크톱에서는
+ * 항상 숨긴다. 실제로 보이게 하는 규칙은 파일 끝 @media (max-width:768px)
+ * 안에 있다. */
+.defense-meter--board {
+  display: none;
+}
+
 .defense-label {
   display: flex;
   align-items: center;
@@ -489,5 +489,98 @@
   .answer-form .button {
     width: 60px;
     padding: 0;
+  }
+}
+
+/* ============================================================
+ * 모바일 전용 (≤768px) — 데스크톱 레이아웃은 위 규칙 그대로 유지된다.
+ * 반드시 파일 맨 끝(모든 기본 규칙보다 뒤)에 둔다 — CSS는 우선순위가
+ * 같으면 소스 순서상 나중 규칙이 이긴다. 미디어 쿼리 자체는 우선순위를
+ * 안 높여주므로, 이 블록이 위 기본 규칙보다 앞에 있으면 조건을 만족해도
+ * 기본 규칙에 덮어써진다.
+ * ============================================================ */
+@media screen and (max-width: 768px) {
+  /* 가상 키보드가 뜰 때 브라우저가 "입력창을 보이게" 문서를 스크롤시켜
+   * HUD·낙하 영역이 화면 밖으로 밀려나는 걸 막는다. fixed로 뷰포트에
+   * 고정하고, touch-action: none으로 이 화면 안에서 제스처 스크롤 자체가
+   * 안 생기게 한다(useLockBodyScroll이 html/body에도 동일하게 건다).
+   * --viewport-height는 useViewport.ts가 visualViewport 기준으로 갱신하는
+   * 값이라, 100dvh보다 키보드 유무를 더 정확히 반영한다. */
+  .screen--rain {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    touch-action: none;
+  }
+
+  /* 안내 문구는 화면을 잡아먹는 만큼 없앤다 — 게임 중 반복 노출되는
+   * 정보라 처음 한 번(카운트다운 힌트)만 봐도 충분하다. */
+  .rain-legend {
+    display: none;
+  }
+
+  /* 방어 게이지를 하단 독에서 게임판 최상단 오버레이로 옮긴다 — 독의
+   * 세로 높이를 줄여 낙하 영역(.fall-field, flex: 1)이 더 넓게 남는다. */
+  .rain-dock .defense-meter:not(.defense-meter--board) {
+    display: none;
+  }
+
+  .defense-meter--board {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* falling-word(z-index: 2)보다 낮게 둬서 단어가 이 위(앞)로 떨어지게
+     * 하고, 배경도 확실히 반투명하게 — 게이지가 단어를 가리면 안 된다. */
+    z-index: 1;
+    margin: 0;
+    padding: 8px 12px;
+    background: #ffffff8c;
+    backdrop-filter: blur(4px);
+  }
+
+  .defense-meter--board .defense-label {
+    margin-bottom: 4px;
+  }
+
+  /* 터치 영역 확대 — 최소 48px 권장(Apple/Google 가이드라인)에 맞춘다.
+   * 데스크톱은 그대로 44px(.button/.icon-button 공통 스타일). */
+  .answer-form .button {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  .rain-hud .icon-button {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* 오답·놓침 피드백 강화 — AcidRain.tsx가 오답/놓침일 때 .shake 클래스를
+   * answer-form에 붙였다 뗀다. 이 애니메이션 자체가 모바일 전용 미디어
+   * 쿼리 안에만 있어서 데스크톱은 클래스만 붙을 뿐 시각 효과가 전혀
+   * 없다(진동은 navigator.vibrate가 하드웨어 유무로 알아서 처리). */
+  @keyframes shake-x {
+    10%,
+    90% {
+      transform: translateX(-1px);
+    }
+    20%,
+    80% {
+      transform: translateX(2px);
+    }
+    30%,
+    50%,
+    70% {
+      transform: translateX(-4px);
+    }
+    40%,
+    60% {
+      transform: translateX(4px);
+    }
+  }
+
+  .shake {
+    animation: shake-x 0.4s ease-in-out;
   }
 }

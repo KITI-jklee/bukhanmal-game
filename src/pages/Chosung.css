@@ -1,19 +1,9 @@
 /* 초성게임 — 시안 03 프레임 구조를 따른다 */
 
 .screen--quiz {
-  /* position: fixed로 문서 자체를 고정한다. 모바일에서 입력창에 포커스가
-   * 가면 브라우저가 "입력창을 화면에 보이게" 문서를 스크롤시키는데,
-   * 이 화면이 일반 흐름(고정 안 됨)이면 그 스크롤에 같이 밀려 올라가서
-   * HUD·문제 카드가 화면 밖으로 사라진다. fixed로 뷰포트에 고정해 두면
-   * 문서 스크롤과 무관하게 항상 같은 자리에 그대로 보인다. 대신 문제
-   * 카드가 길어지는 경우를 위해 .quiz-stage 안에서만 스크롤되게 한다
-   * (아래 overflow-y: auto 참고). */
-  position: fixed;
-  inset: 0;
   display: flex;
   flex-direction: column;
-  height: var(--viewport-height);
-  overflow: hidden;
+  min-height: var(--viewport-height);
   background: var(--rain-bg);
 }
 
@@ -68,9 +58,11 @@
 }
 
 .quiz-progress {
+  position: relative;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto;
   align-items: center;
+  justify-self: center;
   gap: 5px 9px;
   text-align: center;
 }
@@ -110,6 +102,10 @@
 }
 
 .quiz-progress > strong {
+  position: absolute;
+  left: calc(100% + 9px);
+  bottom: -3px;
+  white-space: nowrap;
   font: 600 13px/1 var(--font-display);
   color: var(--green);
 }
@@ -159,6 +155,27 @@
   color: #eab23e;
 }
 
+/* 데스크톱에서는 예전의 표시 전용 div와 똑같이 보이도록 버튼 기본
+ * 스타일을 전부 지운다 — 실제 클릭 동작(모바일 전용)은 handleHintTap의
+ * matchMedia 가드로 막혀 있다. */
+.hint-trigger {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: default;
+}
+
+/* 데스크톱 기본값 — "힌트"만 보인다. 모바일 문구("힌트보기")는
+ * @media (max-width: 768px)에서 뒤바뀐다. */
+.hint-trigger-label--mobile {
+  display: none;
+}
+
 /* 소진한 기회·사용한 힌트는 회색 외곽선만 남긴다 */
 .chance-group svg[fill='none'] {
   color: #cbd4d0;
@@ -168,8 +185,6 @@
 
 .quiz-stage {
   flex: 1;
-  min-height: 0;
-  overflow-y: auto;
   display: grid;
   place-items: center;
   padding: clamp(10px, 2vw, 20px) clamp(16px, 5vw, 60px);
@@ -439,5 +454,159 @@
   .answer-dock .button {
     width: 62px;
     padding: 0;
+  }
+}
+
+/* ============================================================
+ * 모바일 전용 (≤768px) — 데스크톱 레이아웃은 위 규칙 그대로 유지된다.
+ * 반드시 파일 맨 끝(모든 기본 규칙보다 뒤)에 둔다 — CSS는 우선순위가
+ * 같으면 소스 순서상 나중 규칙이 이긴다. 미디어 쿼리 자체는 우선순위를
+ * 안 높여주므로, 이 블록이 위 기본 규칙보다 앞에 있으면 조건을 만족해도
+ * 기본 규칙에 덮어써진다.
+ * ============================================================ */
+@media screen and (max-width: 768px) {
+  /* 좌우의 점수 영역과 일시정지 버튼 너비가 달라도 진행 정보는 HUD의
+   * 정확한 가로 중앙에 놓이게 한다. 일반 grid 가운데 열에 두면 남는
+   * 공간을 기준으로 정렬되어 화면 중심에서 오른쪽으로 밀릴 수 있다. */
+  .quiz-hud__inner {
+    position: relative;
+    grid-template-columns: 1fr auto;
+  }
+
+  .quiz-progress {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .quiz-hud .icon-button {
+    grid-column: 2;
+  }
+
+  /* 가상 키보드가 뜰 때 브라우저가 "입력창을 보이게" 문서를 스크롤시켜
+   * HUD·문제 카드가 화면 밖으로 밀려나는 걸 막는다. fixed로 뷰포트에
+   * 고정하고, touch-action: none으로 이 화면 안에서 제스처 스크롤 자체가
+   * 안 생기게 한다(useLockBodyScroll이 html/body에도 동일하게 건다).
+   * --viewport-height는 useViewport.ts가 visualViewport 기준으로 갱신하는
+   * 값이라, 100dvh보다 키보드 유무를 더 정확히 반영한다. */
+  .screen--quiz {
+    position: fixed;
+    inset: 0;
+    height: var(--viewport-height);
+    overflow: hidden;
+    touch-action: none;
+  }
+
+  /* 혹시 문제 카드가 화면보다 길어지는 극단적인 경우를 위한 안전망 —
+   * 화면 자체는 fixed로 고정돼 있어서 넘치는 내용은 이 안에서만 스크롤된다. */
+  .quiz-stage {
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  /* 불필요한 안내문 제거 — 화면을 그만큼 게임 영역에 돌려준다. */
+  .dock-hint-text {
+    display: none;
+  }
+
+  /* 안내문을 숨겨도 .dock-note의 min-height·margin은 그대로 남아 입력창
+   * 아래에 빈 공간이 계속 잡혀 있었다. 평소엔 완전히 접어두고, 정답
+   * 제출 후 나오는 정답/오답 피드백(.quiz-feedback)이 있을 때만 그
+   * 요소 자신이 위쪽 여백을 갖게 한다. */
+  .dock-note {
+    min-height: 0;
+    margin: 0;
+  }
+
+  .quiz-feedback {
+    display: inline-block;
+    margin-top: 8px;
+  }
+
+  /* 하단 독의 독립된 힌트 보기 버튼(및 "N개 남음 · 정답 시 N점" 텍스트)을
+   * 없앤다 — 같은 기능이 상단 상태바의 힌트 아이콘(.hint-trigger)으로
+   * 옮겨갔다. */
+  .hint-button {
+    display: none;
+  }
+
+  .hint-trigger {
+    cursor: pointer;
+  }
+
+  .hint-trigger-label--desktop {
+    display: none;
+  }
+
+  .hint-trigger-label--mobile {
+    display: inline;
+  }
+
+  /* 힌트 팝오버의 위치 기준 — 이 상태는 데스크톱에서 절대 렌더링되지
+   * 않으므로(handleHintTap의 matchMedia 가드), position: relative를 여기
+   * 안에 둬도 데스크톱에는 영향이 없다. */
+  .chance-group--hint {
+    position: relative;
+  }
+
+  .hint-popover {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 20;
+    margin-top: 6px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: #2b2b2bf0;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 8px 20px #00000026;
+  }
+
+  /* 터치 영역 확대 — 최소 48px 권장(Apple/Google 가이드라인)에 맞춘다.
+   * 데스크톱은 그대로 44px(.button 공통 스타일) 또는 아이콘 크기 그대로. */
+  .answer-form .button {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  .quiz-hud .icon-button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .hint-trigger {
+    min-height: 48px;
+    padding: 6px 4px;
+  }
+
+  /* 오답 피드백 강화 — Chosung.tsx가 오답일 때 .shake 클래스를
+   * answer-form에 붙였다 뗀다. 이 애니메이션 자체가 모바일 전용
+   * 미디어 쿼리 안에만 있어서 데스크톱은 클래스만 붙을 뿐 시각 효과가
+   * 전혀 없다(진동은 navigator.vibrate가 하드웨어 유무로 알아서 처리). */
+  @keyframes shake-x {
+    10%,
+    90% {
+      transform: translateX(-1px);
+    }
+    20%,
+    80% {
+      transform: translateX(2px);
+    }
+    30%,
+    50%,
+    70% {
+      transform: translateX(-4px);
+    }
+    40%,
+    60% {
+      transform: translateX(4px);
+    }
+  }
+
+  .shake {
+    animation: shake-x 0.4s ease-in-out;
   }
 }

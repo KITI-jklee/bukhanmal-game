@@ -7,7 +7,7 @@ import { DEFENSE_MAX, TIME_STOP_DURATION, defenseTone } from '../game/acidRainCo
 import pairs from '../data/acidrain_pairs.json'
 import type { AcidRainPair, Difficulty } from '../lib/types'
 import { normalizeDifficulty } from '../lib/types'
-import { useAutoPause } from '../lib/useViewport'
+import { useAutoPause, useLockBodyScroll } from '../lib/useViewport'
 import './AcidRain.css'
 
 const ALL_PAIRS = pairs as AcidRainPair[]
@@ -34,9 +34,25 @@ export function AcidRain() {
   const [input, setInput] = useState('')
   const composingRef = useRef(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const answerFormRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => engine.subscribe(setSnapshot), [engine])
   useEffect(() => () => engine.destroy(), [engine])
+
+  // 오답·놓침 피드백 강화 — 화면 흔들림 + (지원 기기에서) 진동. shake는
+  // .shake에 애니메이션이 걸린 CSS가 모바일 전용 미디어 쿼리 안에만
+  // 있어서 데스크톱에서는 클래스만 붙었다 떨어질 뿐 아무 효과가 없다.
+  useEffect(() => {
+    if (snapshot.feedback?.kind !== 'wrong' && snapshot.feedback?.kind !== 'miss') return
+    const el = answerFormRef.current
+    if (el) {
+      el.classList.remove('shake')
+      void el.offsetWidth // 강제 리플로우 — 같은 애니메이션이 처음부터 다시 재생되게 함
+      el.classList.add('shake')
+    }
+    navigator.vibrate?.(120)
+  }, [snapshot.feedback])
+
   useEffect(() => {
     setSnapshot(engine.snapshot())
     setCounting(true)
@@ -44,10 +60,14 @@ export function AcidRain() {
   }, [engine])
 
   // 시작·이어하기로 입력창이 다시 활성화된 다음 자동으로 포커스를 복원한다.
+  // requestAnimationFrame이 아니라 setTimeout을 쓴다 — 탭이 백그라운드로
+  // 밀리는 등 화면이 실제로 그려지지 않는 순간에는 rAF 콜백 자체가 브라우저
+  // 정책상 멈춰서 포커스 복원이 씹힐 수 있다. setTimeout은 그런 상태와
+  // 무관하게 항상 실행된다.
   useEffect(() => {
     if (counting || snapshot.status !== 'playing') return
-    const frame = requestAnimationFrame(() => inputRef.current?.focus())
-    return () => cancelAnimationFrame(frame)
+    const timer = window.setTimeout(() => inputRef.current?.focus(), 0)
+    return () => window.clearTimeout(timer)
   }, [counting, snapshot.status])
 
   // 방어 게이지가 0이 되면 결과 화면으로 (FR-AR-08)
@@ -58,6 +78,7 @@ export function AcidRain() {
 
   const pause = useCallback(() => engine.pause(), [engine])
   useAutoPause(pause, snapshot.status === 'playing')
+  useLockBodyScroll()
 
   const handleStart = useCallback(() => {
     setCounting(false)
@@ -71,6 +92,11 @@ export function AcidRain() {
     if (composingRef.current) return
     engine.submit(input)
     setInput('')
+    // "입력" 버튼 클릭은(엔터와 달리) 브라우저가 포커스를 버튼으로
+    // 옮겨버린다 — 모바일에서는 이때 키보드가 내려가 버려서 계속 떨어지는
+    // 다음 단어를 바로 이어 칠 수가 없다. 다음 프레임에 입력창으로
+    // 포커스를 되돌린다.
+    window.setTimeout(() => inputRef.current?.focus(), 0)
   }
 
   const tone = defenseTone(snapshot.defense)
@@ -132,6 +158,21 @@ export function AcidRain() {
       <div className="fall-field">
         <div className="field-grid" aria-hidden="true" />
 
+        {/* 모바일 전용(768px 이하) 오버레이 — 하단 독의 세로 높이를 줄이려고
+         * 방어 게이지를 게임판 최상단으로 옮겨 놓은 사본이다. 데스크톱에서는
+         * CSS로 숨겨두고, 아래 .rain-dock 안의 원본만 그대로 보인다. */}
+        <div className="defense-meter defense-meter--board">
+          <div className="defense-label">
+            <span>
+              <ShieldIcon size={11} /> 방어 게이지
+            </span>
+            <strong>{snapshot.defense}%</strong>
+          </div>
+          <div className={`defense-track defense-track--${tone}`}>
+            <span style={{ width: `${(snapshot.defense / DEFENSE_MAX) * 100}%` }} />
+          </div>
+        </div>
+
         {snapshot.words.map((word) => (
           <div
             key={word.key}
@@ -186,7 +227,7 @@ export function AcidRain() {
       </div>
 
       <div className="rain-dock">
-        <form className="answer-form" onSubmit={handleSubmit}>
+        <form className="answer-form" ref={answerFormRef} onSubmit={handleSubmit}>
           <label className="sr-only" htmlFor="rain-input">
             떨어지는 단어 입력
           </label>
@@ -195,6 +236,7 @@ export function AcidRain() {
             ref={inputRef}
             value={input}
             autoComplete="off"
+            autoCorrect="off"
             autoCapitalize="off"
             spellCheck={false}
             placeholder="떨어지는 단어의 짝을 입력하세요"
@@ -288,6 +330,7 @@ export function AcidRain() {
                 className="button button--primary"
                 onClick={() => {
                   engine.resume()
+                  window.setTimeout(() => inputRef.current?.focus(), 0)
                 }}
               >
                 이어하기
