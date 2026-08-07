@@ -179,7 +179,7 @@ export function Chosung() {
         </div>
       </header>
 
-      <div className="chance-row">
+      <div className="chance-row chance-row--desktop">
         <div className="chance-group" aria-label={`남은 기회 ${snapshot.hearts}개`}>
           <span>기회</span>
           {Array.from({ length: MAX_WRONG }, (_, i) => (
@@ -187,38 +187,55 @@ export function Chosung() {
           ))}
         </div>
         <div className="chance-group chance-group--hint">
-          {/* 모바일(≤768px)에서는 이 아이콘 자체가 힌트 보기 버튼이 된다
-           * (하단 독의 독립된 힌트 영역은 그쪽에서 숨김). 데스크톱에서는
-           * handleHintTap이 아무 동작도 안 해서 예전처럼 그냥 표시용이다. */}
           <button
             type="button"
             className="hint-trigger"
             aria-label={`남은 힌트 ${hintsLeft}개`}
             onClick={handleHintTap}
           >
-            {/* 데스크톱은 "힌트"(표시 전용이던 예전 문구 그대로), 모바일은
-             * 클릭 가능한 버튼이 됐다는 게 드러나게 "힌트보기"로 다르게
-             * 보여준다 — 텍스트만 다르고 나머지는 동일해서 span 두 개를
-             * 두고 CSS(@media max-width:768px)로 토글한다. */}
             <span className="hint-trigger-label hint-trigger-label--desktop">힌트</span>
             <span className="hint-trigger-label hint-trigger-label--mobile">힌트보기</span>
-            {/* 왼쪽 전구부터 하나씩 꺼진다 (상세 3-3) */}
             {Array.from({ length: snapshot.maxHintLevel }, (_, i) => (
               <BulbIcon key={i} size={15} filled={i >= snapshot.hintLevel} />
             ))}
           </button>
-
-          {hintPopupOpen ? (
-            <div className="hint-popover" role="status">
-              {hintsLeft > 0 ? `${hintsLeft}개 남음 · 정답 시 ${nextHintScore}점` : '모두 사용함'}
-            </div>
-          ) : null}
         </div>
       </div>
       </div>
 
       <main className="quiz-stage">
         <div className="question-card">
+          <div className="chance-row chance-row--mobile">
+            <div className="chance-group" aria-label={`남은 기회 ${snapshot.hearts}개`}>
+              <span>기회</span>
+              {Array.from({ length: MAX_WRONG }, (_, i) => (
+                <HeartIcon key={i} size={15} filled={i < snapshot.hearts} />
+              ))}
+            </div>
+            <div className="chance-group chance-group--hint">
+              <button
+                type="button"
+                className="hint-trigger"
+                aria-label={`남은 힌트 ${hintsLeft}개`}
+                onClick={handleHintTap}
+              >
+                <span className="hint-trigger-label hint-trigger-label--desktop">힌트</span>
+                <span className="hint-trigger-label hint-trigger-label--mobile">힌트보기</span>
+                {Array.from({ length: snapshot.maxHintLevel }, (_, i) => (
+                  <BulbIcon key={i} size={15} filled={i >= snapshot.hintLevel} />
+                ))}
+              </button>
+
+              {hintPopupOpen ? (
+                <div className="hint-popover" role="status">
+                  {hintsLeft > 0
+                    ? `${hintsLeft}개 남음 · 정답 시 ${nextHintScore}점`
+                    : '모두 사용함'}
+                </div>
+              ) : null}
+            </div>
+          </div>
+
           <span className="question-label">이 말은 무엇일까요?</span>
           <strong className="initial-letters">{snapshot.initials.split('').join(' ')}</strong>
 

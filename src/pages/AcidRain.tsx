@@ -192,7 +192,7 @@ export function AcidRain() {
               // 맞춘 값이다 — progress가 1(놓침 판정)이 되는 순간 박스의 아래쪽
               // 끝이 정확히 컨테이너 바닥(DEFENSE LINE)에 닿아야 눈으로 보는
               // 소멸 위치와 실제 판정 위치가 일치한다.
-              top: `calc(${word.progress} * (100% - 34px))`,
+              top: `calc(${word.progress} * (100% - var(--rain-play-bottom, 0px) - 34px))`,
             }}
           >
             {/* 북/남 배지는 쓰지 않는다(상세기획서 4-1). 색과 모양으로만 구분한다. */}

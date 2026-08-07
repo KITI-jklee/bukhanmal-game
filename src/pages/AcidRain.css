@@ -524,6 +524,7 @@
    * 보인다. transform: translateY로 그 차이(--viewport-offset-top,
    * useViewport.ts가 갱신)만큼 직접 보정한다. */
   .screen--rain {
+    --rain-play-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
     position: fixed;
     inset: 0;
     transform: translateY(var(--viewport-offset-top, 0px));
@@ -549,9 +550,11 @@
     left: 0;
     right: 0;
     z-index: 10;
-    background: #ffffffd9;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 16px #14231f14;
+    /* 게임판 격자가 그대로 이어져 보이는 투명 HUD 레이어. backdrop-filter나
+     * 부모 opacity를 쓰지 않아 뒤로 지나가는 단어 자체는 흐려지지 않는다. */
+    background: #f7f9f83d;
+    border-bottom: 1px solid #dce5e166;
+    box-shadow: 0 2px 8px #14231f08;
   }
 
   .rain-hud {
@@ -563,7 +566,8 @@
 
   .rain-hud__inner {
     height: auto;
-    padding: 10px 12px;
+    min-height: 48px;
+    padding: 4px 10px;
   }
 
   /* 방어 게이지도 같은 상단 바 안에 둔다(HUD 바로 아래) — 하단 독에는
@@ -575,12 +579,33 @@
   .defense-meter--board {
     display: block;
     margin: 0;
-    padding: 0 12px 8px;
+    padding: 0 10px 6px;
     background: none;
+    pointer-events: none;
   }
 
   .defense-meter--board .defense-label {
     margin-bottom: 4px;
+    color: #64766eb8;
+  }
+
+  .defense-meter--board .defense-label strong {
+    color: #14231fb8;
+  }
+
+  .defense-meter--board .defense-track {
+    background: #dce5e166;
+  }
+
+  .defense-meter--board .defense-track span {
+    opacity: 0.58;
+  }
+
+  /* 단어를 상단 HUD와 하단 입력 dock보다 확실히 앞 레이어에 둔다.
+   * pointer-events는 통과시켜 단어가 입력창과 버튼 조작을 막지 않게 한다. */
+  .falling-word {
+    z-index: 20;
+    pointer-events: none;
   }
 
   /* 낙하 영역이 화면 전체를 채운다 — HUD·방어 게이지·입력 독은 이 위에
@@ -602,9 +627,12 @@
     right: 0;
     bottom: 0;
     z-index: 10;
-    background: #ffffffe6;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 -4px 16px #14231f14;
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+    /* 입력창을 감싼 판만 투명하게 하고 단어 레이어에는 opacity를 적용하지
+     * 않는다. 따라서 단어 색과 선명도는 게임판 안에서 항상 동일하다. */
+    background: transparent;
+    border-top: 1px solid #dce5e166;
+    box-shadow: 0 -2px 8px #14231f08;
     border-top: none;
   }
 
@@ -616,8 +644,37 @@
   }
 
   .rain-hud .icon-button {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
+  }
+
+  /* 낙하 판정이 반투명 입력창 뒤에서 일어나지 않도록 판정선과 피드백을
+   * 입력 dock 바로 위에 둔다. 단어는 상단 HUD 뒤에서부터 내려오기 때문에
+   * 오버레이 아래의 화면 높이는 그대로 게임 공간으로 활용된다. */
+  .warning-line {
+    bottom: var(--rain-play-bottom);
+  }
+
+  .rain-feedback {
+    bottom: calc(var(--rain-play-bottom) + 10px);
+  }
+
+  /* 공통 입력 스타일의 불투명 흰색을 모바일 산성비 화면에서만 낮춰서
+   * 입력 dock과 게임판이 하나의 배경처럼 이어지게 한다. */
+  .rain-dock .answer-form input {
+    border-color: #158c6c80;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .rain-dock .answer-form input:focus {
+    border-color: #158c6ccc;
+    background: transparent;
+    box-shadow: 0 0 0 2px #158c6c1f;
+  }
+
+  .rain-dock .button--primary {
+    background: #158c6cdb;
   }
 
   /* 오답·놓침 피드백 강화 — AcidRain.tsx가 오답/놓침일 때 .shake 클래스를

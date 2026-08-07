@@ -145,6 +145,11 @@
   padding: 0 clamp(14px, 4vw, 38px);
 }
 
+/* 데스크톱은 기존 HUD 아래 행을 사용하고, 모바일 전용 사본은 숨긴다. */
+.chance-row--mobile {
+  display: none;
+}
+
 .chance-group {
   display: flex;
   align-items: center;
@@ -206,6 +211,15 @@
   background: #fff;
   text-align: center;
   box-shadow: 0 13px 30px #25413612;
+}
+
+/* 기회와 힌트는 상단 HUD가 아니라 문제 내용과 함께 한눈에 확인하도록
+ * 문제 카드의 첫 행에 배치한다. */
+.question-card > .chance-row {
+  max-width: none;
+  min-height: 0;
+  margin: 0 0 clamp(18px, 3vw, 28px);
+  padding: 0;
 }
 
 .question-label {
@@ -477,6 +491,14 @@
  * 기본 규칙에 덮어써진다.
  * ============================================================ */
 @media screen and (max-width: 768px) {
+  .chance-row--desktop {
+    display: none;
+  }
+
+  .chance-row--mobile {
+    display: flex;
+  }
+
   /* 좌우의 점수 영역과 일시정지 버튼 너비가 달라도 진행 정보는 HUD의
    * 정확한 가로 중앙에 놓이게 한다. 일반 grid 가운데 열에 두면 남는
    * 공간을 기준으로 정렬되어 화면 중심에서 오른쪽으로 밀릴 수 있다. */
@@ -556,8 +578,23 @@
    * 화면보다 길어지는 극단적인 경우를 위한 안전망도 같이 둔다. */
   .quiz-stage {
     min-height: 0;
-    padding-top: 116px;
+    padding: 76px 14px 14px;
     overflow-y: auto;
+  }
+
+  /* 모바일에서는 별도의 흰색 카드가 화면을 다시 좁히지 않도록 문제 영역을
+   * 화면에 직접 배치한다. 데스크톱의 카드 디자인은 기본 규칙을 유지한다. */
+  .question-card {
+    width: 100%;
+    padding: 20px 4px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .question-card > .chance-row {
+    margin-bottom: 24px;
   }
 
   /* 불필요한 안내문 제거 — 화면을 그만큼 게임 영역에 돌려준다. */
