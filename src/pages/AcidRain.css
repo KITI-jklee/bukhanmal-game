@@ -651,9 +651,17 @@
     min-width: 48px;
   }
 
-  .rain-hud .icon-button {
+  .rain-topbar .rain-hud__inner .icon-button {
     width: 44px;
     height: 44px;
+    border-color: #dce5e166;
+    background: #f7f9f845;
+    box-shadow: none;
+  }
+
+  .rain-topbar .rain-hud__inner .icon-button:hover {
+    border-color: #cbd8d280;
+    background: #f7f9f866;
   }
 
   /* 낙하 판정이 반투명 입력창 뒤에서 일어나지 않도록 판정선과 피드백을

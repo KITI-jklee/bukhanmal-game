@@ -97,7 +97,9 @@
   z-index: 1;
   margin: 12px 0 6px;
   font-size: clamp(22px, 3.4vw, 30px);
-  letter-spacing: 0.13em;
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  white-space: nowrap;
 }
 
 .thumb-answer {
@@ -290,6 +292,28 @@
 
   .game-thumb {
     min-height: 150px;
+  }
+
+  .game-thumb--initial {
+    padding-inline: 12px;
+  }
+
+  .game-thumb--initial::before {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .game-thumb--initial .thumb-chip {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  .game-thumb--initial .thumb-answer {
+    transform: translateY(-4px);
   }
 
   .game-card-body {

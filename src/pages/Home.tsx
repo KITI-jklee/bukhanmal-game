@@ -32,7 +32,7 @@ export function Home() {
           <article className="game-card">
             <div className="game-thumb game-thumb--initial" aria-hidden="true">
               <span className="thumb-chip">오늘의 북한말</span>
-              <strong>ㄷ ㅈ ㅂ</strong>
+              <strong>ㄷㅈㅂ</strong>
               <span className="thumb-answer">도시락</span>
               <div className="thumb-timer">
                 <span />
