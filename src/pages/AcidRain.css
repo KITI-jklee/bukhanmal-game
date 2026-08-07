@@ -2,6 +2,13 @@
  * 낙하 단어만 진한 칩으로 띄워 게임 영역이 한눈에 읽히게 한다. */
 
 .screen--rain {
+  /* position: fixed로 문서 자체를 고정한다. 모바일에서 입력창에 포커스가
+   * 가면 브라우저가 "입력창을 화면에 보이게" 문서를 스크롤시키는데,
+   * 이 화면이 일반 흐름(고정 안 됨)이면 그 스크롤에 같이 밀려 올라가서
+   * HUD·낙하 영역이 화면 밖으로 사라진다. fixed로 뷰포트에 고정해 두면
+   * 문서 스크롤과 무관하게 항상 같은 자리에 그대로 보인다. */
+  position: fixed;
+  inset: 0;
   display: flex;
   flex-direction: column;
   height: var(--viewport-height);

@@ -1,9 +1,19 @@
 /* 초성게임 — 시안 03 프레임 구조를 따른다 */
 
 .screen--quiz {
+  /* position: fixed로 문서 자체를 고정한다. 모바일에서 입력창에 포커스가
+   * 가면 브라우저가 "입력창을 화면에 보이게" 문서를 스크롤시키는데,
+   * 이 화면이 일반 흐름(고정 안 됨)이면 그 스크롤에 같이 밀려 올라가서
+   * HUD·문제 카드가 화면 밖으로 사라진다. fixed로 뷰포트에 고정해 두면
+   * 문서 스크롤과 무관하게 항상 같은 자리에 그대로 보인다. 대신 문제
+   * 카드가 길어지는 경우를 위해 .quiz-stage 안에서만 스크롤되게 한다
+   * (아래 overflow-y: auto 참고). */
+  position: fixed;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  min-height: var(--viewport-height);
+  height: var(--viewport-height);
+  overflow: hidden;
   background: var(--rain-bg);
 }
 
@@ -158,6 +168,8 @@
 
 .quiz-stage {
   flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   display: grid;
   place-items: center;
   padding: clamp(10px, 2vw, 20px) clamp(16px, 5vw, 60px);
