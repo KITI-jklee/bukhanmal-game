@@ -105,6 +105,12 @@ export function AcidRain() {
 
   return (
     <div className="app-shell screen--rain">
+      {/* 모바일(≤768px)에서는 HUD+방어 게이지가 게임판 위에 반투명하게 뜨는
+       * 오버레이 한 덩어리가 된다 — 참고 영상의 다른 앱처럼 별도 바가
+       * 공간을 차지하지 않아서, 키보드가 떠도 낙하 영역이 훨씬 넓게
+       * 남는다. 데스크톱에서는 display: contents로 이 래퍼 자체가
+       * 없는 것처럼 동작해서 예전 그대로 보인다. */}
+      <div className="rain-topbar">
       <header className="rain-hud">
         <div className="rain-hud__inner">
           <div className="rain-score">
@@ -139,6 +145,21 @@ export function AcidRain() {
         </div>
       </header>
 
+      {/* 모바일에서만 보인다(desktop-topbar 참고 주석) — 데스크톱에서는
+       * .rain-dock 안의 원본 방어 게이지만 그대로 보인다. */}
+      <div className="defense-meter defense-meter--board">
+        <div className="defense-label">
+          <span>
+            <ShieldIcon size={11} /> 방어 게이지
+          </span>
+          <strong>{snapshot.defense}%</strong>
+        </div>
+        <div className={`defense-track defense-track--${tone}`}>
+          <span style={{ width: `${(snapshot.defense / DEFENSE_MAX) * 100}%` }} />
+        </div>
+      </div>
+      </div>
+
       {/* 플레이 내내 참조하는 안내라 각주가 아니라 읽히는 크기의 띠로 둔다 */}
       <p className="rain-legend">
         <span>
@@ -157,21 +178,6 @@ export function AcidRain() {
 
       <div className="fall-field">
         <div className="field-grid" aria-hidden="true" />
-
-        {/* 모바일 전용(768px 이하) 오버레이 — 하단 독의 세로 높이를 줄이려고
-         * 방어 게이지를 게임판 최상단으로 옮겨 놓은 사본이다. 데스크톱에서는
-         * CSS로 숨겨두고, 아래 .rain-dock 안의 원본만 그대로 보인다. */}
-        <div className="defense-meter defense-meter--board">
-          <div className="defense-label">
-            <span>
-              <ShieldIcon size={11} /> 방어 게이지
-            </span>
-            <strong>{snapshot.defense}%</strong>
-          </div>
-          <div className={`defense-track defense-track--${tone}`}>
-            <span style={{ width: `${(snapshot.defense / DEFENSE_MAX) * 100}%` }} />
-          </div>
-        </div>
 
         {snapshot.words.map((word) => (
           <div

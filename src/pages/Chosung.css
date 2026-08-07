@@ -7,6 +7,14 @@
   background: var(--rain-bg);
 }
 
+/* 모바일 전용 오버레이 래퍼 — 데스크톱에서는 display: contents로 박스
+ * 자체를 없애서 .quiz-hud/.chance-row가 원래처럼 .screen--quiz의 직접
+ * flex 자식으로 동작하게 한다. 768px 이하에서만 실제 오버레이가 된다
+ * (아래 @media 참고). */
+.quiz-topbar {
+  display: contents;
+}
+
 /* ── HUD ────────────────────────────────────────── */
 
 .quiz-hud {
@@ -487,6 +495,35 @@
     grid-column: 2;
   }
 
+  /* HUD+기회띠를 문제 영역 위에 뜨는 반투명 막대로 바꾼다 — 참고 앱처럼
+   * 별도 바가 공간을 차지하지 않아서, 문제 카드 영역(.quiz-stage, 아래
+   * 에서 화면 전체를 채움)이 훨씬 넓게 남는다. 카드처럼 여백·둥근
+   * 모서리를 주지 않고 화면 가로 전체를 채우는 막대 하나로 이어붙여서,
+   * HUD 줄과 기회띠 줄이 하나의 상단 바처럼 보이게 한다. */
+  .quiz-topbar {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: #ffffffd9;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px #14231f14;
+  }
+
+  .quiz-hud {
+    flex: none;
+    background: none;
+    border-bottom: none;
+  }
+
+  .chance-row {
+    margin: 0;
+    padding: 6px clamp(14px, 4vw, 38px) 10px;
+    background: none;
+  }
+
   /* 가상 키보드가 뜰 때 브라우저가 "입력창을 보이게" 문서를 스크롤시켜
    * HUD·문제 카드가 화면 밖으로 밀려나는 걸 막는다. fixed로 뷰포트에
    * 고정하고, touch-action: none으로 이 화면 안에서 제스처 스크롤 자체가
@@ -508,10 +545,18 @@
     touch-action: none;
   }
 
-  /* 혹시 문제 카드가 화면보다 길어지는 극단적인 경우를 위한 안전망 —
-   * 화면 자체는 fixed로 고정돼 있어서 넘치는 내용은 이 안에서만 스크롤된다. */
+  /* 입력 독(하단 입력창+제출버튼)은 오버레이로 바꾸지 않는다 — 원래처럼
+   * 불투명한 바탕에 자기 공간을 차지한다. 상단(HUD+기회띠)만 반투명
+   * 막대로 합쳐서 문제 영역에 공간을 돌려준다.
+   *
+   * quiz-topbar가 position: absolute라 flex 흐름에서 빠지므로, quiz-stage
+   * (flex: 1)는 이제 화면 맨 위(0)부터 공간을 받는다 — 그대로 두면
+   * 가운데 정렬된 문제 카드가 떠 있는 상단 바 뒤로 가려질 수 있어서,
+   * 상단 바 높이만큼 위쪽 여백을 미리 확보해 둔다. 혹시 문제 카드가
+   * 화면보다 길어지는 극단적인 경우를 위한 안전망도 같이 둔다. */
   .quiz-stage {
     min-height: 0;
+    padding-top: 116px;
     overflow-y: auto;
   }
 

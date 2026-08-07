@@ -137,6 +137,12 @@ export function Chosung() {
 
   return (
     <div className="app-shell screen--quiz">
+      {/* 모바일(≤768px)에서는 HUD+기회띠가 문제 영역 위에 반투명하게 뜨는
+       * 오버레이 한 덩어리가 된다 — 참고 영상의 다른 앱처럼 별도 바가
+       * 공간을 차지하지 않아서, 키보드가 떠도 문제 카드 영역이 훨씬
+       * 넓게 남는다. 데스크톱에서는 display: contents로 이 래퍼 자체가
+       * 없는 것처럼 동작해서 예전 그대로 보인다. */}
+      <div className="quiz-topbar">
       <header className="quiz-hud">
         <div className="quiz-hud__inner">
           <div className="quiz-score">
@@ -208,6 +214,7 @@ export function Chosung() {
             </div>
           ) : null}
         </div>
+      </div>
       </div>
 
       <main className="quiz-stage">

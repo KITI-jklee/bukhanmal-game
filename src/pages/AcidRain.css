@@ -10,6 +10,13 @@
   color: var(--ink);
 }
 
+/* 모바일 전용 오버레이 래퍼 — 데스크톱에서는 display: contents로 박스
+ * 자체를 없애서 .rain-hud가 원래처럼 .screen--rain의 직접 flex 자식으로
+ * 동작하게 한다. 768px 이하에서만 실제 오버레이가 된다(아래 @media 참고). */
+.rain-topbar {
+  display: contents;
+}
+
 /* ── HUD ────────────────────────────────────────── */
 
 .rain-hud {
@@ -530,29 +537,75 @@
     display: none;
   }
 
-  /* 방어 게이지를 하단 독에서 게임판 최상단 오버레이로 옮긴다 — 독의
-   * 세로 높이를 줄여 낙하 영역(.fall-field, flex: 1)이 더 넓게 남는다. */
+  /* HUD+방어 게이지를 게임판 위에 뜨는 반투명 막대로 바꾼다 — 참고
+   * 앱처럼 별도 바가 공간을 차지하지 않아서, 낙하 영역(.fall-field,
+   * 아래에서 화면 전체를 채움)이 훨씬 넓게 남는다. 카드처럼 여백·둥근
+   * 모서리를 주지 않고 화면 가로 전체를 채우는 막대 하나로 이어붙여서,
+   * HUD 줄과 게이지 줄이 하나의 상단 바처럼 보이게 한다. */
+  .rain-topbar {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: #ffffffd9;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px #14231f14;
+  }
+
+  .rain-hud {
+    flex: none;
+    height: auto;
+    background: none;
+    border-bottom: none;
+  }
+
+  .rain-hud__inner {
+    height: auto;
+    padding: 10px 12px;
+  }
+
+  /* 방어 게이지도 같은 상단 바 안에 둔다(HUD 바로 아래) — 하단 독에는
+   * 남겨두지 않는다(독의 세로 높이를 줄여 낙하 영역이 더 넓게 남는다). */
   .rain-dock .defense-meter:not(.defense-meter--board) {
     display: none;
   }
 
   .defense-meter--board {
     display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    /* falling-word(z-index: 2)보다 낮게 둬서 단어가 이 위(앞)로 떨어지게
-     * 하고, 배경도 확실히 반투명하게 — 게이지가 단어를 가리면 안 된다. */
-    z-index: 1;
     margin: 0;
-    padding: 8px 12px;
-    background: #ffffff8c;
-    backdrop-filter: blur(4px);
+    padding: 0 12px 8px;
+    background: none;
   }
 
   .defense-meter--board .defense-label {
     margin-bottom: 4px;
+  }
+
+  /* 낙하 영역이 화면 전체를 채운다 — HUD·방어 게이지·입력 독은 이 위에
+   * 반투명 오버레이로 뜬다. 예전엔 별도 카드(여백+테두리+둥근 모서리)
+   * 였는데, 이제 그 여백 자체가 사라져서 게임판이 훨씬 넓어진다. */
+  .fall-field {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* 입력 독도 같은 이유로 반투명 오버레이로 바꾼다. */
+  .rain-dock {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    background: #ffffffe6;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -4px 16px #14231f14;
+    border-top: none;
   }
 
   /* 터치 영역 확대 — 최소 48px 권장(Apple/Google 가이드라인)에 맞춘다.
