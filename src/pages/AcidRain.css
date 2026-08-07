@@ -409,8 +409,12 @@
 
 .rain-dock {
   flex: none;
-  padding: clamp(12px, 2vw, 17px) clamp(12px, 8vw, 86px)
-    calc(clamp(14px, 2.5vw, 22px) + var(--keyboard-inset));
+  /* 키보드 높이를 여기서 또 더하지 않는다 — .screen--rain의 높이 자체가
+   * 이미 --viewport-height(키보드 위 가시 영역)로 줄어들어 있어서, 여기
+   * 서까지 --keyboard-inset을 더하면 키보드 높이가 두 번 반영돼 버려서
+   * 남은 낙하 영역이 거의 0으로 눌려버렸다(모바일에서 키보드를 열면
+   * 화면이 거의 안 보이던 버그의 원인). */
+  padding: clamp(12px, 2vw, 17px) clamp(12px, 8vw, 86px) clamp(14px, 2.5vw, 22px);
   background: var(--rain-panel);
   border-top: 1px solid var(--rain-border);
 }
@@ -505,10 +509,17 @@
    * 고정하고, touch-action: none으로 이 화면 안에서 제스처 스크롤 자체가
    * 안 생기게 한다(useLockBodyScroll이 html/body에도 동일하게 건다).
    * --viewport-height는 useViewport.ts가 visualViewport 기준으로 갱신하는
-   * 값이라, 100dvh보다 키보드 유무를 더 정확히 반영한다. */
+   * 값이라, 100dvh보다 키보드 유무를 더 정확히 반영한다.
+   *
+   * 그런데 iOS Safari는 키보드가 뜨면 fixed의 기준(레이아웃 뷰포트)과
+   * 실제 보이는 화면(visualViewport)이 어긋나는 버그가 있다 — 이게 없으면
+   * 입력창만 화면 위쪽에 혼자 뜨고 HUD·낙하 영역은 화면 밖으로 사라져
+   * 보인다. transform: translateY로 그 차이(--viewport-offset-top,
+   * useViewport.ts가 갱신)만큼 직접 보정한다. */
   .screen--rain {
     position: fixed;
     inset: 0;
+    transform: translateY(var(--viewport-offset-top, 0px));
     overflow: hidden;
     touch-action: none;
   }

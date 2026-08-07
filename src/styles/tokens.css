@@ -40,6 +40,7 @@
   /* 모바일 가상 키보드 대응 — visualViewport 변화에 따라 JS가 갱신 */
   --viewport-height: 100dvh;
   --keyboard-inset: 0px;
+  --viewport-offset-top: 0px;
 }
 
 *,
