@@ -572,6 +572,12 @@
     padding: 4px 10px;
   }
 
+  .rain-topbar .stage-pill {
+    border-color: #dce5e166;
+    background: #f7f9f845;
+    box-shadow: none;
+  }
+
   /* 방어 게이지도 같은 상단 바 안에 둔다(HUD 바로 아래) — 하단 독에는
    * 남겨두지 않는다(독의 세로 높이를 줄여 낙하 영역이 더 넓게 남는다). */
   .rain-dock .defense-meter:not(.defense-meter--board) {
