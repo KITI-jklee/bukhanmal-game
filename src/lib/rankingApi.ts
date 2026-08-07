@@ -1,19 +1,21 @@
 /** 랭킹 API 클라이언트 — API 명세서 C장
  *
- * 백엔드(FastAPI)가 아직 없으므로 지금은 localStorage 기반 목업으로 동작한다.
- * 실제 서버가 붙으면 USE_MOCK만 false로 바꾸면 되도록 요청/응답 형태를
- * C-1·C-2 명세와 동일하게 유지했다. */
+ * VITE_API_BASE_URL이 설정되어 있으면 실제 FastAPI 백엔드(game_scores
+ * 테이블, Supabase)를 호출한다. 그렇지 않을 때만(로컬 데모 등) localStorage
+ * 기반 목업으로 동작한다 — USE_MOCK 판단 로직 참고. */
 
 import type {
   Difficulty,
   GameId,
   RankingEntry,
   RankingResponse,
+  RecentRecordEntry,
+  RecentRecordsResponse,
   ScorePayload,
   ScoreSubmitResult,
 } from './types'
 import { normalizeDifficulty } from './types'
-import { readJson, writeJson } from './storage'
+import { getPlayerKey, readJson, writeJson } from './storage'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '/api/v1'
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true' || (import.meta.env.DEV && !import.meta.env.VITE_API_BASE_URL)
@@ -100,7 +102,7 @@ function isSubmitResult(value: unknown): value is ScoreSubmitResult {
   if (typeof value !== 'object' || value === null) return false
   const result = value as Partial<ScoreSubmitResult>
   return (
-    typeof result.id === 'string' &&
+    typeof result.score_id === 'string' &&
     Number.isSafeInteger(result.rank) &&
     Number.isSafeInteger(result.total_players) &&
     Number(result.rank) >= 1 &&
@@ -136,6 +138,32 @@ function isRankingResponse(
   })
 }
 
+function isRecentRecordsResponse(
+  value: unknown,
+  expectedGame: GameId,
+  expectedDifficulty: Difficulty,
+): value is RecentRecordsResponse {
+  if (typeof value !== 'object' || value === null) return false
+  const response = value as Partial<RecentRecordsResponse>
+  return response.game === expectedGame &&
+    response.difficulty === expectedDifficulty &&
+    Array.isArray(response.records) &&
+    response.records.every((entry) => {
+    if (typeof entry !== 'object' || entry === null) return false
+    const row = entry as Partial<RecentRecordEntry>
+    return (
+      typeof row.score_id === 'string' &&
+      typeof row.nickname === 'string' &&
+      typeof row.score === 'number' &&
+      Number.isSafeInteger(row.score) &&
+      row.score >= 0 &&
+      row.score <= MAX_SCORE &&
+      typeof row.played_at === 'string' &&
+      !Number.isNaN(Date.parse(row.played_at))
+    )
+  })
+}
+
 /** 정렬 기준: score 내림차순, 동점 시 played_at 오름차순(FR-RK-06) */
 function compareScores(a: StoredScore, b: StoredScore): number {
   if (b.score !== a.score) return b.score - a.score
@@ -146,10 +174,18 @@ function compareScores(a: StoredScore, b: StoredScore): number {
 export async function submitScore(payload: ScorePayload): Promise<ScoreSubmitResult> {
   assertValidScorePayload(payload)
   if (!USE_MOCK) {
+    // game_scores 스키마의 player_key(브라우저별 익명 식별자)·submission_key
+    // (재요청 중복 등록 방지)는 ScorePayload에 없는 서버 전용 필드라 여기서
+    // 붙여 보낸다 — 게임 페이지 쪽 코드는 이 두 필드를 몰라도 된다.
+    const body = {
+      ...payload,
+      player_key: getPlayerKey(),
+      submission_key: crypto.randomUUID(),
+    }
     const response = await request(`${API_BASE}/scores`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(body),
     })
     if (!response.ok) throw new Error(`점수 등록 실패 (${response.status})`)
     const result: unknown = await response.json()
@@ -176,7 +212,7 @@ export async function submitScore(payload: ScorePayload): Promise<ScoreSubmitRes
   board.sort(compareScores)
 
   return {
-    id: record.id,
+    score_id: record.id,
     rank: board.findIndex((row) => row.id === record.id) + 1,
     total_players: board.length,
   }
@@ -212,14 +248,32 @@ export async function fetchRankings(
   return { game, difficulty, top5 }
 }
 
-/** 랭킹 화면의 "내 최근 기록" — 현재 API 명세에 별도 엔드포인트가 없어 목업에서만 제공 */
-export function getMyRecentRecords(
+/** 랭킹 화면의 "내 최근 기록" — GET /api/v1/scores/recent(player_key 기준).
+ * rank는 이 응답에 없으므로 화면에서 안 쓰는 placeholder로 0을 채운다. */
+export async function fetchMyRecentRecords(
   nickname: string,
   game: GameId,
   difficulty: Difficulty,
   limit = 3,
-): RankingEntry[] {
-  if (!USE_MOCK || !nickname) return []
+): Promise<RankingEntry[]> {
+  if (!nickname) return []
+
+  if (!USE_MOCK) {
+    const params = new URLSearchParams({
+      player_key: getPlayerKey(),
+      game,
+      difficulty,
+      limit: String(limit),
+    })
+    const response = await request(`${API_BASE}/scores/recent?${params}`)
+    if (!response.ok) throw new Error(`최근 기록 조회 실패 (${response.status})`)
+    const result: unknown = await response.json()
+    if (!isRecentRecordsResponse(result, game, difficulty)) {
+      throw new Error('최근 기록 응답 형식이 올바르지 않습니다.')
+    }
+    return result.records.map((record) => ({ ...record, rank: 0 }))
+  }
+
   return loadStore()
     .filter(
       (row) =>

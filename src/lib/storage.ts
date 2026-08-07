@@ -1,6 +1,7 @@
 /** 브라우저 저장소 접근 — 닉네임(FR-CM-10)과 목업 랭킹 데이터 보관 */
 
 const NICKNAME_KEY = 'tongil.nickname'
+const PLAYER_KEY = 'tongil.player_key'
 
 function safeGet(key: string): string | null {
   try {
@@ -26,6 +27,19 @@ export function getNickname(): string | null {
 
 export function setNickname(nickname: string): void {
   safeSet(NICKNAME_KEY, normalizeNickname(nickname))
+}
+
+/** DB 설계서(game_scores.player_key) — 브라우저별로 한 번만 생성해 두는
+ * 익명 식별자. 닉네임이 겹쳐도 "내 최근 기록"을 구분하는 데 쓴다. 저장이
+ * 막힌 환경(사파리 프라이빗 모드 등)에서는 매 호출마다 새로 발급되며,
+ * 그때는 player_key가 요청마다 달라져도 점수 등록 자체는 계속 성공한다
+ * (서버가 이 필드를 필수로 요구하지 않음 — schemas.py 참고). */
+export function getPlayerKey(): string {
+  const stored = safeGet(PLAYER_KEY)
+  if (stored !== null) return stored
+  const generated = crypto.randomUUID()
+  safeSet(PLAYER_KEY, generated)
+  return generated
 }
 
 export function readJson<T>(key: string, fallback: T): T {

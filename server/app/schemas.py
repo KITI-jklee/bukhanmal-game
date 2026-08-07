@@ -7,6 +7,7 @@
 
 from __future__ import annotations
 
+import uuid
 from datetime import datetime
 from typing import Annotated, Literal
 
@@ -19,6 +20,15 @@ Difficulty = Literal["쉬움", "보통", "어려움"]
 
 class NicknameMixin(BaseModel):
     nickname: str = Field(min_length=1, max_length=10)
+
+    # DB 설계서(game_scores) 신규 컬럼. 프런트엔드가 브라우저별로 하나 생성해
+    # localStorage에 저장하는 익명 식별자(player_key)와, 게임 결과 하나마다
+    # 새로 만드는 중복 등록 방지 키(submission_key)다. 기존 클라이언트나
+    # 테스트처럼 이 필드를 안 보내는 요청도 계속 동작해야 하므로 기본값으로
+    # 서버가 대신 생성한다 — 다만 그 경우 player_key가 매번 달라져 "내 최근
+    # 기록" 조회·submission_key 중복 방지 혜택은 받지 못한다.
+    player_key: uuid.UUID = Field(default_factory=uuid.uuid4)
+    submission_key: uuid.UUID = Field(default_factory=uuid.uuid4)
 
     @field_validator("nickname")
     @classmethod
@@ -61,7 +71,7 @@ ScorePayload = Annotated[
 
 
 class ScoreSubmitResult(BaseModel):
-    id: str
+    score_id: uuid.UUID
     rank: int
     total_players: int
 
@@ -80,3 +90,18 @@ class RankingResponse(BaseModel):
     game: Literal["chosung", "acid_rain"]
     difficulty: Difficulty
     top5: list[RankingEntry]
+
+
+class RecentRecordEntry(BaseModel):
+    score_id: uuid.UUID
+    nickname: str
+    score: int
+    played_at: datetime
+    # RankingEntry와 마찬가지로 산성비게임 조회에만 포함한다.
+    stage_reached: int | None = None
+
+
+class RecentRecordsResponse(BaseModel):
+    game: Literal["chosung", "acid_rain"]
+    difficulty: Difficulty
+    records: list[RecentRecordEntry]

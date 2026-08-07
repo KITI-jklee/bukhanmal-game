@@ -20,12 +20,28 @@ def _split_csv(value: str) -> list[str]:
     return [item.strip() for item in value.split(",") if item.strip()]
 
 
+def _require_database_url() -> str:
+    # sqlite 파일 폴백을 두지 않는다 — Vercel 등 서버리스 배포는 파일시스템이
+    # 요청마다 초기화/읽기전용이라 sqlite 파일이 운영 DB로 동작할 수 없다.
+    # DATABASE_URL을 깜빡 설정 안 하면 조용히 로컬 sqlite로 뜨는 대신 여기서
+    # 바로 에러를 내서 그 사실을 즉시 알아채게 한다(테스트는 conftest.py가
+    # 이 값을 인메모리 sqlite로 미리 채워 두므로 영향 없음).
+    value = os.getenv("DATABASE_URL")
+    if not value:
+        raise RuntimeError(
+            "DATABASE_URL 환경변수가 설정되어 있지 않습니다. "
+            "Supabase 연결 문자열을 .env(로컬) 또는 배포 플랫폼의 환경변수로 설정하세요. "
+            "예: postgresql+psycopg://user:pass@host:6543/postgres"
+        )
+    return value
+
+
 @dataclass
 class Settings:
-    # 개발 단계에서는 SQLite 파일 하나로 시작한다. 운영 DB(PostgreSQL 등)가
-    # 정해지면 이 값만 바꾸면 된다 — 저장소 계층(database.py)이 SQLAlchemy
-    # 엔진 하나에 의존하므로 상위 코드는 바뀌지 않는다.
-    database_url: str = os.getenv("DATABASE_URL", "sqlite:///./scores.db")
+    # 운영 DB(Supabase Postgres)가 이미 정해졌으므로 이 값은 필수다 — 아래
+    # _require_database_url() 참고. database.py가 SQLAlchemy 엔진 하나에만
+    # 의존하므로, 값 자체가 바뀌어도 상위 코드는 바뀌지 않는다.
+    database_url: str = field(default_factory=_require_database_url)
 
     # 프런트엔드 개발 서버(Vite, 기본 5173)와 실제 배포 도메인을 CORS로 허용한다.
     cors_origins: list[str] = field(

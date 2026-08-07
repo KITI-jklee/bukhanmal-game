@@ -1,5 +1,13 @@
 from __future__ import annotations
 
+import os
+
+# app.config는 임포트 시점에 DATABASE_URL을 필수로 요구한다(운영에서 sqlite로
+# 조용히 폴백되는 걸 막기 위함 — config.py의 _require_database_url 참고).
+# 테스트는 실제 DB에 붙지 않고 아래 client 픽스처가 만드는 별도의 인메모리
+# 엔진(get_db override)만 쓰므로, 임포트가 막히지 않게 더미 값만 채워 둔다.
+os.environ.setdefault("DATABASE_URL", "sqlite:///:memory:")
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine

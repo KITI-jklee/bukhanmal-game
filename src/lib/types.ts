@@ -70,7 +70,7 @@ export type ScorePayload = ChosungScorePayload | AcidRainScorePayload
 
 /** C-1. 점수 등록 응답 */
 export interface ScoreSubmitResult {
-  id: string
+  score_id: string
   rank: number
   total_players: number
 }
@@ -88,6 +88,21 @@ export interface RankingResponse {
   game: GameId
   difficulty: Difficulty
   top5: RankingEntry[]
+}
+
+/** 내 최근 기록 조회 응답 — nickname이 아닌 player_key 기준(API 명세서 06_API_DB매핑) */
+export interface RecentRecordEntry {
+  score_id: string
+  nickname: string
+  score: number
+  played_at: string
+  stage_reached?: number
+}
+
+export interface RecentRecordsResponse {
+  game: GameId
+  difficulty: Difficulty
+  records: RecentRecordEntry[]
 }
 
 /** 산성비게임 결과 화면에 넘기는 플레이 요약 */

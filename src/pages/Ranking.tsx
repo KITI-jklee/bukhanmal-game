@@ -8,7 +8,7 @@ import { useNavigate, useSearchParams } from '../lib/router'
 import { AppFooter } from '../components/AppFooter'
 import { AppHeader } from '../components/AppHeader'
 import { GamepadIcon, TrophyIcon } from '../components/Icons'
-import { fetchRankings, getMyRecentRecords } from '../lib/rankingApi'
+import { fetchMyRecentRecords, fetchRankings } from '../lib/rankingApi'
 import { getNickname } from '../lib/storage'
 import {
   DIFFICULTIES,
@@ -52,10 +52,7 @@ export function Ranking() {
   const [loadError, setLoadError] = useState<string | null>(null)
   const [retryCount, setRetryCount] = useState(0)
   const nickname = useMemo(() => getNickname(), [])
-  const myRecords = useMemo(
-    () => (nickname ? getMyRecentRecords(nickname, game, difficulty) : []),
-    [nickname, game, difficulty],
-  )
+  const [myRecords, setMyRecords] = useState<RankingEntry[]>([])
 
   useEffect(() => {
     let cancelled = false
@@ -74,6 +71,26 @@ export function Ranking() {
       cancelled = true
     }
   }, [game, difficulty, retryCount])
+
+  useEffect(() => {
+    let cancelled = false
+    if (!nickname) {
+      setMyRecords([])
+      return
+    }
+    void fetchMyRecentRecords(nickname, game, difficulty)
+      .then((records) => {
+        if (!cancelled) setMyRecords(records)
+      })
+      .catch(() => {
+        // 내 최근 기록은 화면 보조 정보라 실패해도 TOP 5처럼 오류를 보여주지
+        // 않고 조용히 빈 목록으로 둔다.
+        if (!cancelled) setMyRecords([])
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [nickname, game, difficulty, retryCount])
 
   const update = (next: Partial<{ game: GameId; difficulty: Difficulty }>) => {
     setParams({
