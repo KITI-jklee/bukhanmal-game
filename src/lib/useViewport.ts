@@ -16,9 +16,11 @@ export function useViewportMetrics(): void {
   useEffect(() => {
     const visual = window.visualViewport
     const root = document.documentElement
+    let maxViewportHeight = visual?.height ?? window.innerHeight
 
     const apply = () => {
       const height = visual?.height ?? window.innerHeight
+      maxViewportHeight = Math.max(maxViewportHeight, height)
       root.style.setProperty('--viewport-height', `${height}px`)
       root.style.setProperty('--viewport-offset-top', `${Math.round(visual?.offsetTop ?? 0)}px`)
 
@@ -33,14 +35,23 @@ export function useViewportMetrics(): void {
       // 났었다 — Chosung.css/AcidRain.css의 .answer-dock/.rain-dock 참고).
       const inset = visual ? Math.max(0, window.innerHeight - visual.height - visual.offsetTop) : 0
       root.style.setProperty('--keyboard-inset', `${Math.round(inset)}px`)
-      root.toggleAttribute('data-keyboard-open', inset > 120)
+      // interactive-widget=resizes-content를 적용하는 브라우저에서는
+      // innerHeight와 visualViewport.height가 함께 줄어 inset이 0이 될 수
+      // 있다. 키보드가 없을 때 기록한 최대 높이와의 차이도 함께 본다.
+      const viewportReduction = maxViewportHeight - height
+      root.toggleAttribute('data-keyboard-open', inset > 120 || viewportReduction > 120)
+    }
+
+    const handleOrientationChange = () => {
+      maxViewportHeight = visual?.height ?? window.innerHeight
+      apply()
     }
 
     apply()
     visual?.addEventListener('resize', apply)
     visual?.addEventListener('scroll', apply)
     window.addEventListener('resize', apply)
-    window.addEventListener('orientationchange', apply)
+    window.addEventListener('orientationchange', handleOrientationChange)
 
     // 리사이즈 이벤트가 오지 않는 경로(일부 모바일 브라우저의 주소창 변화 등)에서도
     // 값이 낡지 않도록 실제 레이아웃 크기 변화를 직접 관찰한다.
@@ -53,7 +64,7 @@ export function useViewportMetrics(): void {
       visual?.removeEventListener('resize', apply)
       visual?.removeEventListener('scroll', apply)
       window.removeEventListener('resize', apply)
-      window.removeEventListener('orientationchange', apply)
+      window.removeEventListener('orientationchange', handleOrientationChange)
     }
   }, [])
 }

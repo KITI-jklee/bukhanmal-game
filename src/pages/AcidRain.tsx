@@ -107,11 +107,15 @@ export function AcidRain() {
     if (composingRef.current) return
     engine.submit(input)
     setInput('')
-    // "입력" 버튼 클릭은(엔터와 달리) 브라우저가 포커스를 버튼으로
-    // 옮겨버린다 — 모바일에서는 이때 키보드가 내려가 버려서 계속 떨어지는
-    // 다음 단어를 바로 이어 칠 수가 없다. 다음 프레임에 입력창으로
-    // 포커스를 되돌린다.
-    window.setTimeout(() => inputRef.current?.focus(), 0)
+    // 엔터 제출 때는 입력창이 이미 활성화돼 있으므로 다시 focus하면 iOS가
+    // 화면을 위아래로 재스크롤한다. 버튼 제출 등 실제로 포커스가 빠진
+    // 경우에만 스크롤 없이 복원해 키보드를 유지한다.
+    window.setTimeout(() => {
+      const inputElement = inputRef.current
+      if (inputElement && document.activeElement !== inputElement) {
+        inputElement.focus({ preventScroll: true })
+      }
+    }, 0)
   }
 
   const tone = defenseTone(snapshot.defense)

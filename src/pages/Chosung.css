@@ -708,22 +708,22 @@
    * 키보드가 열린 동안만 위쪽부터 촘촘하게 배치한다. */
   :root[data-keyboard-open] .screen--quiz .quiz-stage {
     place-items: start center;
-    padding: 64px 12px 4px;
+    padding: 58px 10px 2px;
   }
 
   :root[data-keyboard-open] .screen--quiz .question-card {
-    padding: 8px 4px 4px;
+    padding: 2px 2px 0;
   }
 
   :root[data-keyboard-open] .screen--quiz .question-card > .chance-row {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
 
   :root[data-keyboard-open] .screen--quiz .initial-letters {
-    margin: 8px 0;
+    margin: 5px 0;
   }
 
   :root[data-keyboard-open] .screen--quiz .definition {
-    padding: 7px 9px;
+    padding: 5px 8px;
   }
 }
