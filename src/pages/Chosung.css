@@ -707,7 +707,10 @@
    * 유지하면 카드 위의 빈 공간 때문에 아래 내용을 보려 스크롤해야 하므로,
    * 키보드가 열린 동안만 위쪽부터 촘촘하게 배치한다. */
   :root[data-keyboard-open] .screen--quiz .quiz-stage {
-    place-items: start center;
+    /* 줄인 간격은 유지하되 남는 높이에 따라 문제 묶음을 세로 중앙에 둔다.
+     * 짧은 iPhone에서는 촘촘하게, 긴 Android에서는 빈 공간을 위아래로
+     * 나눠 특정 기기에서만 상단에 붙는 현상을 막는다. */
+    place-items: center;
     padding: 58px 10px 2px;
   }
 

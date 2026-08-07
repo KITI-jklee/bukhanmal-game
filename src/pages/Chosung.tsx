@@ -108,11 +108,15 @@ export function Chosung() {
     if (composingRef.current) return
     engine.submit(input)
     setInput('')
-    // "제출" 버튼 클릭은(엔터와 달리) 브라우저가 포커스를 버튼으로
-    // 옮겨버린다 — 모바일에서는 이때 키보드가 내려가 버려서 다음 문제를
-    // 바로 이어 풀 수가 없다. 다음 렌더(비활성화 여부 반영)가 끝난
-    // 다음 프레임에 입력창으로 포커스를 되돌린다.
-    window.setTimeout(() => inputRef.current?.focus(), 0)
+    // 엔터 제출 때 이미 활성화된 입력창에 다시 focus하면 iOS가 화면을
+    // 위아래로 재스크롤한다. 버튼 제출처럼 실제로 포커스가 빠졌을 때만
+    // 스크롤 없이 복원해 산성비게임과 같은 짧은 좌우 흔들림만 남긴다.
+    window.setTimeout(() => {
+      const inputElement = inputRef.current
+      if (inputElement && document.activeElement !== inputElement) {
+        inputElement.focus({ preventScroll: true })
+      }
+    }, 0)
   }
 
   const isPaused = snapshot.status === 'paused'
