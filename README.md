@@ -19,9 +19,10 @@
 |---|---|
 | 프런트엔드 | React 19, TypeScript, Vite |
 | 백엔드 | FastAPI, SQLAlchemy |
-| 데이터베이스 | SQLite |
+| 데이터베이스 | Supabase (PostgreSQL) |
 | 테스트 | Vitest, pytest |
 | 코드 검사 | Oxlint |
+| 배포 | Vercel (Services — 프런트·백엔드 한 프로젝트에 배포) |
 
 ## 사전 요구사항
 
@@ -60,11 +61,38 @@ uvicorn app.main:app --reload --port 8000
 - 헬스 체크: `http://localhost:8000/healthz`
 - 자세한 설정: [백엔드 README](server/README.md)
 
-프런트엔드를 백엔드와 연결하려면 프로젝트 루트에 `.env.local`을 생성합니다.
+프런트엔드를 로컬 백엔드와 연결하려면 프로젝트 루트에 `.env.local`을 생성합니다(로컬 개발 전용 — 배포판은 아래 "배포" 참고).
 
 ```env
 VITE_API_BASE_URL=http://127.0.0.1:8000/api/v1
 ```
+
+## 배포 (Vercel)
+
+프런트엔드와 백엔드를 **하나의 Vercel 프로젝트**에 [Services](https://vercel.com/docs/services)로 함께 배포한다 — 저장소 루트의 [`vercel.json`](vercel.json)이 이 구성을 정의한다.
+
+```json
+{
+  "services": {
+    "frontend": { "root": "./", "framework": "vite" },
+    "backend": { "root": "server/", "entrypoint": "app.main:app" }
+  },
+  "rewrites": [
+    { "source": "/healthz", "destination": { "service": "backend" } },
+    { "source": "/api/(.*)", "destination": { "service": "backend" } },
+    { "source": "/(.*)", "destination": { "service": "frontend" } }
+  ]
+}
+```
+
+- `/api/*`, `/healthz`는 백엔드(FastAPI) 서비스로, 나머지는 프런트엔드(React) 서비스로 라우팅된다.
+- 같은 도메인에서 서빙되므로 프런트엔드는 `VITE_API_BASE_URL`을 **설정하지 않는다** — 기본값(`/api/v1`, 상대 경로)이 그대로 같은 도메인의 백엔드 서비스로 연결된다.
+- Vercel 프로젝트 환경변수(Production)에 아래 값을 등록해야 한다 (백엔드 서비스가 읽는 값 — `server/.env.example` 참고):
+  - `DATABASE_URL` — Supabase 연결 문자열 (Connection Pooler, 포트 6543 권장)
+  - `CORS_ORIGINS` — 로컬 개발 도메인만 있어도 되지만(운영은 동일 도메인이라 CORS 자체가 필요 없음), 그대로 둬도 무방
+  - `RATE_LIMIT_MAX_REQUESTS`, `RATE_LIMIT_WINDOW_SECONDS`, `ACID_RAIN_SCORE_CEILING`
+- GitHub `main`에 푸시하면 두 서비스가 함께 자동으로 다시 빌드·배포된다.
+- 요청 빈도 제한(`server/app/rate_limit.py`)은 프로세스 메모리 기반이다. Vercel의 Fluid compute는 인스턴스를 최대한 재사용해서 대부분 상황에서 잘 동작하지만, 트래픽이 급증하면 여러 인스턴스로 나뉠 수 있어 100% 보장되는 방식은 아니다 — 트래픽이 늘어나면 Redis 등 공유 저장소로 옮기는 것을 검토한다.
 
 ## 주요 명령어
 
@@ -111,11 +139,10 @@ pytest tests/ -v
 
 ## 배포 전 확인사항
 
-- 운영 데이터베이스 및 `DATABASE_URL` 설정
-- 운영 환경의 API 주소와 환경변수 설정
-- 닉네임 금칙어 목록 확정
-- 산성비 게임 점수 상한 검토
-- 다중 서버 운영 시 요청 빈도 제한 저장소 교체
+- 운영 데이터베이스(Supabase)는 정해졌음 — Vercel 프로젝트 환경변수에 `DATABASE_URL` 등록 필요(위 "배포" 참고)
+- 닉네임 금칙어 목록 확정 (`server/app/validation.py`는 샘플)
+- 산성비 게임 점수 상한 검토 (`ACID_RAIN_SCORE_CEILING`)
+- 트래픽이 늘어나면 요청 빈도 제한을 Redis 등 공유 저장소로 교체 검토
 - 회사 보안 정책에 따른 저장소 공개 범위 확인
 
 ## 커밋 메시지 규칙
