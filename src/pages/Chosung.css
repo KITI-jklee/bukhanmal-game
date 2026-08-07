@@ -702,4 +702,28 @@
   .shake {
     animation: shake-x 0.4s ease-in-out;
   }
+
+  /* iOS 키보드가 열리면 visual viewport가 짧아진다. 이때도 중앙 정렬을
+   * 유지하면 카드 위의 빈 공간 때문에 아래 내용을 보려 스크롤해야 하므로,
+   * 키보드가 열린 동안만 위쪽부터 촘촘하게 배치한다. */
+  :root[data-keyboard-open] .screen--quiz .quiz-stage {
+    place-items: start center;
+    padding: 64px 12px 4px;
+  }
+
+  :root[data-keyboard-open] .screen--quiz .question-card {
+    padding: 8px 4px 4px;
+  }
+
+  :root[data-keyboard-open] .screen--quiz .question-card > .chance-row {
+    margin-bottom: 10px;
+  }
+
+  :root[data-keyboard-open] .screen--quiz .initial-letters {
+    margin: 8px 0;
+  }
+
+  :root[data-keyboard-open] .screen--quiz .definition {
+    padding: 7px 9px;
+  }
 }

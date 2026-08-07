@@ -33,6 +33,7 @@ export function useViewportMetrics(): void {
       // 났었다 — Chosung.css/AcidRain.css의 .answer-dock/.rain-dock 참고).
       const inset = visual ? Math.max(0, window.innerHeight - visual.height - visual.offsetTop) : 0
       root.style.setProperty('--keyboard-inset', `${Math.round(inset)}px`)
+      root.toggleAttribute('data-keyboard-open', inset > 120)
     }
 
     apply()
@@ -48,6 +49,7 @@ export function useViewportMetrics(): void {
 
     return () => {
       observer.disconnect()
+      root.removeAttribute('data-keyboard-open')
       visual?.removeEventListener('resize', apply)
       visual?.removeEventListener('scroll', apply)
       window.removeEventListener('resize', apply)

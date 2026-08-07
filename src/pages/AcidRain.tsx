@@ -3,7 +3,12 @@ import { useNavigate, useSearchParams } from '../lib/router'
 import { Countdown } from '../components/Countdown'
 import { PauseIcon, ShieldIcon, ZapIcon } from '../components/Icons'
 import { AcidRainEngine, type EngineSnapshot } from '../game/AcidRainEngine'
-import { DEFENSE_MAX, TIME_STOP_DURATION, defenseTone } from '../game/acidRainConfig'
+import {
+  DEFENSE_MAX,
+  MOBILE_FALL_DURATION_SCALE,
+  TIME_STOP_DURATION,
+  defenseTone,
+} from '../game/acidRainConfig'
 import pairs from '../data/acidrain_pairs.json'
 import type { AcidRainPair, Difficulty } from '../lib/types'
 import { normalizeDifficulty } from '../lib/types'
@@ -27,7 +32,17 @@ export function AcidRain() {
   // restartKey는 콜백 안에서 안 쓰지만, 값을 올려 강제로 새 엔진을
   // 만들게 하는 재시작 트리거라 의존성 배열에 일부러 넣어둔다.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const engine = useMemo(() => new AcidRainEngine(ALL_PAIRS, difficulty), [difficulty, restartKey])
+  const engine = useMemo(
+    () =>
+      new AcidRainEngine(
+        ALL_PAIRS,
+        difficulty,
+        window.matchMedia('(max-width: 768px)').matches ? MOBILE_FALL_DURATION_SCALE : 1,
+      ),
+    // restartKey는 새 엔진 생성을 강제하는 트리거다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [difficulty, restartKey],
+  )
 
   const [snapshot, setSnapshot] = useState<EngineSnapshot>(() => engine.snapshot())
   const [counting, setCounting] = useState(true)

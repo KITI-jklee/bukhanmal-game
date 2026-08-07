@@ -524,7 +524,9 @@
    * 보인다. transform: translateY로 그 차이(--viewport-offset-top,
    * useViewport.ts가 갱신)만큼 직접 보정한다. */
   .screen--rain {
-    --rain-play-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+    /* 입력 dock도 투명 오버레이이므로 단어와 판정선이 그 뒤를 지나 화면
+     * 맨 아래까지 내려가도록 낙하 구간을 전부 사용한다. */
+    --rain-play-bottom: 0px;
     position: fixed;
     inset: 0;
     transform: translateY(var(--viewport-offset-top, 0px));

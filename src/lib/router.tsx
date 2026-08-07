@@ -12,6 +12,13 @@ interface NavigateOptions {
   state?: unknown
 }
 
+interface MobileRouteState {
+  __mobileRoute: true
+  pathname: string
+  search: string
+  pageState: unknown
+}
+
 type Navigate = (to: string, options?: NavigateOptions) => void
 type SetSearchParams = (params: Record<string, string>) => void
 
@@ -20,16 +27,41 @@ const RouterContext = createContext<{
   navigate: Navigate
 } | null>(null)
 
-function readLocation(): AppLocation {
+function isMobile(): boolean {
+  return window.matchMedia?.('(max-width: 768px)').matches ?? false
+}
+
+function isReload(): boolean {
+  const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined
+  return navigation?.type === 'reload'
+}
+
+function isMobileRouteState(value: unknown): value is MobileRouteState {
+  if (!value || typeof value !== 'object') return false
+  return (value as Partial<MobileRouteState>).__mobileRoute === true
+}
+
+function readLocation(ignoreMobileRoute = false): AppLocation {
+  const routeState = window.history.state
+
+  if (isMobile() && !ignoreMobileRoute && isMobileRouteState(routeState)) {
+    return {
+      pathname: routeState.pathname,
+      search: routeState.search,
+      state: routeState.pageState,
+    }
+  }
+
   return {
-    pathname: window.location.pathname,
-    search: window.location.search,
-    state: window.history.state,
+    pathname: isMobile() && ignoreMobileRoute ? '/' : window.location.pathname,
+    search: isMobile() && ignoreMobileRoute ? '' : window.location.search,
+    state: isMobile() && ignoreMobileRoute ? null : routeState,
   }
 }
 
 export function BrowserRouter({ children }: { children: React.ReactNode }) {
-  const [location, setLocation] = useState(readLocation)
+  const resetMobileRoute = isMobile() && isReload()
+  const [location, setLocation] = useState(() => readLocation(resetMobileRoute))
 
   useEffect(() => {
     const update = () => setLocation(readLocation())
@@ -37,9 +69,25 @@ export function BrowserRouter({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener('popstate', update)
   }, [])
 
+  useEffect(() => {
+    if (!resetMobileRoute) return
+    window.history.replaceState(null, '', '/')
+  }, [resetMobileRoute])
+
   const navigate = useCallback<Navigate>((to, options = {}) => {
     const method = options.replace ? 'replaceState' : 'pushState'
-    window.history[method](options.state ?? null, '', to)
+    if (isMobile()) {
+      const target = new URL(to, window.location.origin)
+      const routeState: MobileRouteState = {
+        __mobileRoute: true,
+        pathname: target.pathname,
+        search: target.search,
+        pageState: options.state ?? null,
+      }
+      window.history[method](routeState, '', '/')
+    } else {
+      window.history[method](options.state ?? null, '', to)
+    }
     setLocation(readLocation())
   }, [])
 

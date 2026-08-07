@@ -24,6 +24,9 @@ export const DEFENSE_MAX = 100
 export const DEFENSE_LOSS_PER_MISS = 15
 export const MAX_MISSES = 7
 
+/** 키보드로 가시 영역이 짧아지는 모바일에서는 입력 시간을 조금 더 확보한다. */
+export const MOBILE_FALL_DURATION_SCALE = 1.12
+
 export interface StageConfig {
   stage: number
   /** 다음 스테이지 진입에 필요한 일반 단어 정답 수. 3단계는 무한 생존. */

@@ -75,6 +75,7 @@ const STAGE_BANNER_DURATION = 1.1
 export class AcidRainEngine {
   private readonly pool: AcidRainPair[]
   private readonly difficulty: Difficulty
+  private readonly fallDurationScale: number
 
   private words: FallingWord[] = []
   private listeners = new Set<Listener>()
@@ -113,8 +114,9 @@ export class AcidRainEngine {
   /** 최근 출제 pair를 기억해 같은 단어가 연달아 나오지 않게 한다 */
   private recentPairIds: string[] = []
 
-  constructor(pairs: AcidRainPair[], difficulty: Difficulty) {
+  constructor(pairs: AcidRainPair[], difficulty: Difficulty, fallDurationScale = 1) {
     this.difficulty = difficulty
+    this.fallDurationScale = fallDurationScale
     this.pool = pairs.filter((pair) => pair.difficulty === difficulty)
     if (this.pool.length === 0) this.status = 'error'
   }
@@ -313,9 +315,12 @@ export class AcidRainEngine {
   /** 3단계 가속을 반영한 현재 낙하시간 */
   private currentFallDuration(): number {
     const config = this.stageConfig
-    if (config.stage !== 3) return config.fallDuration
+    if (config.stage !== 3) return config.fallDuration * this.fallDurationScale
     const steps = Math.floor(this.stageCorrect / STAGE3_SPEEDUP_EVERY)
-    return Math.max(STAGE3_MIN_FALL, config.fallDuration - steps * STAGE3_FALL_STEP)
+    return (
+      Math.max(STAGE3_MIN_FALL, config.fallDuration - steps * STAGE3_FALL_STEP) *
+      this.fallDurationScale
+    )
   }
 
   private currentSpawnInterval(): number {
