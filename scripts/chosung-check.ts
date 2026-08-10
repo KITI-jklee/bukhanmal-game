@@ -3,14 +3,20 @@
  * 브라우저 없이 가상 시계로 돌려 상세기획서 3장의 수치를 확인한다.
  * 실행: npm run check:chosung */
 
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { ChosungEngine } from '../src/game/ChosungEngine'
 import {
   DIFFICULTY_MULTIPLIER,
   QUESTIONS_PER_ROUND,
   TIME_LIMIT_SECONDS,
 } from '../src/game/chosungConfig'
-import realWords from '../src/data/chosung_words.json'
 import type { ChosungWord, Difficulty } from '../src/lib/types'
+
+// 데이터는 번들 크기를 줄이려고 public/data(런타임 fetch 대상)로 옮겼다 —
+// import 대신 파일을 직접 읽는다.
+const dataPath = fileURLToPath(new URL('../public/data/chosung_words.json', import.meta.url))
+const realWords = JSON.parse(readFileSync(dataPath, 'utf-8'))
 
 // ── 가상 시계 · rAF 목 ─────────────────────────────
 

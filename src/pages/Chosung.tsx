@@ -4,17 +4,18 @@ import { Countdown } from '../components/Countdown'
 import { BookIcon, BulbIcon, HeartIcon, PauseIcon, ZapIcon } from '../components/Icons'
 import { ChosungEngine, type ChosungSnapshot } from '../game/ChosungEngine'
 import { HINT_SCORE, MAX_WRONG, TIME_LIMIT_SECONDS, particleFor } from '../game/chosungConfig'
-import words from '../data/chosung_words.json'
 import type { ChosungWord, Difficulty } from '../lib/types'
 import { normalizeDifficulty } from '../lib/types'
+import { useGameData } from '../lib/useGameData'
 import { useAutoPause, useLockBodyScroll } from '../lib/useViewport'
 import './Chosung.css'
 
-const ALL_WORDS = words as ChosungWord[]
+const DATA_URL = `${import.meta.env.BASE_URL}data/chosung_words.json`
 
 export function Chosung() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
+  const { data: allWords, error: loadError } = useGameData<ChosungWord[]>(DATA_URL)
 
   const difficulty = useMemo<Difficulty>(() => {
     return normalizeDifficulty(params.get('difficulty')) ?? '보통'
@@ -24,12 +25,16 @@ export function Chosung() {
   // difficulty만 의존성이면 같은 난이도로는 재생성이 안 돼(리액트가 같은
   // 컴포넌트를 그대로 재사용) 재시작이 안 걸린다.
   const [restartKey, setRestartKey] = useState(0)
+  // 단어 데이터가 fetch로 아직 도착하지 않았으면 엔진을 만들지 않는다.
   // restartKey는 콜백 안에서 안 쓰지만, 값을 올려 강제로 새 엔진을
   // 만들게 하는 재시작 트리거라 의존성 배열에 일부러 넣어둔다.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const engine = useMemo(() => new ChosungEngine(ALL_WORDS, difficulty), [difficulty, restartKey])
+  const engine = useMemo(
+    () => (allWords ? new ChosungEngine(allWords, difficulty) : null),
+    [allWords, difficulty, restartKey],
+  )
 
-  const [snapshot, setSnapshot] = useState<ChosungSnapshot>(() => engine.snapshot())
+  const [snapshot, setSnapshot] = useState<ChosungSnapshot | null>(() => engine?.snapshot() ?? null)
   const [counting, setCounting] = useState(true)
   const [input, setInput] = useState('')
   const composingRef = useRef(false)
@@ -47,9 +52,16 @@ export function Chosung() {
     }
   }, [])
 
-  useEffect(() => engine.subscribe(setSnapshot), [engine])
-  useEffect(() => () => engine.destroy(), [engine])
   useEffect(() => {
+    if (!engine) return
+    return engine.subscribe(setSnapshot)
+  }, [engine])
+  useEffect(() => {
+    if (!engine) return
+    return () => engine.destroy()
+  }, [engine])
+  useEffect(() => {
+    if (!engine) return
     setSnapshot(engine.snapshot())
     setCounting(true)
     setInput('')
@@ -58,7 +70,7 @@ export function Chosung() {
   // 시간 초과 등으로 다음 문제가 출제되면 이전 문제에서 입력하던 값을 비운다.
   useEffect(() => {
     setInput('')
-  }, [snapshot.questionNumber])
+  }, [snapshot?.questionNumber])
 
   // 오답 피드백 강화 — 화면 흔들림 + (지원 기기에서) 진동. shake는
   // .shake에 애니메이션이 걸린 CSS가 모바일 전용 미디어 쿼리 안에만
@@ -66,7 +78,7 @@ export function Chosung() {
   // navigator.vibrate도 진동 하드웨어가 없는 데스크톱에서는 조용히
   // 무시된다.
   useEffect(() => {
-    if (snapshot.feedback?.kind !== 'wrong') return
+    if (snapshot?.feedback?.kind !== 'wrong') return
     const el = answerFormRef.current
     if (el) {
       el.classList.remove('shake')
@@ -74,29 +86,30 @@ export function Chosung() {
       el.classList.add('shake')
     }
     navigator.vibrate?.(120)
-  }, [snapshot.feedback])
+  }, [snapshot?.feedback])
 
   useEffect(() => {
-    if (counting || snapshot.status !== 'playing' || snapshot.reveal) return
+    if (counting || snapshot?.status !== 'playing' || snapshot.reveal) return
     // requestAnimationFrame이 아니라 setTimeout을 쓴다 — 탭이 백그라운드로
     // 밀리는 등 화면이 실제로 그려지지 않는 순간에는 rAF 콜백 자체가 브라우저
     // 정책상 멈춰서 포커스 복원이 씹힐 수 있다. setTimeout은 그런 상태와
     // 무관하게 항상 실행된다.
     const timer = window.setTimeout(() => inputRef.current?.focus(), 0)
     return () => window.clearTimeout(timer)
-  }, [counting, snapshot.status, snapshot.reveal])
+  }, [counting, snapshot?.status, snapshot?.reveal])
 
   // 10문제를 마치면 결과 화면으로
   useEffect(() => {
-    if (snapshot.status !== 'over') return
+    if (!engine || snapshot?.status !== 'over') return
     navigate('/result', { replace: true, state: engine.buildResult() })
-  }, [snapshot.status, engine, navigate])
+  }, [snapshot?.status, engine, navigate])
 
-  const pause = useCallback(() => engine.pause(), [engine])
-  useAutoPause(pause, snapshot.status === 'playing')
+  const pause = useCallback(() => engine?.pause(), [engine])
+  useAutoPause(pause, snapshot?.status === 'playing')
   useLockBodyScroll()
 
   const handleStart = useCallback(() => {
+    if (!engine) return
     setCounting(false)
     engine.start()
     inputRef.current?.focus()
@@ -105,7 +118,7 @@ export function Chosung() {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     // 한글 조합 중인 입력은 판정하지 않는다 (FR-CM-06)
-    if (composingRef.current) return
+    if (composingRef.current || !engine) return
     engine.submit(input)
     setInput('')
     // 엔터 제출 때 이미 활성화된 입력창에 다시 focus하면 iOS가 화면을
@@ -117,6 +130,35 @@ export function Chosung() {
         inputElement.focus({ preventScroll: true })
       }
     }, 0)
+  }
+
+  if (loadError) {
+    return (
+      <div className="app-shell screen--quiz">
+        <div className="overlay">
+          <div className="overlay-card" role="alertdialog" aria-modal="true">
+            <h3>문제 데이터를 불러오지 못했어요</h3>
+            <p>네트워크 상태를 확인한 뒤 메인에서 다시 시도해 주세요.</p>
+            <button className="button button--primary" onClick={() => navigate('/')}>
+              메인으로
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (!engine || !snapshot) {
+    return (
+      <div className="app-shell screen--quiz">
+        <div className="overlay">
+          <div className="overlay-card" role="status" aria-live="polite">
+            <h3>문제를 불러오는 중이에요</h3>
+            <p>잠시만 기다려 주세요.</p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   const isPaused = snapshot.status === 'paused'

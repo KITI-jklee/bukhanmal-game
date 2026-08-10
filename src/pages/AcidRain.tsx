@@ -9,17 +9,18 @@ import {
   TIME_STOP_DURATION,
   defenseTone,
 } from '../game/acidRainConfig'
-import pairs from '../data/acidrain_pairs.json'
 import type { AcidRainPair, Difficulty } from '../lib/types'
 import { normalizeDifficulty } from '../lib/types'
+import { useGameData } from '../lib/useGameData'
 import { useAutoPause, useLockBodyScroll } from '../lib/useViewport'
 import './AcidRain.css'
 
-const ALL_PAIRS = pairs as AcidRainPair[]
+const DATA_URL = `${import.meta.env.BASE_URL}data/acidrain_pairs.json`
 
 export function AcidRain() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
+  const { data: allPairs, error: loadError } = useGameData<AcidRainPair[]>(DATA_URL)
 
   const difficulty = useMemo<Difficulty>(() => {
     return normalizeDifficulty(params.get('difficulty')) ?? '보통'
@@ -29,36 +30,45 @@ export function AcidRain() {
   // difficulty만 의존성이면 같은 난이도로는 재생성이 안 돼(리액트가 같은
   // 컴포넌트를 그대로 재사용) 재시작이 안 걸린다.
   const [restartKey, setRestartKey] = useState(0)
+  // 단어 데이터가 fetch로 아직 도착하지 않았으면 엔진을 만들지 않는다.
   // restartKey는 콜백 안에서 안 쓰지만, 값을 올려 강제로 새 엔진을
   // 만들게 하는 재시작 트리거라 의존성 배열에 일부러 넣어둔다.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const engine = useMemo(
     () =>
-      new AcidRainEngine(
-        ALL_PAIRS,
-        difficulty,
-        window.matchMedia('(max-width: 768px)').matches ? MOBILE_FALL_DURATION_SCALE : 1,
-      ),
+      allPairs
+        ? new AcidRainEngine(
+            allPairs,
+            difficulty,
+            window.matchMedia('(max-width: 768px)').matches ? MOBILE_FALL_DURATION_SCALE : 1,
+          )
+        : null,
     // restartKey는 새 엔진 생성을 강제하는 트리거다.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [difficulty, restartKey],
+    [allPairs, difficulty, restartKey],
   )
 
-  const [snapshot, setSnapshot] = useState<EngineSnapshot>(() => engine.snapshot())
+  const [snapshot, setSnapshot] = useState<EngineSnapshot | null>(() => engine?.snapshot() ?? null)
   const [counting, setCounting] = useState(true)
   const [input, setInput] = useState('')
   const composingRef = useRef(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const answerFormRef = useRef<HTMLFormElement>(null)
 
-  useEffect(() => engine.subscribe(setSnapshot), [engine])
-  useEffect(() => () => engine.destroy(), [engine])
+  useEffect(() => {
+    if (!engine) return
+    return engine.subscribe(setSnapshot)
+  }, [engine])
+  useEffect(() => {
+    if (!engine) return
+    return () => engine.destroy()
+  }, [engine])
 
   // 오답·놓침 피드백 강화 — 화면 흔들림 + (지원 기기에서) 진동. shake는
   // .shake에 애니메이션이 걸린 CSS가 모바일 전용 미디어 쿼리 안에만
   // 있어서 데스크톱에서는 클래스만 붙었다 떨어질 뿐 아무 효과가 없다.
   useEffect(() => {
-    if (snapshot.feedback?.kind !== 'wrong' && snapshot.feedback?.kind !== 'miss') return
+    if (snapshot?.feedback?.kind !== 'wrong' && snapshot?.feedback?.kind !== 'miss') return
     const el = answerFormRef.current
     if (el) {
       el.classList.remove('shake')
@@ -66,9 +76,10 @@ export function AcidRain() {
       el.classList.add('shake')
     }
     navigator.vibrate?.(120)
-  }, [snapshot.feedback])
+  }, [snapshot?.feedback])
 
   useEffect(() => {
+    if (!engine) return
     setSnapshot(engine.snapshot())
     setCounting(true)
     setInput('')
@@ -80,22 +91,23 @@ export function AcidRain() {
   // 정책상 멈춰서 포커스 복원이 씹힐 수 있다. setTimeout은 그런 상태와
   // 무관하게 항상 실행된다.
   useEffect(() => {
-    if (counting || snapshot.status !== 'playing') return
+    if (counting || snapshot?.status !== 'playing') return
     const timer = window.setTimeout(() => inputRef.current?.focus(), 0)
     return () => window.clearTimeout(timer)
-  }, [counting, snapshot.status])
+  }, [counting, snapshot?.status])
 
   // 방어 게이지가 0이 되면 결과 화면으로 (FR-AR-08)
   useEffect(() => {
-    if (snapshot.status !== 'over') return
+    if (!engine || snapshot?.status !== 'over') return
     navigate('/result', { replace: true, state: engine.buildResult() })
-  }, [snapshot.status, engine, navigate])
+  }, [snapshot?.status, engine, navigate])
 
-  const pause = useCallback(() => engine.pause(), [engine])
-  useAutoPause(pause, snapshot.status === 'playing')
+  const pause = useCallback(() => engine?.pause(), [engine])
+  useAutoPause(pause, snapshot?.status === 'playing')
   useLockBodyScroll()
 
   const handleStart = useCallback(() => {
+    if (!engine) return
     setCounting(false)
     engine.start()
     inputRef.current?.focus()
@@ -104,7 +116,7 @@ export function AcidRain() {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     // 한글 조합 중인 입력은 판정하지 않는다 (FR-CM-06)
-    if (composingRef.current) return
+    if (composingRef.current || !engine) return
     engine.submit(input)
     setInput('')
     // 엔터 제출 때는 입력창이 이미 활성화돼 있으므로 다시 focus하면 iOS가
@@ -116,6 +128,35 @@ export function AcidRain() {
         inputElement.focus({ preventScroll: true })
       }
     }, 0)
+  }
+
+  if (loadError) {
+    return (
+      <div className="app-shell screen--rain">
+        <div className="overlay">
+          <div className="overlay-card" role="alertdialog" aria-modal="true">
+            <h3>단어 데이터를 불러오지 못했어요</h3>
+            <p>네트워크 상태를 확인한 뒤 메인에서 다시 시도해 주세요.</p>
+            <button className="button button--primary" onClick={() => navigate('/')}>
+              메인으로
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (!engine || !snapshot) {
+    return (
+      <div className="app-shell screen--rain">
+        <div className="overlay">
+          <div className="overlay-card" role="status" aria-live="polite">
+            <h3>단어를 불러오는 중이에요</h3>
+            <p>잠시만 기다려 주세요.</p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   const tone = defenseTone(snapshot.defense)
