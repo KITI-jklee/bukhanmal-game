@@ -146,3 +146,12 @@ class StatsResponse(BaseModel):
     total_page_views: int
     total_game_starts: int
     game_starts_by_game: GameStartCounts
+    # 순 이용자 수 — game_events가 새로 생긴 이후로 게임을 시작한 브라우저
+    # 수(player_key distinct). game_scores 쪽 과거 데이터는 이 값에 안 잡힌다.
+    unique_players: int
+    # 이탈률 계산용 — game_events 집계 시작 시점 이후로 "완료까지 간" 판수.
+    # game_scores는 그 이전 데이터도 있어서, 같은 기간으로 맞추지 않으면
+    # 완료가 시작보다 많아지는 이상한 숫자가 나온다(cutoff로 맞춤).
+    total_completed_games: int
+    # 시작 대비 중도 이탈 비율(%). 집계된 game_start가 아직 없으면 null.
+    dropout_rate_percent: float | None

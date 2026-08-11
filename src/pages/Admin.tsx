@@ -104,6 +104,16 @@ export function Admin() {
                 <div className="stat-label">게임 이용 횟수</div>
                 <div className="stat-value">{stats.total_game_starts.toLocaleString()}</div>
               </div>
+              <div className="admin-stat-card">
+                <div className="stat-label">순 이용자 수</div>
+                <div className="stat-value">{stats.unique_players.toLocaleString()}</div>
+              </div>
+              <div className="admin-stat-card">
+                <div className="stat-label">이탈률</div>
+                <div className="stat-value">
+                  {stats.dropout_rate_percent === null ? '-' : `${stats.dropout_rate_percent}%`}
+                </div>
+              </div>
               <div className="admin-stat-card admin-stat-card--wide">
                 <div className="stat-label">게임별 이용 횟수</div>
                 <div className="admin-stat-breakdown">
@@ -118,6 +128,12 @@ export function Admin() {
                 </div>
               </div>
             </div>
+            {/* 이탈률은 "시작"과 "완료"를 같은 기간(집계 시작 이후)으로 맞춰
+                계산한 값이라, 그 전제를 화면에도 남겨둔다 — 안 그러면 나중에
+                왜 이 숫자가 이렇게 나오는지 헷갈릴 수 있다. */}
+            <p className="admin-note">
+              이탈률은 이 통계를 집계하기 시작한 시점 이후의 시작·완료 건수만 비교한 값입니다.
+            </p>
             <button
               className="button button--ghost admin-refresh"
               onClick={() => load(password)}

@@ -32,11 +32,9 @@ def test_stats_counts_page_views_and_game_starts_by_game(client):
     response = client.get("/api/v1/admin/stats", headers=ADMIN_HEADER)
     assert response.status_code == 200
     body = response.json()
-    assert body == {
-        "total_page_views": 2,
-        "total_game_starts": 3,
-        "game_starts_by_game": {"chosung": 2, "acid_rain": 1},
-    }
+    assert body["total_page_views"] == 2
+    assert body["total_game_starts"] == 3
+    assert body["game_starts_by_game"] == {"chosung": 2, "acid_rain": 1}
 
 
 def test_stats_are_zero_when_no_events_recorded(client):
@@ -46,4 +44,77 @@ def test_stats_are_zero_when_no_events_recorded(client):
         "total_page_views": 0,
         "total_game_starts": 0,
         "game_starts_by_game": {"chosung": 0, "acid_rain": 0},
+        "unique_players": 0,
+        "total_completed_games": 0,
+        "dropout_rate_percent": None,
     }
+
+
+def test_stats_count_unique_players_across_repeated_starts(client):
+    same_key = "11111111-1111-4111-8111-111111111111"
+    other_key = "22222222-2222-4222-8222-222222222222"
+    client.post(
+        "/api/v1/events",
+        json={"event_type": "game_start", "player_key": same_key, "game": "chosung", "difficulty": "보통"},
+    )
+    client.post(
+        "/api/v1/events",
+        json={"event_type": "game_start", "player_key": same_key, "game": "chosung", "difficulty": "보통"},
+    )
+    client.post(
+        "/api/v1/events",
+        json={"event_type": "game_start", "player_key": other_key, "game": "acid_rain", "difficulty": "쉬움"},
+    )
+
+    response = client.get("/api/v1/admin/stats", headers=ADMIN_HEADER)
+    body = response.json()
+    assert body["total_game_starts"] == 3
+    assert body["unique_players"] == 2  # 같은 player_key로 2번 시작해도 한 명
+
+
+def test_stats_dropout_rate_reflects_started_but_not_completed(client):
+    for _ in range(4):
+        _seed(client, "game_start", "chosung", "보통")
+
+    chosung_score = {
+        "nickname": "테스터",
+        "game": "chosung",
+        "difficulty": "보통",
+        "score": 100,
+        "correct_count": 5,
+        "no_hint_correct_count": 3,
+        "max_combo": 2,
+    }
+    client.post("/api/v1/scores", json=chosung_score)  # 4번 시작 중 1번만 완료
+
+    response = client.get("/api/v1/admin/stats", headers=ADMIN_HEADER)
+    body = response.json()
+    assert body["total_game_starts"] == 4
+    assert body["total_completed_games"] == 1
+    assert body["dropout_rate_percent"] == 75.0
+
+
+def test_stats_dropout_rate_ignores_completions_before_tracking_started(client):
+    # game_scores에 과거 데이터가 있어도(game_events보다 이전), 이탈률 계산에는
+    # 안 들어가야 한다 — 안 그러면 "시작보다 완료가 많은" 이상한 숫자가 나온다.
+    import time
+
+    old_score = {
+        "nickname": "옛날테스터",
+        "game": "chosung",
+        "difficulty": "보통",
+        "score": 50,
+        "correct_count": 2,
+        "no_hint_correct_count": 1,
+        "max_combo": 1,
+    }
+    client.post("/api/v1/scores", json=old_score)
+
+    time.sleep(0.01)
+    _seed(client, "game_start", "chosung", "보통")
+
+    response = client.get("/api/v1/admin/stats", headers=ADMIN_HEADER)
+    body = response.json()
+    assert body["total_game_starts"] == 1
+    assert body["total_completed_games"] == 0  # 추적 시작 전 완료 건은 제외
+    assert body["dropout_rate_percent"] == 100.0
