@@ -105,6 +105,16 @@ export interface RecentRecordsResponse {
   records: RecentRecordEntry[]
 }
 
+/** 관리자 통계 화면 응답 — GET /api/v1/admin/stats(비밀번호 헤더 필요) */
+export interface StatsResponse {
+  total_page_views: number
+  total_game_starts: number
+  game_starts_by_game: {
+    chosung: number
+    acid_rain: number
+  }
+}
+
 /** 산성비게임 결과 화면에 넘기는 플레이 요약 */
 export interface AcidRainResult {
   game: 'acid_rain'

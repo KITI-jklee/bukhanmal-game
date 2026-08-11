@@ -20,6 +20,21 @@ def _split_csv(value: str) -> list[str]:
     return [item.strip() for item in value.split(",") if item.strip()]
 
 
+def _require_admin_password() -> str:
+    # 관리자 통계 페이지(/api/v1/admin/stats)를 지키는 단일 공유 비밀번호.
+    # 발주처가 Vercel 대시보드에 접근할 수 없어 앱 안에 자체 통계 화면을 두는
+    # 대신, 값을 깜빡 비워두면 그 화면이 그대로 공개되는 사고를 막기 위해
+    # DATABASE_URL과 똑같이 필수로 요구한다.
+    value = os.getenv("ADMIN_PASSWORD")
+    if not value:
+        raise RuntimeError(
+            "ADMIN_PASSWORD 환경변수가 설정되어 있지 않습니다. "
+            "관리자 통계 화면 보호용 비밀번호를 .env(로컬) 또는 배포 플랫폼의 "
+            "환경변수로 설정하세요."
+        )
+    return value
+
+
 def _require_database_url() -> str:
     # sqlite 파일 폴백을 두지 않는다 — Vercel 등 서버리스 배포는 파일시스템이
     # 요청마다 초기화/읽기전용이라 sqlite 파일이 운영 DB로 동작할 수 없다.
@@ -42,6 +57,9 @@ class Settings:
     # _require_database_url() 참고. database.py가 SQLAlchemy 엔진 하나에만
     # 의존하므로, 값 자체가 바뀌어도 상위 코드는 바뀌지 않는다.
     database_url: str = field(default_factory=_require_database_url)
+
+    # 관리자 통계 화면(/api/v1/admin/stats) 보호용 — _require_admin_password() 참고.
+    admin_password: str = field(default_factory=_require_admin_password)
 
     # 프런트엔드 개발 서버(Vite, 기본 5173)와 실제 배포 도메인을 CORS로 허용한다.
     cors_origins: list[str] = field(

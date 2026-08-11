@@ -11,7 +11,7 @@ import uuid
 from datetime import datetime
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from .validation import validate_nickname
 
@@ -105,3 +105,44 @@ class RecentRecordsResponse(BaseModel):
     game: Literal["chosung", "acid_rain"]
     difficulty: Difficulty
     records: list[RecentRecordEntry]
+
+
+class EventPayload(BaseModel):
+    """방문자/이용 지표용 이벤트 기록 요청 — page_view(방문) · game_start(이용).
+
+    닉네임 없이 익명으로 기록한다(카운팅 목적이라 누구인지는 필요 없음).
+    player_key가 없는 요청도 계속 동작해야 하므로 스코어 제출과 마찬가지로
+    기본값을 서버가 대신 생성한다. game·difficulty는 game_start에서만 쓰므로
+    선택 필드로 두고, 아래 검증기로 event_type과의 짝이 맞는지 확인한다
+    (models.Event의 ck_game_events_type_fields와 같은 규칙).
+    """
+
+    event_type: Literal["game_start", "page_view"]
+    player_key: uuid.UUID = Field(default_factory=uuid.uuid4)
+    game: Literal["chosung", "acid_rain"] | None = None
+    difficulty: Difficulty | None = None
+
+    @model_validator(mode="after")
+    def _check_game_fields_match_event_type(self) -> "EventPayload":
+        if self.event_type == "game_start" and (self.game is None or self.difficulty is None):
+            raise ValueError("game_start 이벤트는 game과 difficulty가 모두 필요합니다.")
+        if self.event_type == "page_view" and (self.game is not None or self.difficulty is not None):
+            raise ValueError("page_view 이벤트는 game·difficulty를 보낼 수 없습니다.")
+        return self
+
+
+class EventResult(BaseModel):
+    status: Literal["ok"] = "ok"
+
+
+class GameStartCounts(BaseModel):
+    chosung: int
+    acid_rain: int
+
+
+class StatsResponse(BaseModel):
+    """관리자 통계 화면(GET /api/v1/admin/stats) 응답 — 총계만 보여준다."""
+
+    total_page_views: int
+    total_game_starts: int
+    game_starts_by_game: GameStartCounts

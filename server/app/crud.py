@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import uuid
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from .models import Score
-from .schemas import ScorePayload
+from .models import Event, Score
+from .schemas import EventPayload, ScorePayload
 
 
 def create_score(db: Session, payload: ScorePayload) -> Score:
@@ -71,6 +71,42 @@ def rank_of(db: Session, row: Score) -> tuple[int, int]:
 
 def top5(db: Session, game: str, difficulty: str) -> list[Score]:
     return _leaderboard(db, game, difficulty)[:5]
+
+
+def create_event(db: Session, payload: EventPayload) -> Event:
+    """game_scores와 달리 중복 등록 방지 키가 없다 — 재플레이도 매번 새 행으로
+    쌓는 게 목적이라(조회수 방식), submission_key 같은 dedup 개념이 필요 없다.
+    """
+    row = Event(
+        event_type=payload.event_type,
+        player_key=payload.player_key,
+        game=payload.game,
+        difficulty=payload.difficulty,
+    )
+    db.add(row)
+    db.commit()
+    db.refresh(row)
+    return row
+
+
+def _count_events(db: Session, event_type: str, game: str | None = None) -> int:
+    stmt = select(func.count()).select_from(Event).where(Event.event_type == event_type)
+    if game is not None:
+        stmt = stmt.where(Event.game == game)
+    return db.scalar(stmt) or 0
+
+
+def get_stats(db: Session) -> dict[str, object]:
+    """관리자 통계 화면용 총계 — 발주처가 Vercel 대시보드에 접근할 수 없어
+    방문자 수·이용 횟수를 앱 안에서 직접 보여준다(총계만, 기간별 추이는 없음)."""
+    return {
+        "total_page_views": _count_events(db, "page_view"),
+        "total_game_starts": _count_events(db, "game_start"),
+        "game_starts_by_game": {
+            "chosung": _count_events(db, "game_start", "chosung"),
+            "acid_rain": _count_events(db, "game_start", "acid_rain"),
+        },
+    }
 
 
 def recent_records(

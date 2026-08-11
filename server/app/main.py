@@ -6,30 +6,44 @@
 
 from __future__ import annotations
 
+import secrets
 import uuid
 from contextlib import asynccontextmanager
 from typing import Literal
 
-from fastapi import Depends, FastAPI, HTTPException, Query, Request, status
+from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
 from .config import settings
-from .crud import create_score, rank_of, recent_records, top5
+from .crud import create_event, create_score, get_stats, rank_of, recent_records, top5
 from .database import Base, engine, get_db
 from .rate_limit import enforce_rate_limit
 from .scoring_limits import max_score_for
 from .schemas import (
     Difficulty,
+    EventPayload,
+    EventResult,
     RankingEntry,
     RankingResponse,
     RecentRecordEntry,
     RecentRecordsResponse,
     ScorePayload,
     ScoreSubmitResult,
+    StatsResponse,
 )
+
+ADMIN_PASSWORD_HEADER = "X-Admin-Password"
+
+
+def require_admin(x_admin_password: str | None = Header(default=None, alias=ADMIN_PASSWORD_HEADER)) -> None:
+    """관리자 통계 화면 보호 — 발주처가 입력한 비밀번호를 헤더로 그대로 실어
+    보내고, 여기서 환경변수와 비교한다. secrets.compare_digest로 타이밍 공격을
+    막는다(문자열 비교 시간 차이로 정답을 한 글자씩 추측하는 걸 방지)."""
+    if x_admin_password is None or not secrets.compare_digest(x_admin_password, settings.admin_password):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="비밀번호가 올바르지 않습니다.")
 
 
 @asynccontextmanager
@@ -52,7 +66,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
     allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type"],
+    allow_headers=["Content-Type", ADMIN_PASSWORD_HEADER],
 )
 
 
@@ -112,6 +126,27 @@ def get_rankings(
         for index, row in enumerate(rows)
     ]
     return RankingResponse(game=game, difficulty=difficulty, top5=entries)
+
+
+@app.post("/api/v1/events", response_model=EventResult, status_code=status.HTTP_201_CREATED)
+def submit_event(payload: EventPayload, db: Session = Depends(get_db)) -> EventResult:
+    """방문자/이용 지표용 이벤트 기록 — 지금은 "시작하기" 클릭 시 game_start 하나만
+    보낸다. 랭킹에 영향이 없는 순수 카운팅 목적이라 점수 등록과 같은 IP 기준
+    요청 빈도 제한(enforce_rate_limit)을 공유하지 않는다 — 같은 버킷을 쓰면
+    한 사람이 여러 판 시작·등록을 반복할 때 서로의 한도를 갚아먹는다.
+    """
+    create_event(db, payload)
+    return EventResult()
+
+
+@app.get("/api/v1/admin/stats", response_model=StatsResponse)
+def get_admin_stats(
+    db: Session = Depends(get_db),
+    _auth: None = Depends(require_admin),
+) -> StatsResponse:
+    """발주처용 자체 관리자 통계 화면 — Vercel 대시보드 접근 권한이 없는
+    쪽에서도 방문자 수·게임 이용 횟수를 볼 수 있게 이 API로 직접 계산한다."""
+    return StatsResponse(**get_stats(db))
 
 
 @app.get(

@@ -92,3 +92,55 @@ class Score(Base):
     played_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, default=lambda: datetime.now(UTC)
     )
+
+
+class Event(Base):
+    """방문자/이용 지표용 이벤트 로그. 두 가지 event_type을 쌓는다.
+
+    - page_view: 앱이 브라우저에서 처음 뜰 때 1건(발주처가 Vercel 대시보드에
+      접근할 수 없어, 방문자 수도 자체 관리자 화면에서 보여주려고 직접 쌓는다).
+    - game_start: "시작하기" 클릭 시점. game_scores(완료된 판)와 달리 완료
+      여부와 무관하게 기록되므로(중도 이탈도 포함), 이 이벤트의 COUNT(*)는
+      "게임 이용 횟수"(동영상 조회수 방식 — 재플레이도 매번 카운트), game_scores의
+      COUNT(*)와 비교하면 중도 이탈 비율까지 계산할 수 있다.
+
+    player_key는 game_scores와 같은 브라우저별 익명 식별자를 그대로 재사용한다
+    — 필요해지면 COUNT(DISTINCT player_key)로 순 이용자 수도 뽑을 수 있다.
+    """
+
+    __tablename__ = "game_events"
+    __table_args__ = (
+        CheckConstraint(
+            "event_type in ('game_start', 'page_view')",
+            name="ck_game_events_event_type",
+        ),
+        CheckConstraint(
+            "game is null or game in ('chosung', 'acid_rain')",
+            name="ck_game_events_game",
+        ),
+        CheckConstraint(
+            "difficulty is null or difficulty in ('쉬움', '보통', '어려움')",
+            name="ck_game_events_difficulty",
+        ),
+        # game_start는 어떤 게임·난이도인지 같이 남기고, page_view는 게임과
+        # 무관하니 두 필드 다 비워야 한다 — schemas.py의 검증과 같은 규칙을
+        # DB 레벨에도 걸어 둔다(models.Score의 ck_game_scores_game_fields와 같은 패턴).
+        CheckConstraint(
+            "(event_type = 'game_start' and game is not null and difficulty is not null)"
+            " or (event_type = 'page_view' and game is null and difficulty is null)",
+            name="ck_game_events_type_fields",
+        ),
+        Index("idx_game_events_type_time", "event_type", "occurred_at"),
+    )
+
+    def _new_event_id() -> uuid.UUID:  # noqa: N805 - SQLAlchemy default factory, no self
+        return uuid.uuid4()
+
+    event_id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=_new_event_id)
+    event_type: Mapped[str] = mapped_column(String(20), nullable=False)
+    player_key: Mapped[uuid.UUID] = mapped_column(Uuid, nullable=False)
+    game: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    difficulty: Mapped[str | None] = mapped_column(String(5), nullable=True)
+    occurred_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, default=lambda: datetime.now(UTC)
+    )

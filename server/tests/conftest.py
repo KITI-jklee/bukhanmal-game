@@ -7,6 +7,7 @@ import os
 # 테스트는 실제 DB에 붙지 않고 아래 client 픽스처가 만드는 별도의 인메모리
 # 엔진(get_db override)만 쓰므로, 임포트가 막히지 않게 더미 값만 채워 둔다.
 os.environ.setdefault("DATABASE_URL", "sqlite:///:memory:")
+os.environ.setdefault("ADMIN_PASSWORD", "test-admin-password")
 
 import pytest
 from fastapi.testclient import TestClient

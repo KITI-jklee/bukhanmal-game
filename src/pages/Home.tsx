@@ -5,6 +5,7 @@ import { AppHeader } from '../components/AppHeader'
 import { DifficultyDialog } from '../components/DifficultyDialog'
 import { GameGuideDialog } from '../components/GameGuideDialog'
 import { ArrowRightIcon, BookIcon, ClockIcon, ShieldIcon } from '../components/Icons'
+import { trackGameStart } from '../lib/eventApi'
 import type { GameId } from '../lib/types'
 import './Home.css'
 
@@ -115,6 +116,7 @@ export function Home() {
           game={difficultyFor}
           onClose={() => setDifficultyFor(null)}
           onStart={(difficulty) => {
+            trackGameStart(difficultyFor, difficulty)
             const path = difficultyFor === 'chosung' ? '/chosung' : '/acid-rain'
             navigate(`${path}?difficulty=${encodeURIComponent(difficulty)}`)
           }}

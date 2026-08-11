@@ -18,6 +18,7 @@
     "check:chosung": "tsx scripts/chosung-check.ts"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "pretendard": "1.3.9",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
