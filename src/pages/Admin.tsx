@@ -109,7 +109,7 @@ export function Admin() {
                 <div className="stat-value">{stats.unique_players.toLocaleString()}</div>
               </div>
               <div className="admin-stat-card">
-                <div className="stat-label">이탈률</div>
+                <div className="stat-label">이탈률 (게임 중간에 나간 비율)</div>
                 <div className="stat-value">
                   {stats.dropout_rate_percent === null ? '-' : `${stats.dropout_rate_percent}%`}
                 </div>
