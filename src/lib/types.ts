@@ -115,10 +115,8 @@ export interface StatsResponse {
   }
   /** 같은 브라우저에서 여러 판 시작해도 한 명으로 센 순 이용자 수 */
   unique_players: number
-  /** 이용 시작 이후 같은 기간에 끝까지 완료된 판수(이탈률 계산용) */
-  total_completed_games: number
-  /** 시작 대비 중도 이탈 비율(%). 집계된 시작이 아직 없으면 null */
-  dropout_rate_percent: number | null
+  /** 방문자 중 실제로 게임을 시작한 비율(%). 방문자가 아직 없으면 null */
+  usage_rate_percent: number | null
 }
 
 /** 산성비게임 결과 화면에 넘기는 플레이 요약 */

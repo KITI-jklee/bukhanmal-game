@@ -99,6 +99,7 @@ def _count_events(db: Session, event_type: str, game: str | None = None) -> int:
 def get_stats(db: Session) -> dict[str, object]:
     """관리자 통계 화면용 총계 — 발주처가 Vercel 대시보드에 접근할 수 없어
     방문자 수·이용 횟수를 앱 안에서 직접 보여준다(총계만, 기간별 추이는 없음)."""
+    total_page_views = _count_events(db, "page_view")
     total_game_starts = _count_events(db, "game_start")
 
     unique_players = (
@@ -110,40 +111,21 @@ def get_stats(db: Session) -> dict[str, object]:
         or 0
     )
 
-    # game_events는 오늘부터 쌓인 데이터라, game_scores(예전 데이터 포함)를
-    # 그냥 다 세면 "시작보다 완료가 많은" 이상한 숫자가 나온다. game_start를
-    # 처음 기록한 시점 이후의 완료 건수만 같은 기간으로 비교한다.
-    tracking_started_at = db.scalar(
-        select(func.min(Event.occurred_at)).where(Event.event_type == "game_start")
-    )
-    if tracking_started_at is not None:
-        total_completed_games = (
-            db.scalar(
-                select(func.count())
-                .select_from(Score)
-                .where(Score.played_at >= tracking_started_at)
-            )
-            or 0
-        )
-    else:
-        total_completed_games = 0
-
-    dropout_rate_percent = None
-    if total_game_starts > 0:
-        dropout_rate_percent = round(
-            max(0, total_game_starts - total_completed_games) / total_game_starts * 100, 1
-        )
+    # 방문 대비 게임 시작 전환율 — 둘 다 game_events 안에서 같은 기간으로
+    # 나오는 값이라(예전 데이터 섞일 걱정 없음) 별도 보정이 필요 없다.
+    usage_rate_percent = None
+    if total_page_views > 0:
+        usage_rate_percent = round(total_game_starts / total_page_views * 100, 1)
 
     return {
-        "total_page_views": _count_events(db, "page_view"),
+        "total_page_views": total_page_views,
         "total_game_starts": total_game_starts,
         "game_starts_by_game": {
             "chosung": _count_events(db, "game_start", "chosung"),
             "acid_rain": _count_events(db, "game_start", "acid_rain"),
         },
         "unique_players": unique_players,
-        "total_completed_games": total_completed_games,
-        "dropout_rate_percent": dropout_rate_percent,
+        "usage_rate_percent": usage_rate_percent,
     }
 
 
