@@ -102,6 +102,15 @@ def get_stats(db: Session) -> dict[str, object]:
     total_page_views = _count_events(db, "page_view")
     total_game_starts = _count_events(db, "game_start")
 
+    unique_visitors = (
+        db.scalar(
+            select(func.count(func.distinct(Event.player_key))).where(
+                Event.event_type == "page_view"
+            )
+        )
+        or 0
+    )
+
     unique_players = (
         db.scalar(
             select(func.count(func.distinct(Event.player_key))).where(
@@ -111,21 +120,26 @@ def get_stats(db: Session) -> dict[str, object]:
         or 0
     )
 
-    # 방문 대비 게임 시작 전환율 — 둘 다 game_events 안에서 같은 기간으로
-    # 나오는 값이라(예전 데이터 섞일 걱정 없음) 별도 보정이 필요 없다.
+    # 고유 방문자 중 게임을 한 번이라도 시작한 고유 이용자의 비율.
     usage_rate_percent = None
-    if total_page_views > 0:
-        usage_rate_percent = round(total_game_starts / total_page_views * 100, 1)
+    if unique_visitors > 0:
+        usage_rate_percent = round(unique_players / unique_visitors * 100, 1)
+
+    average_game_starts_per_player = None
+    if unique_players > 0:
+        average_game_starts_per_player = round(total_game_starts / unique_players, 1)
 
     return {
         "total_page_views": total_page_views,
         "total_game_starts": total_game_starts,
+        "unique_visitors": unique_visitors,
         "game_starts_by_game": {
             "chosung": _count_events(db, "game_start", "chosung"),
             "acid_rain": _count_events(db, "game_start", "acid_rain"),
         },
         "unique_players": unique_players,
         "usage_rate_percent": usage_rate_percent,
+        "average_game_starts_per_player": average_game_starts_per_player,
     }
 
 

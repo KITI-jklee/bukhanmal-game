@@ -145,12 +145,13 @@ class StatsResponse(BaseModel):
 
     total_page_views: int
     total_game_starts: int
+    unique_visitors: int
     game_starts_by_game: GameStartCounts
     # 순 이용자 수 — game_events가 새로 생긴 이후로 게임을 시작한 브라우저
     # 수(player_key distinct). game_scores 쪽 과거 데이터는 이 값에 안 잡힌다.
     unique_players: int
-    # 방문자 중 실제로 게임을 시작한 비율(%) — total_game_starts / total_page_views.
-    # 둘 다 같은 game_events 테이블에서 같은 기간으로 나오는 값이라(이탈률처럼
-    # game_scores와 기간을 맞추는 보정이 필요 없다), 방문 대비 게임 전환율을
-    # 그대로 보여준다. 방문자가 아직 없으면 null.
+    # 고유 방문자 중 게임을 한 번이라도 시작한 고유 이용자의 비율(%).
+    # 고유 방문자가 아직 없으면 null.
     usage_rate_percent: float | None
+    # 반복 이용 강도 — 전체 게임 시작 횟수 / 고유 게임 이용자 수.
+    average_game_starts_per_player: float | None

@@ -109,6 +109,7 @@ export interface RecentRecordsResponse {
 export interface StatsResponse {
   total_page_views: number
   total_game_starts: number
+  unique_visitors: number
   game_starts_by_game: {
     chosung: number
     acid_rain: number
@@ -117,6 +118,8 @@ export interface StatsResponse {
   unique_players: number
   /** 방문자 중 실제로 게임을 시작한 비율(%). 방문자가 아직 없으면 null */
   usage_rate_percent: number | null
+  /** 게임 이용자 한 명이 평균적으로 게임을 시작한 횟수 */
+  average_game_starts_per_player: number | null
 }
 
 /** 산성비게임 결과 화면에 넘기는 플레이 요약 */

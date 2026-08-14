@@ -98,7 +98,7 @@ export function Admin() {
             <div className="admin-stats-grid">
               <div className="admin-stat-card">
                 <div className="stat-label">방문자 수</div>
-                <div className="stat-value">{stats.total_page_views.toLocaleString()}</div>
+                <div className="stat-value">{stats.unique_visitors.toLocaleString()}</div>
               </div>
               <div className="admin-stat-card">
                 <div className="stat-label">게임 이용 횟수</div>
@@ -109,9 +109,17 @@ export function Admin() {
                 <div className="stat-value">{stats.unique_players.toLocaleString()}</div>
               </div>
               <div className="admin-stat-card">
-                <div className="stat-label">이용률 (게임 이용 횟수 ÷ 방문자 수)</div>
+                <div className="stat-label">이용률 (게임 이용자 수 ÷ 방문자 수)</div>
                 <div className="stat-value">
                   {stats.usage_rate_percent === null ? '-' : `${stats.usage_rate_percent}%`}
+                </div>
+              </div>
+              <div className="admin-stat-card">
+                <div className="stat-label">이용자당 평균 게임 시작 횟수</div>
+                <div className="stat-value">
+                  {stats.average_game_starts_per_player === null
+                    ? '-'
+                    : `${stats.average_game_starts_per_player}회`}
                 </div>
               </div>
               <div className="admin-stat-card admin-stat-card--wide">
