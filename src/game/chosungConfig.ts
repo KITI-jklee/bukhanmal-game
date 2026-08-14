@@ -62,6 +62,23 @@ export function revealFirstLetter(initials: string, firstLetter: string): string
   return firstLetter + initials.slice(1)
 }
 
+/** 남한말 대응어(south_expression) 정보가 원천 데이터에 없는 단어를 위한 힌트 단계 보정.
+ *
+ * 통일부 사전 원본 자체에 대응 표준어 정보가 없는 단어가 다수 있다(2026-08-11 데이터
+ * 검증 참고). 이런 단어는 1단계 힌트(남한말 공개)가 애초에 보여줄 게 없어서, 힌트를
+ * 써도 아무 정보도 못 얻는 "먹통 힌트"가 된다. 그래서 이런 단어에 한해 1단계를 건너뛰고
+ * 바로(유일한 단계로) 2단계 정보인 "첫 글자 공개"를 준다 — 힌트는 최대 1번만 쓸 수 있다. */
+export function effectiveMaxHintLevel(southExpression: string): number {
+  return southExpression.trim().length > 0 ? MAX_HINT_LEVEL : 1
+}
+
+/** 남한말 힌트가 없는 단어에서, 지금 힌트 단계에 "첫 글자"를 보여줘야 하는지 여부.
+ *  남한말이 있는 단어는 기존대로 2단계에서만 첫 글자를 보여준다. */
+export function shouldRevealFirstLetter(hintLevel: number, southExpression: string): boolean {
+  if (southExpression.trim().length > 0) return hintLevel >= 2
+  return hintLevel >= 1
+}
+
 /* 뜻풀이 마스킹은 더 이상 쓰지 않는다.
  *
  * 초기 샘플의 뜻풀이가 "남한말로 풀이하면 ‘근해’입니다." 형태라 1단계 힌트를

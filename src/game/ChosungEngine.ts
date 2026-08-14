@@ -12,9 +12,11 @@ import {
   QUESTIONS_PER_ROUND,
   TIME_LIMIT_SECONDS,
   comboBonus,
+  effectiveMaxHintLevel,
   isSubmittable,
   normalizeAnswer,
   revealFirstLetter,
+  shouldRevealFirstLetter,
 } from './chosungConfig'
 
 export interface RevealState {
@@ -41,7 +43,8 @@ export interface ChosungSnapshot {
   hearts: number
   hintLevel: number
   maxHintLevel: number
-  /** 1단계 힌트로 공개된 남한말 표현. 아직 안 열었으면 null */
+  /** 1단계 힌트로 공개된 남한말 표현. 아직 안 열었거나, 이 단어에 남한말 대응어
+   *  정보 자체가 없으면(effectiveMaxHintLevel이 1인 경우) null */
   southHint: string | null
   score: number
   combo: number
@@ -113,11 +116,13 @@ export class ChosungEngine {
     if (this.questions.length === 0) this.status = 'error'
   }
 
-  /** 선택 난이도의 문제 중 중복 없이 무작위로 10문제 (FR-CH-01) */
+  /** 선택 난이도의 문제 중 중복 없이 무작위로 10문제 (FR-CH-01)
+   *
+   * 남한말 대응어(south_expression)가 없는 단어도 출제 대상에 포함한다 — 그런
+   * 단어는 힌트 1단계를 건너뛰고 바로 첫 글자를 보여준다(chosungConfig의
+   * effectiveMaxHintLevel·shouldRevealFirstLetter 참고). */
   private static pickQuestions(pool: ChosungWord[], difficulty: Difficulty): ChosungWord[] {
-    const candidates = pool.filter(
-      (word) => word.difficulty === difficulty && word.south_expression.trim().length > 0,
-    )
+    const candidates = pool.filter((word) => word.difficulty === difficulty)
     const shuffled = [...candidates]
     for (let i = shuffled.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1))
@@ -138,13 +143,15 @@ export class ChosungEngine {
 
   snapshot(): ChosungSnapshot {
     const word = this.current
-    const revealed = this.hintLevel >= 1
+    // 남한말 대응어가 없는 단어는 1단계에서 보여줄 게 없으므로, 힌트를 쓰자마자
+    // (1단계에) 바로 첫 글자를 공개한다 — chosungConfig 참고.
+    const southHintAvailable = !!word && word.south_expression.trim().length > 0
     return {
       status: this.status,
       questionNumber: Math.min(this.index + 1, this.questions.length),
       totalQuestions: this.questions.length,
       initials: word
-        ? this.hintLevel >= 2
+        ? shouldRevealFirstLetter(this.hintLevel, word.south_expression)
           ? revealFirstLetter(word.initials, word.first_letter)
           : word.initials
         : '',
@@ -155,8 +162,8 @@ export class ChosungEngine {
       timeProgress: Math.max(0, Math.min(1, this.remaining / TIME_LIMIT_SECONDS)),
       hearts: Math.max(0, MAX_WRONG - this.wrongCount),
       hintLevel: this.hintLevel,
-      maxHintLevel: MAX_HINT_LEVEL,
-      southHint: word && revealed ? word.south_expression : null,
+      maxHintLevel: word ? effectiveMaxHintLevel(word.south_expression) : MAX_HINT_LEVEL,
+      southHint: word && southHintAvailable && this.hintLevel >= 1 ? word.south_expression : null,
       score: this.rawScore,
       combo: this.combo,
       maxCombo: this.maxCombo,
@@ -289,10 +296,15 @@ export class ChosungEngine {
     this.feedbackTimer = 1.2
   }
 
-  /** 힌트 열람 — 반드시 1단계부터 순서대로, 콤보는 즉시 초기화 (FR-CH-04·08) */
+  /** 힌트 열람 — 반드시 1단계부터 순서대로, 콤보는 즉시 초기화 (FR-CH-04·08)
+   *
+   * 남한말 대응어가 없는 단어는 effectiveMaxHintLevel이 1이라, 1단계 힌트가
+   * 바로 "첫 글자 공개"(원래 2단계 정보)로 대체되고 그 이상은 못 쓴다. */
   useHint(): void {
     if (this.status !== 'playing' || this.reveal) return
-    if (this.hintLevel >= MAX_HINT_LEVEL) return
+    const word = this.current
+    if (!word) return
+    if (this.hintLevel >= effectiveMaxHintLevel(word.south_expression)) return
     this.hintLevel += 1
     this.hintsUsed += 1
     this.combo = 0

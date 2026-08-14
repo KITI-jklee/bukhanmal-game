@@ -148,6 +148,27 @@ console.log('\n[3] 힌트 공개 내용')
   check('3단계 힌트는 없다', engine.snapshot().hintLevel, 2)
 }
 
+// ── 3-1. 남한말 대응어가 없는 단어의 힌트 ──────────
+// 통일부 원본 데이터에 남한말 대응어 정보 자체가 없는 단어가 다수 있다
+// (2026-08-11 데이터 검증). 이런 단어는 1단계 힌트가 보여줄 게 없으므로,
+// 힌트 1회로 바로(유일한 단계로) 첫 글자를 공개한다.
+console.log('\n[3-1] 남한말 대응어 없는 단어의 힌트')
+{
+  const noSouthPool: ChosungWord[] = POOL.map((w) => ({ ...w, south_expression: '' }))
+  const engine = newEngine('보통', noSouthPool)
+  const before = engine.snapshot()
+  check('최대 힌트 단계는 1', before.maxHintLevel, 1)
+  check('힌트 전 southHint 없음', before.southHint, null)
+
+  engine.useHint()
+  const after1 = engine.snapshot()
+  check('힌트 1회로 southHint는 여전히 없음(줄 게 없어서)', after1.southHint, null)
+  check('대신 바로 첫 글자가 공개된다', after1.initials[0], '단')
+
+  engine.useHint()
+  check('더 이상 힌트를 못 쓴다(1단계가 최대)', engine.snapshot().hintLevel, 1)
+}
+
 // ── 4. 힌트는 제한시간을 늘리지 않는다 ─────────────
 
 console.log('\n[4] 힌트와 제한시간')
@@ -311,7 +332,13 @@ console.log('\n[10] 정답 판정')
 console.log('\n[11] 실제 데이터 (chosung_words.json)')
 {
   const words = realWords as ChosungWord[]
-  check('남한말 표현이 없는 문제 없음', words.filter((w) => !w.south_expression.trim()).length, 0)
+  // 남한말 대응어가 없는 단어도 이제 정상 출제 대상이다(2026-08-11) — 그런 단어는
+  // 1단계 힌트가 바로 첫 글자를 보여준다(chosungConfig의 effectiveMaxHintLevel 참고).
+  // 그래서 "남한말 표현이 없는 문제 없음" 같은 필수 조건은 더 이상 없다.
+  const noSouthCount = words.filter((w) => !w.south_expression.trim()).length
+  if (noSouthCount > 0) {
+    console.log(`  참고: 남한말 대응어 없는 문제 ${noSouthCount}개 (힌트 1단계=첫 글자 공개로 대체됨)`)
+  }
   check('한 글자 단어 없음', words.filter((w) => w.length < 2).length, 0)
   check('난이도 값이 모두 유효', words.filter((w) => !DIFFICULTY_MULTIPLIER[w.difficulty]).length, 0)
   check('정답 배열에 표준 표기 포함', words.filter((w) => !w.accepted_answers.includes(w.word)).length, 0)
