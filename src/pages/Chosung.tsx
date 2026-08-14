@@ -115,6 +115,27 @@ export function Chosung() {
     inputRef.current?.focus()
   }, [engine])
 
+  const handleRevealNext = useCallback(() => {
+    if (!engine) return
+    engine.next()
+    // 다음 문제로 넘어갈 때 입력창 포커스를 되살린다 — 안 하면 이 버튼에
+    // 포커스가 남아 모바일에서 키보드가 다시 뜨지 않는다.
+    window.setTimeout(() => inputRef.current?.focus(), 0)
+  }, [engine])
+
+  // 정답/오답 모달이 떠 있을 때 Enter를 누르면 "다음 문제" 버튼을 누른 것과
+  // 동일하게 다음 문제로 넘어간다. 조합 중 엔터(IME 229)는 무시한다.
+  useEffect(() => {
+    if (!snapshot?.reveal) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Enter' || event.isComposing || event.keyCode === 229) return
+      event.preventDefault()
+      handleRevealNext()
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [snapshot?.reveal, handleRevealNext])
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     // 한글 조합 중인 입력은 판정하지 않는다 (FR-CM-06)
@@ -396,13 +417,7 @@ export function Chosung() {
 
             <button
               className="button button--primary reveal-next-button"
-              onClick={() => {
-                engine.next()
-                // 다음 문제로 넘어갈 때 입력창 포커스를 되살린다 — 안
-                // 하면 이 버튼에 포커스가 남아 모바일에서 키보드가
-                // 다시 뜨지 않는다.
-                window.setTimeout(() => inputRef.current?.focus(), 0)
-              }}
+              onClick={handleRevealNext}
             >
               {snapshot.questionNumber >= snapshot.totalQuestions ? '결과 보기' : '다음 문제'}
             </button>
