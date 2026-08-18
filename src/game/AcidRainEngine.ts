@@ -90,6 +90,11 @@ export class AcidRainEngine {
 
   private stageIndex = 0
   private stageCorrect = 0
+  // 시간정지 출현 기준(4-5)에 쓰는 카운터 — 맞힌 개수가 아니라 화면에
+  // 떨어진(스폰된) 일반 단어 개수로 센다. 정답 여부와 무관하게 일정한
+  // 간격으로 나오게 해서, 잘 못 맞히는 플레이어에게도 구제 아이템이
+  // 늦게 나오지 않도록 한다(2026-08-19 3차 조정).
+  private stageSpawned = 0
   private spawnTimer = 0
   private bannerTimer = 0
   private bannerStage: number | null = null
@@ -339,6 +344,7 @@ export class AcidRainEngine {
     this.words = []
     this.stageIndex += 1
     this.stageCorrect = 0
+    this.stageSpawned = 0
     this.timeStopSpawned = 0
     this.pendingTimeStop = false
     this.bannerStage = this.stageConfig.stage
@@ -358,7 +364,10 @@ export class AcidRainEngine {
     }
 
     const word = this.makeNormalWord()
-    if (word) this.words = [...this.words, word]
+    if (!word) return
+    this.words = [...this.words, word]
+    this.stageSpawned += 1
+    this.queueTimeStopIfDue()
   }
 
   private makeTimeStopWord(): FallingWord {
@@ -483,15 +492,15 @@ export class AcidRainEngine {
 
     this.setFeedback('correct', `+${gained}${multiplier > 1 ? ` ×${multiplier}` : ''}`)
 
-    this.queueTimeStopIfDue()
     this.checkStageClear()
   }
 
-  /** 스테이지별 출현 기준을 넘겼으면 다음 스폰에 시간정지 단어를 예약한다 (4-5) */
+  /** 스테이지별 출현 기준(떨어진 일반 단어 개수 기준, 정답 여부와 무관)을
+   * 넘겼으면 다음 스폰에 시간정지 단어를 예약한다 (4-5, 2026-08-19 3차 조정) */
   private queueTimeStopIfDue(): void {
     const config = this.stageConfig
     if (config.timeStopLimit !== null && this.timeStopSpawned >= config.timeStopLimit) return
-    if (this.stageCorrect === 0 || this.stageCorrect % config.timeStopEvery !== 0) return
+    if (this.stageSpawned === 0 || this.stageSpawned % config.timeStopEvery !== 0) return
     if (this.words.some((word) => word.isTimeStop)) return
     this.pendingTimeStop = true
   }

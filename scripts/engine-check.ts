@@ -180,6 +180,25 @@ console.log('\n[4] 시간정지 단어 (모든 스테이지 6개 정답마다 �
   check('5초 뒤 정지 해제', engine.snapshot().isTimeStopped, false)
 }
 
+console.log(
+  '\n[4-1] 시간정지 출현은 정답 수가 아니라 스폰(낙하) 수 기준 (2026-08-19 3차 조정)',
+)
+{
+  // 정답을 하나도 맞히지 않고 전부 놓쳐도(스테이지 정답 수 = 0), 화면에
+  // 일반 단어가 6번 떨어지면(스폰 6회) 시간정지가 나와야 한다.
+  const engine = newEngine()
+  advance(0.1)
+  let hasStop = false
+  for (let i = 0; i < 500 && !hasStop; i += 1) {
+    advance(0.5)
+    hasStop = engine.snapshot().words.some((w) => w.isTimeStop)
+    if (engine.snapshot().status === 'over') break
+  }
+  check('정답 없이도(놓치기만 해도) 시간정지가 결국 출현', hasStop, true)
+  check('그동안 스테이지 정답 수는 0 그대로', engine.snapshot().stageCorrect, 0)
+  check('게임오버로 끝나지 않음(놓친 개수가 7 미만)', engine.snapshot().status, 'playing')
+}
+
 // ── 5. 스테이지 전환 ───────────────────────────────
 
 console.log('\n[5] 스테이지 전환 (13개 → STAGE 2)')
