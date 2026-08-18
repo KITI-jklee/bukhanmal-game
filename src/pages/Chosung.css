@@ -231,10 +231,14 @@
 .initial-letters {
   display: block;
   margin: clamp(14px, 3vw, 26px) 0 clamp(13px, 2.5vw, 20px);
-  font-size: clamp(38px, 9vw, 68px);
+  /* --initials-scale은 Chosung.tsx에서 초성 글자 수에 반비례해 넣어준다
+   * (5자까지는 1로 기존 크기 유지, 6자 이상부터 줄어들어 카드 폭 안에서
+   * 줄바꿈 없이 한 줄에 들어간다). */
+  font-size: calc(clamp(38px, 9vw, 68px) * var(--initials-scale, 1));
   line-height: 1;
   letter-spacing: 0.18em;
   color: var(--ink);
+  white-space: nowrap;
   /* 2단계 힌트로 첫 글자가 바뀔 때 자리 이동이 눈에 띄지 않게 한다 */
   min-height: 1em;
 }

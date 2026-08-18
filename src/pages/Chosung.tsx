@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { useNavigate, useSearchParams } from '../lib/router'
 import { Countdown } from '../components/Countdown'
 import { BookIcon, BulbIcon, HeartIcon, PauseIcon, ZapIcon } from '../components/Icons'
@@ -304,7 +304,14 @@ export function Chosung() {
           </div>
 
           <span className="question-label">이 말은 무엇일까요?</span>
-          <strong className="initial-letters">{snapshot.initials.split('').join(' ')}</strong>
+          {/* 초성 5자까지는 기존 크기를 유지하고, 그보다 길면 한 줄에 들어가도록
+           * 글자 수에 반비례해 폰트 크기를 줄인다 (최장 8자 단어까지 존재). */}
+          <strong
+            className="initial-letters"
+            style={{ '--initials-scale': Math.min(1, 5 / snapshot.initials.length) } as CSSProperties}
+          >
+            {snapshot.initials.split('').join(' ')}
+          </strong>
 
           <div className="definition">
             <BookIcon size={15} />
