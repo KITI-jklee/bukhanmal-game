@@ -268,7 +268,8 @@
 
 .definition p {
   margin: 0;
-  font-size: clamp(12px, 1.5vw, 14px);
+  /* --meaning-scale는 Chosung.tsx에서 뜻풀이 글자 수에 반비례해 넣어준다 */
+  font-size: calc(clamp(12px, 1.5vw, 14px) * var(--meaning-scale, 1));
   line-height: 1.6;
 }
 

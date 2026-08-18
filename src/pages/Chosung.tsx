@@ -313,7 +313,18 @@ export function Chosung() {
             {snapshot.initials.split('').join(' ')}
           </strong>
 
-          <div className="definition">
+          <div
+            className="definition"
+            style={
+              {
+                // 뜻풀이가 길어질수록 글자 크기를 줄여 한 줄 안에 들어가게 한다.
+                // 32자까지는 기존 크기를 유지하고, 그보다 길면 글자 수에
+                // 반비례해 줄어들되 0.72 밑으로는 가독성을 위해 더 줄이지
+                // 않는다(그 이상 긴 뜻풀이는 줄바꿈을 허용해 잘리지 않게 둔다).
+                '--meaning-scale': Math.max(0.72, Math.min(1, 32 / snapshot.meaning.length)),
+              } as CSSProperties
+            }
+          >
             <BookIcon size={15} />
             <p>{snapshot.meaning}</p>
           </div>
