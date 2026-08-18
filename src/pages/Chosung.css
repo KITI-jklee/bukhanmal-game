@@ -690,34 +690,6 @@
     padding: 6px 4px;
   }
 
-  /* 오답 피드백 강화 — Chosung.tsx가 오답일 때 .shake 클래스를
-   * answer-form에 붙였다 뗀다. 이 애니메이션 자체가 모바일 전용
-   * 미디어 쿼리 안에만 있어서 데스크톱은 클래스만 붙을 뿐 시각 효과가
-   * 전혀 없다(진동은 navigator.vibrate가 하드웨어 유무로 알아서 처리). */
-  @keyframes shake-x {
-    10%,
-    90% {
-      transform: translateX(-1px);
-    }
-    20%,
-    80% {
-      transform: translateX(2px);
-    }
-    30%,
-    50%,
-    70% {
-      transform: translateX(-4px);
-    }
-    40%,
-    60% {
-      transform: translateX(4px);
-    }
-  }
-
-  .shake {
-    animation: shake-x 0.4s ease-in-out;
-  }
-
   /* iOS 키보드가 열리면 visual viewport가 짧아진다. 이때도 중앙 정렬을
    * 유지하면 카드 위의 빈 공간 때문에 아래 내용을 보려 스크롤해야 하므로,
    * 키보드가 열린 동안만 위쪽부터 촘촘하게 배치한다. */

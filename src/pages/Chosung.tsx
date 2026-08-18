@@ -39,7 +39,6 @@ export function Chosung() {
   const [input, setInput] = useState('')
   const composingRef = useRef(false)
   const inputRef = useRef<HTMLInputElement>(null)
-  const answerFormRef = useRef<HTMLFormElement>(null)
 
   // 모바일 전용 힌트 팝오버 — 데스크톱은 하단 독의 기존 힌트 보기 버튼을
   // 그대로 쓰고, 이 상태는 절대 true가 되지 않는다(handleHintTap의
@@ -72,19 +71,11 @@ export function Chosung() {
     setInput('')
   }, [snapshot?.questionNumber])
 
-  // 오답 피드백 강화 — 화면 흔들림 + (지원 기기에서) 진동. shake는
-  // .shake에 애니메이션이 걸린 CSS가 모바일 전용 미디어 쿼리 안에만
-  // 있어서 데스크톱에서는 클래스만 붙었다 떨어질 뿐 아무 효과가 없다.
-  // navigator.vibrate도 진동 하드웨어가 없는 데스크톱에서는 조용히
-  // 무시된다.
+  // 오답 피드백 — (지원 기기에서) 진동. navigator.vibrate는 진동 하드웨어가
+  // 없는 데스크톱에서는 조용히 무시된다. 화면을 흔드는 시각 효과는 모바일에서
+  // 화면이 움직이는 느낌이 거슬린다는 피드백을 받아 제거했다.
   useEffect(() => {
     if (snapshot?.feedback?.kind !== 'wrong') return
-    const el = answerFormRef.current
-    if (el) {
-      el.classList.remove('shake')
-      void el.offsetWidth // 강제 리플로우 — 같은 애니메이션이 처음부터 다시 재생되게 함
-      el.classList.add('shake')
-    }
     navigator.vibrate?.(120)
   }, [snapshot?.feedback])
 
@@ -373,7 +364,7 @@ export function Chosung() {
           </span>
         </button>
 
-        <form className="answer-form" ref={answerFormRef} onSubmit={handleSubmit}>
+        <form className="answer-form" onSubmit={handleSubmit}>
           <label className="sr-only" htmlFor="chosung-input">
             정답 입력
           </label>
@@ -436,10 +427,12 @@ export function Chosung() {
             </span>
             <strong className="reveal-word">{snapshot.reveal.word}</strong>
             <p className="reveal-meaning">{snapshot.reveal.meaning}</p>
-            <p className="reveal-south">
-              <span>남한말</span>
-              <b>{snapshot.reveal.southExpression}</b>
-            </p>
+            {snapshot.reveal.southExpression ? (
+              <p className="reveal-south">
+                <span>남한말</span>
+                <b>{snapshot.reveal.southExpression}</b>
+              </p>
+            ) : null}
 
             <div className="reveal-score">
               {snapshot.reveal.outcome === '정답' ? (
@@ -485,7 +478,7 @@ export function Chosung() {
               <span>
                 <i className="legend-dot legend-dot--red" />
                 <span>
-                  힌트를 쓰면 점수가 <b>10 → 5 → 2점</b>으로 낮아져요
+                  힌트를 사용하면 <b>획득할 수 있는 점수가 줄어들어요</b>
                 </span>
               </span>
             </div>

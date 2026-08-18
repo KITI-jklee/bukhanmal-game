@@ -53,7 +53,6 @@ export function AcidRain() {
   const [input, setInput] = useState('')
   const composingRef = useRef(false)
   const inputRef = useRef<HTMLInputElement>(null)
-  const answerFormRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
     if (!engine) return
@@ -64,17 +63,11 @@ export function AcidRain() {
     return () => engine.destroy()
   }, [engine])
 
-  // 오답·놓침 피드백 강화 — 화면 흔들림 + (지원 기기에서) 진동. shake는
-  // .shake에 애니메이션이 걸린 CSS가 모바일 전용 미디어 쿼리 안에만
-  // 있어서 데스크톱에서는 클래스만 붙었다 떨어질 뿐 아무 효과가 없다.
+  // 오답·놓침 피드백 — (지원 기기에서) 진동. navigator.vibrate는 진동 하드웨어가
+  // 없는 데스크톱에서는 조용히 무시된다. 화면을 흔드는 시각 효과는 모바일에서
+  // 화면이 움직이는 느낌이 거슬린다는 피드백을 받아 제거했다.
   useEffect(() => {
     if (snapshot?.feedback?.kind !== 'wrong' && snapshot?.feedback?.kind !== 'miss') return
-    const el = answerFormRef.current
-    if (el) {
-      el.classList.remove('shake')
-      void el.offsetWidth // 강제 리플로우 — 같은 애니메이션이 처음부터 다시 재생되게 함
-      el.classList.add('shake')
-    }
     navigator.vibrate?.(120)
   }, [snapshot?.feedback])
 
@@ -293,7 +286,7 @@ export function AcidRain() {
       </div>
 
       <div className="rain-dock">
-        <form className="answer-form" ref={answerFormRef} onSubmit={handleSubmit}>
+        <form className="answer-form" onSubmit={handleSubmit}>
           <label className="sr-only" htmlFor="rain-input">
             떨어지는 단어 입력
           </label>
