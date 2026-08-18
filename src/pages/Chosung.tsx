@@ -12,6 +12,16 @@ import './Chosung.css'
 
 const DATA_URL = `${import.meta.env.BASE_URL}data/chosung_words.json`
 
+/** 뜻풀이가 "① ... ② ..."처럼 여러 뜻으로 나뉘어 있으면 한 줄에 욱여넣지 않고
+ * 뜻별로 나눠서 보여주기 위한 분리 함수. 문제 화면의 기본 뜻풀이와 정답/오답
+ * 공개 모달의 뜻풀이 양쪽에서 같은 기준으로 쓴다. */
+function splitMeaningSenses(meaning: string): string[] {
+  return meaning
+    .split(/(?=[①②③④⑤⑥⑦⑧⑨⑩])/)
+    .map((sense) => sense.trim())
+    .filter(Boolean)
+}
+
 export function Chosung() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
@@ -181,11 +191,10 @@ export function Chosung() {
 
   // 뜻풀이가 "① ... ② ..."처럼 여러 뜻으로 나뉘어 있으면 한 줄에 욱여넣지
   // 않고 뜻별로 줄바꿈해서 보여준다(안 그러면 글자 수가 너무 많아져
-  // meaning-scale이 지나치게 작아진다).
-  const meaningSenses = snapshot.meaning
-    .split(/(?=[①②③④⑤⑥⑦⑧⑨⑩])/)
-    .map((sense) => sense.trim())
-    .filter(Boolean)
+  // meaning-scale이 지나치게 작아진다). 정답/오답 공개 모달의 뜻풀이도
+  // 같은 기준으로 나눠서 보여준다.
+  const meaningSenses = splitMeaningSenses(snapshot.meaning)
+  const revealMeaningSenses = snapshot.reveal ? splitMeaningSenses(snapshot.reveal.meaning) : []
 
   // 모바일(≤768px)에서만 상단 상태바의 힌트 아이콘을 눌러 힌트를 쓸 수
   // 있게 한다 — 데스크톱은 하단 독의 기존 버튼만 동작해야 하므로, CSS
@@ -426,7 +435,17 @@ export function Chosung() {
                   : '아쉬워요'}
             </span>
             <strong className="reveal-word">{snapshot.reveal.word}</strong>
-            <p className="reveal-meaning">{snapshot.reveal.meaning}</p>
+            {revealMeaningSenses.length > 1 ? (
+              <div className="reveal-meaning-lines">
+                {revealMeaningSenses.map((sense, index) => (
+                  <p key={index} className="reveal-meaning">
+                    {sense}
+                  </p>
+                ))}
+              </div>
+            ) : (
+              <p className="reveal-meaning">{snapshot.reveal.meaning}</p>
+            )}
             {snapshot.reveal.southExpression ? (
               <p className="reveal-south">
                 <span>남한말</span>

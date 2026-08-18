@@ -425,6 +425,15 @@
   color: #5b6d65;
 }
 
+/* 뜻이 ①②로 여러 개 나뉜 경우: 줄들을 세로로 나열한다(카드 전체가
+ * 가운데 정렬이라 .definition-lines와 달리 각 줄도 가운데 정렬 유지) */
+.reveal-meaning-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: center;
+}
+
 .reveal-south {
   display: inline-flex;
   align-items: baseline;
