@@ -107,20 +107,22 @@ export function Admin() {
         ) : (
           <>
             <div className="admin-stats-grid">
+              {/* 방문자 수는 고유 방문자(unique_visitors)가 아니라 방문 횟수 총계를
+               * 보여준다 — 같은 사람이 여러 번 들어와도 매번 카운트된다(2026-08-18). */}
               <div className="admin-stat-card">
                 <div className="stat-label">방문자 수</div>
-                <div className="stat-value">{stats.unique_visitors.toLocaleString()}</div>
+                <div className="stat-value">{stats.total_page_views.toLocaleString()}</div>
               </div>
               <div className="admin-stat-card">
                 <div className="stat-label">게임 이용 횟수</div>
                 <div className="stat-value">{stats.total_game_starts.toLocaleString()}</div>
               </div>
+              {/* 순 이용자 수 카드는 삭제했다(2026-08-18) — 이용률은 방문자 수가
+               * 총계로 바뀐 것에 맞춰 총계 대 총계로 다시 계산한다(서버
+               * usage_rate_percent 참고). 이용자당 평균은 여전히 고유 이용자
+               * 기준이 필요해 서버에서 unique_players로 계속 계산한다. */}
               <div className="admin-stat-card">
-                <div className="stat-label">순 이용자 수</div>
-                <div className="stat-value">{stats.unique_players.toLocaleString()}</div>
-              </div>
-              <div className="admin-stat-card">
-                <div className="stat-label">이용률 (게임 이용자 수 ÷ 방문자 수)</div>
+                <div className="stat-label">이용률 (게임 이용 횟수 ÷ 방문자 수)</div>
                 <div className="stat-value">
                   {stats.usage_rate_percent === null ? '-' : `${stats.usage_rate_percent}%`}
                 </div>

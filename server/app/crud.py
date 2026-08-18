@@ -120,10 +120,13 @@ def get_stats(db: Session) -> dict[str, object]:
         or 0
     )
 
-    # 고유 방문자 중 게임을 한 번이라도 시작한 고유 이용자의 비율.
+    # 방문(페이지뷰) 대비 게임이 시작된 비율 — 관리자 화면의 "방문자 수" 카드가
+    # 고유 방문자가 아니라 방문 횟수 총계(total_page_views)를 보여주도록 바뀌면서,
+    # 이용률도 같은 기준(총계 대 총계)으로 계산해야 두 수치가 서로 맞아 들어간다.
+    # 한 번의 방문에서 게임을 여러 번 시작하면 100%를 넘을 수 있다.
     usage_rate_percent = None
-    if unique_visitors > 0:
-        usage_rate_percent = round(unique_players / unique_visitors * 100, 1)
+    if total_page_views > 0:
+        usage_rate_percent = round(total_game_starts / total_page_views * 100, 1)
 
     average_game_starts_per_player = None
     if unique_players > 0:

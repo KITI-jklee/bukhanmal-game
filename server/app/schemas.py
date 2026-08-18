@@ -145,13 +145,18 @@ class StatsResponse(BaseModel):
 
     total_page_views: int
     total_game_starts: int
+    # 관리자 화면에는 더 이상 노출하지 않는다(카드 삭제, 2026-08-18) — 다만
+    # API 응답에는 계속 포함해 다른 소비자와의 하위 호환을 유지한다.
     unique_visitors: int
     game_starts_by_game: GameStartCounts
     # 순 이용자 수 — game_events가 새로 생긴 이후로 게임을 시작한 브라우저
     # 수(player_key distinct). game_scores 쪽 과거 데이터는 이 값에 안 잡힌다.
+    # 관리자 화면에는 더 이상 노출하지 않지만(카드 삭제, 2026-08-18)
+    # average_game_starts_per_player 계산에는 계속 쓰인다.
     unique_players: int
-    # 고유 방문자 중 게임을 한 번이라도 시작한 고유 이용자의 비율(%).
-    # 고유 방문자가 아직 없으면 null.
+    # 방문 횟수(total_page_views) 대비 게임 시작 횟수(total_game_starts)의 비율(%).
+    # 2026-08-18부터 고유 방문자 기준이 아니라 총계 대 총계로 계산한다 — 한 번의
+    # 방문에서 게임을 여러 번 시작하면 100%를 넘을 수 있다. 방문이 아직 없으면 null.
     usage_rate_percent: float | None
     # 반복 이용 강도 — 전체 게임 시작 횟수 / 고유 게임 이용자 수.
     average_game_starts_per_player: float | None
