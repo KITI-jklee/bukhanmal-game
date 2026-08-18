@@ -140,12 +140,12 @@ console.log('\n[3] 오답 처리')
 
 // ── 4. 시간정지 단어 ───────────────────────────────
 
-console.log('\n[4] 시간정지 단어 (스테이지1: 7개 정답 후 1회)')
+console.log('\n[4] 시간정지 단어 (스테이지1: 4개 정답마다 반복, 2026-08-19 밸런스 조정)')
 {
   const engine = newEngine()
   advance(0.1)
-  for (let i = 0; i < 7; i += 1) answerOne(engine)
-  check('7개 정답 완료', engine.snapshot().stageCorrect, 7)
+  for (let i = 0; i < 4; i += 1) answerOne(engine)
+  check('4개 정답 완료', engine.snapshot().stageCorrect, 4)
 
   advance(4)
   const hasStop = engine.snapshot().words.some((w) => w.isTimeStop)
@@ -158,7 +158,7 @@ console.log('\n[4] 시간정지 단어 (스테이지1: 7개 정답 후 1회)')
   check('정지 모드 진입', stopped.isTimeStopped, true)
   check('시간정지는 점수에 포함되지 않는다', stopped.score, scoreBefore)
   check('시간정지는 콤보를 유지한다', stopped.combo, comboBefore)
-  check('시간정지는 스테이지 정답 수에서 제외', stopped.stageCorrect, 7)
+  check('시간정지는 스테이지 정답 수에서 제외', stopped.stageCorrect, 4)
 
   // 정지 중에는 일반 단어가 내려오지 않아야 한다
   const frozen = engine.snapshot().words.filter((w) => !w.isTimeStop)
@@ -173,7 +173,7 @@ console.log('\n[4] 시간정지 단어 (스테이지1: 7개 정답 후 1회)')
   // 정지 중 정답도 정상 점수·스테이지 정답 수에 포함
   if (frozen.length > 0) {
     engine.submit(frozen[0].answers[0])
-    check('정지 중 정답도 스테이지 정답 수에 포함', engine.snapshot().stageCorrect, 8)
+    check('정지 중 정답도 스테이지 정답 수에 포함', engine.snapshot().stageCorrect, 5)
   }
 
   advance(5)

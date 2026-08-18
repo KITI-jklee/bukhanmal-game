@@ -45,6 +45,9 @@ export interface StageConfig {
   timeStopLimit: number | null
 }
 
+// 2026-08-19 밸런스 조정: 게임이 전반적으로 어렵다는 피드백에 따라 시간정지
+// 단어(플레이어에게 유리한 구제 아이템)가 더 자주 나오도록 출현 간격을
+// 줄이고, 스테이지1·2도 스테이지3처럼 반복 출현하게 했다(기존엔 1회뿐).
 export const STAGES: StageConfig[] = [
   {
     stage: 1,
@@ -53,8 +56,8 @@ export const STAGES: StageConfig[] = [
     spawnInterval: 3.2,
     maxConcurrent: 2,
     bonus: 0,
-    timeStopEvery: 7,
-    timeStopLimit: 1,
+    timeStopEvery: 4,
+    timeStopLimit: null,
   },
   {
     stage: 2,
@@ -63,8 +66,8 @@ export const STAGES: StageConfig[] = [
     spawnInterval: 2.2,
     maxConcurrent: 3,
     bonus: 3,
-    timeStopEvery: 9,
-    timeStopLimit: 1,
+    timeStopEvery: 5,
+    timeStopLimit: null,
   },
   {
     stage: 3,
@@ -73,7 +76,7 @@ export const STAGES: StageConfig[] = [
     spawnInterval: 1.5,
     maxConcurrent: 4,
     bonus: 5,
-    timeStopEvery: 15,
+    timeStopEvery: 8,
     timeStopLimit: null,
   },
 ]
