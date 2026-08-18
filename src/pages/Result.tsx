@@ -125,7 +125,9 @@ export function Result() {
             side: '북한말',
             sideTone: 'north' as const,
             prompt: log.word,
-            detail: `남한말 · ${log.southExpression}`,
+            // 남한말 대응어가 없는 단어(2026-08-11 이후 정상 출제 대상)는
+            // "남한말" 라벨 자체를 보여줄 게 없어서 detail을 통째로 비운다.
+            detail: log.southExpression.trim() ? `남한말 · ${log.southExpression}` : null,
             tag: log.outcome,
           }))
       : result.missed.map((word, index) => ({
@@ -299,7 +301,7 @@ export function Result() {
                     <span className={`missed-side missed-side--${item.sideTone}`}>{item.side}</span>
                     <div>
                       <strong>{item.prompt}</strong>
-                      <small>{item.detail}</small>
+                      {item.detail ? <small>{item.detail}</small> : null}
                     </div>
                     <span className="missed-tag">{item.tag}</span>
                   </div>
