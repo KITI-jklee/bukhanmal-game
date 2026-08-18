@@ -188,6 +188,14 @@ export function Chosung() {
   const hintsLeft = snapshot.maxHintLevel - snapshot.hintLevel
   const nextHintScore = HINT_SCORE[Math.min(snapshot.hintLevel + 1, HINT_SCORE.length - 1)]
 
+  // 뜻풀이가 "① ... ② ..."처럼 여러 뜻으로 나뉘어 있으면 한 줄에 욱여넣지
+  // 않고 뜻별로 줄바꿈해서 보여준다(안 그러면 글자 수가 너무 많아져
+  // meaning-scale이 지나치게 작아진다).
+  const meaningSenses = snapshot.meaning
+    .split(/(?=[①②③④⑤⑥⑦⑧⑨⑩])/)
+    .map((sense) => sense.trim())
+    .filter(Boolean)
+
   // 모바일(≤768px)에서만 상단 상태바의 힌트 아이콘을 눌러 힌트를 쓸 수
   // 있게 한다 — 데스크톱은 하단 독의 기존 버튼만 동작해야 하므로, CSS
   // 미디어 쿼리와 같은 기준선을 여기서도 그대로 검사해 데스크톱에서는
@@ -321,12 +329,25 @@ export function Chosung() {
                 // 32자까지는 기존 크기를 유지하고, 그보다 길면 글자 수에
                 // 반비례해 줄어들되 0.72 밑으로는 가독성을 위해 더 줄이지
                 // 않는다(그 이상 긴 뜻풀이는 줄바꿈을 허용해 잘리지 않게 둔다).
-                '--meaning-scale': Math.max(0.72, Math.min(1, 32 / snapshot.meaning.length)),
+                // 단, ①②처럼 뜻이 여러 개로 나뉜 경우는 줄바꿈으로 나눠 보여주니
+                // 글자 수와 무관하게 원래 크기를 그대로 쓴다.
+                '--meaning-scale':
+                  meaningSenses.length > 1
+                    ? 1
+                    : Math.max(0.72, Math.min(1, 32 / snapshot.meaning.length)),
               } as CSSProperties
             }
           >
             <BookIcon size={15} />
-            <p>{snapshot.meaning}</p>
+            {meaningSenses.length > 1 ? (
+              <div className="definition-lines">
+                {meaningSenses.map((sense, index) => (
+                  <p key={index}>{sense}</p>
+                ))}
+              </div>
+            ) : (
+              <p>{snapshot.meaning}</p>
+            )}
           </div>
 
           {snapshot.southHint ? (

@@ -76,7 +76,18 @@ export function Admin() {
       <AppHeader />
 
       <main className="admin-content">
-        <h1>관리자 통계</h1>
+        <div className="admin-header">
+          <h1>관리자 통계</h1>
+          {stats ? (
+            <button
+              className="button button--ghost admin-refresh"
+              onClick={() => load(password)}
+              disabled={loading}
+            >
+              {loading ? '새로고침 중…' : '새로고침'}
+            </button>
+          ) : null}
+        </div>
         <p>방문자 수와 게임 이용 횟수 총계입니다.</p>
 
         {!stats ? (
@@ -136,13 +147,6 @@ export function Admin() {
                 </div>
               </div>
             </div>
-            <button
-              className="button button--ghost admin-refresh"
-              onClick={() => load(password)}
-              disabled={loading}
-            >
-              {loading ? '새로고침 중…' : '새로고침'}
-            </button>
           </>
         )}
       </main>

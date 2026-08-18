@@ -266,9 +266,19 @@
   color: var(--green);
 }
 
+/* 뜻이 ①②로 여러 개 나뉜 경우: 줄들은 왼쪽 정렬로 세로 나열하되,
+ * 아이콘은 박스 전체 높이 기준으로 가운데(align-items: center, 상속값)에 둔다 */
+.definition-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
 .definition p {
   margin: 0;
-  /* --meaning-scale는 Chosung.tsx에서 뜻풀이 글자 수에 반비례해 넣어준다 */
+  /* --meaning-scale는 Chosung.tsx에서 뜻풀이 글자 수에 반비례해 넣어준다
+   * (뜻이 여러 개로 나뉘어 줄바꿈되는 경우엔 1로 고정해서 원래 크기를 쓴다) */
   font-size: calc(clamp(12px, 1.5vw, 14px) * var(--meaning-scale, 1));
   line-height: 1.6;
 }
