@@ -26,7 +26,7 @@ export function Home() {
             <br />
             북한말 세계
           </h1>
-          <p>퀴즈와 타자 게임을 즐기며 북한말의 뜻과 표현을 알아보세요.</p>
+          <p>게임을 즐기며 북한말의 뜻과 표현을 알아보세요.</p>
         </div>
 
         <div className="game-card-grid">
