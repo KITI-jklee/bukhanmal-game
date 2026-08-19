@@ -314,6 +314,34 @@
   }
 }
 
+/* 데스크톱(웹)에서는 모바일 화면 폭에 맞춰 잡아둔 카드·뜻풀이 크기가
+ * 너무 작게 보여서, 769px 이상에서만 카드 전체와 뜻풀이 글자를 키운다. */
+@media screen and (min-width: 769px) {
+  .question-card {
+    width: min(100%, 760px);
+    padding: clamp(32px, 4vw, 56px) clamp(28px, 4vw, 48px);
+  }
+
+  .initial-letters {
+    font-size: calc(clamp(44px, 7vw, 76px) * var(--initials-scale, 1));
+  }
+
+  .definition {
+    width: min(100%, 620px);
+    padding: clamp(14px, 1.4vw, 20px);
+  }
+
+  .definition p {
+    font-size: calc(clamp(16px, 1.3vw, 19px) * var(--meaning-scale, 1));
+    line-height: 1.7;
+  }
+
+  .south-hint {
+    width: min(100%, 480px);
+    font-size: 14px;
+  }
+}
+
 /* ── 입력 독 ────────────────────────────────────── */
 
 .answer-dock {
