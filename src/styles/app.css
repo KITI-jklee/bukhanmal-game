@@ -337,6 +337,7 @@
   gap: 8px;
 }
 
+
 .nickname-input {
   width: 100%;
   height: 48px;
@@ -422,6 +423,39 @@
 .countdown-guide b {
   font-weight: 600;
   color: #fff;
+}
+
+/* ── 게임 오버 화면(GameOverOverlay) ─────────────── */
+/* .countdown과 같은 스타일(어두운 전체화면 + 큰 글씨)을 재사용한다. */
+
+.game-over-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #0f1d18e0;
+  color: #fff;
+  text-align: center;
+}
+
+.game-over-inner {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.game-over-inner strong {
+  font: 600 clamp(36px, 9vw, 56px) / 1 var(--font-display);
+  letter-spacing: -0.01em;
+  color: #e3ece7;
+  animation: countdown-pop 0.9s ease-out;
+}
+
+.game-over-inner span {
+  font: 600 clamp(18px, 4.5vw, 24px) / 1 var(--font-display);
+  color: #9fb3a8;
 }
 
 @keyframes countdown-pop {

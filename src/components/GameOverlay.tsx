@@ -40,6 +40,27 @@ export function GameOverlayMessage({
   )
 }
 
+interface GameOverOverlayProps {
+  score: number
+}
+
+/** 방어 게이지 소진 직후 뜨는 화면. 타이핑 도중 화면이 곧바로 닉네임
+ *  등록창으로 바뀌면 당황스럽다는 피드백에 따라, 시작 전 카운트다운
+ *  (Countdown.tsx)과 같은 스타일 — 살짝 어두운 화면에 큰 글씨 한 줄 —
+ *  로 "게임이 끝났다"는 걸 먼저 보여준다. 흰 카드 모달은 화면 대비가
+ *  약해 잘 안 예뻐서 뺐다. 일정 시간 뒤 자동으로 결과 화면으로
+ *  넘어간다(AcidRain.tsx의 타이머). */
+export function GameOverOverlay({ score }: GameOverOverlayProps) {
+  return (
+    <div className="game-over-screen" role="status" aria-live="assertive">
+      <div className="game-over-inner">
+        <strong>게임 오버</strong>
+        <span>{score.toLocaleString()}점</span>
+      </div>
+    </div>
+  )
+}
+
 interface GamePauseOverlayProps {
   score: number
   /** 점수 옆에 붙는 진행 상태 조각 — 초성: "문제 3/10", 산성비: "스테이지 2" */

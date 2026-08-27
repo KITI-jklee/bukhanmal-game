@@ -2,10 +2,15 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from '../lib/router'
 import { Countdown } from '../components/Countdown'
 import { DefenseGauge } from '../components/DefenseGauge'
-import { GameOverlayMessage, GamePauseOverlay } from '../components/GameOverlay'
+import { GameOverOverlay, GameOverlayMessage, GamePauseOverlay } from '../components/GameOverlay'
 import { PauseIcon, ZapIcon } from '../components/Icons'
 import { AcidRainEngine, type EngineSnapshot } from '../game/AcidRainEngine'
-import { MOBILE_FALL_DURATION_SCALE, TIME_STOP_DURATION, defenseTone } from '../game/acidRainConfig'
+import {
+  GAME_OVER_AUTO_ADVANCE_SECONDS,
+  MOBILE_FALL_DURATION_SCALE,
+  TIME_STOP_DURATION,
+  defenseTone,
+} from '../game/acidRainConfig'
 import type { AcidRainPair, Difficulty } from '../lib/types'
 import { normalizeDifficulty } from '../lib/types'
 import { focusInputSoon, refocusInputIfBlurred } from '../lib/focusInput'
@@ -83,11 +88,20 @@ export function AcidRain() {
     return () => window.clearTimeout(timer)
   }, [counting, snapshot?.status])
 
-  // 방어 게이지가 0이 되면 결과 화면으로 (FR-AR-08)
+  // 방어 게이지가 0이 되면 "게임 오버" 모달을 띄운다 (FR-AR-08). 타이핑 중이던
+  // 화면이 예고 없이 바로 닉네임 등록창으로 바뀌면 당황스럽다는 피드백에 따라,
+  // 모달을 잠깐 보여준 뒤 자동으로 결과 화면으로 넘어간다(기다리기 싫으면
+  // 모달의 버튼으로 바로 넘어갈 수 있다).
+  const finishGame = useCallback(() => {
+    if (!engine) return
+    navigate('/result', { replace: true, state: engine.buildResult() })
+  }, [engine, navigate])
+
   useEffect(() => {
     if (!engine || snapshot?.status !== 'over') return
-    navigate('/result', { replace: true, state: engine.buildResult() })
-  }, [snapshot?.status, engine, navigate])
+    const timer = window.setTimeout(finishGame, GAME_OVER_AUTO_ADVANCE_SECONDS * 1000)
+    return () => window.clearTimeout(timer)
+  }, [snapshot?.status, engine, finishGame])
 
   const pause = useCallback(() => engine?.pause(), [engine])
   useAutoPause(pause, snapshot?.status === 'playing')
@@ -140,6 +154,7 @@ export function AcidRain() {
   const tone = defenseTone(snapshot.defense)
   const isPaused = snapshot.status === 'paused'
   const hasDataError = snapshot.status === 'error'
+  const isGameOver = snapshot.status === 'over'
 
   return (
     <div className="app-shell screen--rain">
@@ -289,9 +304,13 @@ export function AcidRain() {
                 event.preventDefault()
               }
             }}
-            disabled={isPaused || counting}
+            disabled={isPaused || counting || isGameOver}
           />
-          <button type="submit" className="button button--primary" disabled={isPaused || counting}>
+          <button
+            type="submit"
+            className="button button--primary"
+            disabled={isPaused || counting || isGameOver}
+          >
             입력
           </button>
         </form>
@@ -336,6 +355,8 @@ export function AcidRain() {
           onGoHome={() => navigate('/')}
         />
       ) : null}
+
+      {isGameOver ? <GameOverOverlay score={snapshot.score} /> : null}
 
       {isPaused ? (
         <GamePauseOverlay

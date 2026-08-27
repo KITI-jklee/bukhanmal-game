@@ -9,6 +9,11 @@ import type { Difficulty } from '../lib/types'
 export const TIME_STOP_WORD = '시간정지'
 export const TIME_STOP_DURATION = 5
 
+/** "게임 오버" 모달을 띄운 뒤 자동으로 결과 화면(닉네임 등록)으로 넘어가기까지
+ * 기다리는 시간(초). 기다리기 싫으면 모달의 "결과 보기" 버튼으로 더 일찍
+ * 넘어갈 수 있다. */
+export const GAME_OVER_AUTO_ADVANCE_SECONDS = 2
+
 /** 난이도별 단어당 기본점수 (4-2) */
 export const BASE_SCORE: Record<Difficulty, number> = {
   쉬움: 10,
