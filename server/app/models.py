@@ -31,6 +31,9 @@ class Score(Base):
             name="ck_game_scores_nickname",
         ),
         CheckConstraint(
+            # schemas.GameType이 파이썬 쪽 정본이다 — SQL CHECK 문자열이라
+            # 프로그램적으로 그 타입에서 뽑아낼 수 없으므로, 값 목록이 바뀌면
+            # 여기와 supabase_schema.sql도 같이 손으로 맞춰야 한다.
             "game_type in ('chosung', 'acid_rain')",
             name="ck_game_scores_game_type",
         ),
@@ -67,10 +70,7 @@ class Score(Base):
         Index("idx_game_scores_player_recent", "player_key", "played_at"),
     )
 
-    def _new_score_id() -> uuid.UUID:  # noqa: N805 - SQLAlchemy default factory, no self
-        return uuid.uuid4()
-
-    score_id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=_new_score_id)
+    score_id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
     player_key: Mapped[uuid.UUID] = mapped_column(Uuid, nullable=False)
     submission_key: Mapped[uuid.UUID] = mapped_column(Uuid, nullable=False, unique=True)
     nickname: Mapped[str] = mapped_column(String(10), nullable=False)
@@ -94,6 +94,17 @@ class Score(Base):
     )
 
 
+class RequestLimit(Base):
+    """서버리스 인스턴스 사이에서 공유하는 짧은 수명의 rate-limit 버킷."""
+
+    __tablename__ = "request_limits"
+    __table_args__ = (Index("idx_request_limits_window", "window_started_at"),)
+
+    bucket_key: Mapped[str] = mapped_column(String(64), primary_key=True)
+    window_started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    hits: Mapped[int] = mapped_column(Integer, nullable=False)
+
+
 class Event(Base):
     """방문자/이용 지표용 이벤트 로그. 두 가지 event_type을 쌓는다.
 
@@ -115,6 +126,8 @@ class Event(Base):
             name="ck_game_events_event_type",
         ),
         CheckConstraint(
+            # schemas.GameType과 반드시 같은 값 목록을 유지해야 한다 — 위
+            # ck_game_scores_game_type 주석 참고.
             "game is null or game in ('chosung', 'acid_rain')",
             name="ck_game_events_game",
         ),
@@ -133,10 +146,7 @@ class Event(Base):
         Index("idx_game_events_type_time", "event_type", "occurred_at"),
     )
 
-    def _new_event_id() -> uuid.UUID:  # noqa: N805 - SQLAlchemy default factory, no self
-        return uuid.uuid4()
-
-    event_id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=_new_event_id)
+    event_id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
     event_type: Mapped[str] = mapped_column(String(20), nullable=False)
     player_key: Mapped[uuid.UUID] = mapped_column(Uuid, nullable=False)
     game: Mapped[str | None] = mapped_column(String(20), nullable=True)

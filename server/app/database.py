@@ -12,6 +12,7 @@ from __future__ import annotations
 from collections.abc import Generator
 
 from sqlalchemy import create_engine
+from sqlalchemy.engine import make_url
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from .config import settings
@@ -19,9 +20,20 @@ from .config import settings
 # SQLite(테스트 전용)는 기본적으로 하나의 스레드에서만 커넥션을 재사용할 수
 # 있다. FastAPI는 요청마다 스레드풀을 쓸 수 있으므로 check_same_thread를
 # 끈다. (Postgres에는 이 커넥션 인자가 없어 무시된다)
-connect_args = {"check_same_thread": False} if settings.database_url.startswith("sqlite") else {}
+database_url = make_url(settings.database_url)
+connect_args: dict[str, object] = {}
+if database_url.get_backend_name() == "sqlite":
+    connect_args["check_same_thread"] = False
+elif database_url.drivername == "postgresql+psycopg" and database_url.port == 6543:
+    # Supabase transaction pooler에서는 연결별 named prepared statement를 쓸 수 없다.
+    connect_args["prepare_threshold"] = None
 
-engine = create_engine(settings.database_url, connect_args=connect_args)
+engine = create_engine(
+    settings.database_url,
+    connect_args=connect_args,
+    pool_pre_ping=True,
+    pool_recycle=300,
+)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
 

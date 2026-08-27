@@ -9,9 +9,8 @@ from __future__ import annotations
 import secrets
 import uuid
 from contextlib import asynccontextmanager
-from typing import Literal
 
-from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, status
+from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, Response, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -20,12 +19,21 @@ from sqlalchemy.orm import Session
 from .config import settings
 from .crud import create_event, create_score, get_stats, rank_of, recent_records, top5
 from .database import Base, engine, get_db
-from .rate_limit import enforce_rate_limit
+from .rate_limit import (
+    enforce_admin_rate_limit,
+    enforce_event_rate_limit,
+    enforce_ranking_rate_limit,
+    enforce_rate_limit,
+    enforce_recent_rate_limit,
+)
 from .scoring_limits import max_score_for
+from .security import PLAYER_TOKEN_HEADER, issue_player_token, require_player
 from .schemas import (
     Difficulty,
     EventPayload,
     EventResult,
+    GameType,
+    PlayerSessionResult,
     RankingEntry,
     RankingResponse,
     RecentRecordEntry,
@@ -49,9 +57,9 @@ def require_admin(x_admin_password: str | None = Header(default=None, alias=ADMI
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # 로컬 개발용 sqlite는 편의상 여기서 자동으로 테이블을 만든다. Postgres
-    # (Supabase)는 스키마를 supabase_schema.sql로 직접 관리한다 — CHECK
-    # 제약·인덱스·랭킹 뷰·RLS까지 포함돼 있어 SQLAlchemy의 create_all로는
-    # 재현이 안 되고, 매 기동마다 원격 DB에 introspection 쿼리를 보낼
+    # (Supabase)는 새 배포에 supabase_schema.sql을 사용한다. 기존 DB의
+    # Data API 차단과 rate-limit 보강은 supabase_hardening.sql에 기록한다.
+    # 매 기동마다 원격 DB에 introspection 쿼리를 보낼
     # 이유도 없다(테스트에서 TestClient를 만들 때마다 이 lifespan이 돌아서,
     # DATABASE_URL이 Supabase를 가리키면 테스트가 매번 네트워크를 타는 문제도
     # 같이 없앤다).
@@ -66,7 +74,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
     allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type", ADMIN_PASSWORD_HEADER],
+    allow_headers=["Content-Type", ADMIN_PASSWORD_HEADER, PLAYER_TOKEN_HEADER],
 )
 
 
@@ -89,11 +97,20 @@ def healthz() -> dict[str, str]:
     return {"status": "ok"}
 
 
+@app.post("/api/v1/players/session", response_model=PlayerSessionResult)
+def create_player_session(
+    _rate_limit: None = Depends(enforce_event_rate_limit),
+) -> PlayerSessionResult:
+    player_key = uuid.uuid4()
+    return PlayerSessionResult(player_key=player_key, player_token=issue_player_token(player_key))
+
+
 @app.post("/api/v1/scores", response_model=ScoreSubmitResult, status_code=status.HTTP_201_CREATED)
 def submit_score(
     payload: ScorePayload,
     db: Session = Depends(get_db),
     _rate_limit: None = Depends(enforce_rate_limit),
+    player_key: uuid.UUID = Depends(require_player),
 ) -> ScoreSubmitResult:
     max_allowed = max_score_for(payload.game, payload.difficulty)
     if payload.score > max_allowed:
@@ -102,17 +119,22 @@ def submit_score(
             detail=f"이 게임·난이도의 이론상 최대 점수({max_allowed}점)를 초과했습니다.",
         )
 
-    row = create_score(db, payload)
+    row = create_score(db, payload, player_key)
     rank, total_players = rank_of(db, row)
     return ScoreSubmitResult(score_id=row.score_id, rank=rank, total_players=total_players)
 
 
 @app.get("/api/v1/rankings", response_model=RankingResponse, response_model_exclude_none=True)
 def get_rankings(
-    game: Literal["chosung", "acid_rain"],
+    response: Response,
+    game: GameType,
     difficulty: Difficulty,
     db: Session = Depends(get_db),
+    _rate_limit: None = Depends(enforce_ranking_rate_limit),
 ) -> RankingResponse:
+    response.headers["Cache-Control"] = (
+        "public, max-age=30, s-maxage=60, stale-while-revalidate=300"
+    )
     rows = top5(db, game, difficulty)
     entries = [
         RankingEntry(
@@ -129,19 +151,24 @@ def get_rankings(
 
 
 @app.post("/api/v1/events", response_model=EventResult, status_code=status.HTTP_201_CREATED)
-def submit_event(payload: EventPayload, db: Session = Depends(get_db)) -> EventResult:
+def submit_event(
+    payload: EventPayload,
+    db: Session = Depends(get_db),
+    _rate_limit: None = Depends(enforce_event_rate_limit),
+    player_key: uuid.UUID = Depends(require_player),
+) -> EventResult:
     """방문자/이용 지표용 이벤트 기록 — 지금은 "시작하기" 클릭 시 game_start 하나만
     보낸다. 랭킹에 영향이 없는 순수 카운팅 목적이라 점수 등록과 같은 IP 기준
-    요청 빈도 제한(enforce_rate_limit)을 공유하지 않는다 — 같은 버킷을 쓰면
-    한 사람이 여러 판 시작·등록을 반복할 때 서로의 한도를 갚아먹는다.
+    점수 제출과 별도의 이벤트 전용 요청 빈도 제한을 적용한다.
     """
-    create_event(db, payload)
+    create_event(db, payload, player_key)
     return EventResult()
 
 
 @app.get("/api/v1/admin/stats", response_model=StatsResponse)
 def get_admin_stats(
     db: Session = Depends(get_db),
+    _rate_limit: None = Depends(enforce_admin_rate_limit),
     _auth: None = Depends(require_admin),
 ) -> StatsResponse:
     """발주처용 자체 관리자 통계 화면 — Vercel 대시보드 접근 권한이 없는
@@ -155,11 +182,12 @@ def get_admin_stats(
     response_model_exclude_none=True,
 )
 def get_recent_records(
-    player_key: uuid.UUID,
-    game: Literal["chosung", "acid_rain"],
+    game: GameType,
     difficulty: Difficulty,
     limit: int = Query(default=10, ge=1, le=50),
     db: Session = Depends(get_db),
+    player_key: uuid.UUID = Depends(require_player),
+    _rate_limit: None = Depends(enforce_recent_rate_limit),
 ) -> RecentRecordsResponse:
     """API 명세서 06_API_DB매핑: 내 최근 기록 — nickname이 아닌 player_key 기준."""
     rows = recent_records(db, player_key, game, difficulty, limit)

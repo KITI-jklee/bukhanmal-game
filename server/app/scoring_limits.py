@@ -6,6 +6,8 @@
 
 from __future__ import annotations
 
+import math
+
 from .config import settings
 
 # ── 초성게임 ─────────────────────────────────────────
@@ -37,8 +39,44 @@ CHOSUNG_SCORE_MAX: dict[str, int] = {
 # 발주처와 협의해 조정 필요 — API 명세서 D장 미확정 항목).
 ACID_RAIN_SCORE_CEILING = settings.acid_rain_score_ceiling
 
+# 스테이지 경계(정답 수 기준) — schemas.py의 stage_reached ↔ correct_count
+# 정합성 검증(AcidRainScorePayload._check_result_consistency)과 아래
+# max_acid_rain_score_for_correct_count가 반드시 같은 값을 써야 한다. 여기
+# 한 곳에서만 정의하고 schemas.py는 이 상수를 그대로 가져다 쓴다.
+ACID_RAIN_STAGE1_MAX_CORRECT = 13  # 1단계는 정답 수가 이 값 미만이어야 한다.
+ACID_RAIN_STAGE2_MAX_CORRECT = 31  # 2단계는 [STAGE1_MAX, STAGE2_MAX) 구간, 3단계는 이 값 이상.
+
 
 def max_score_for(game: str, difficulty: str) -> int:
     if game == "chosung":
         return CHOSUNG_SCORE_MAX[difficulty]
     return ACID_RAIN_SCORE_CEILING
+
+_CHOSUNG_MULTIPLIER = {"쉬움": 1.0, "보통": 1.2, "어려움": 1.5}
+_ACID_BASE_SCORE = {"쉬움": 10, "보통": 12, "어려움": 15}
+
+
+def _js_round(value: float) -> int:
+    """양수 점수에 대한 JavaScript Math.round와 같은 반올림."""
+    return math.floor(value + 0.5)
+
+
+def max_chosung_score_for_correct_count(correct_count: int, difficulty: str) -> int:
+    """모든 정답을 무힌트 연속 정답으로 얻었을 때의 조건부 최대 점수."""
+    raw_score = sum(
+        10 + (0 if combo == 1 else min(combo, 5))
+        for combo in range(1, correct_count + 1)
+    )
+    return _js_round(raw_score * _CHOSUNG_MULTIPLIER[difficulty])
+
+
+def max_acid_rain_score_for_correct_count(correct_count: int, difficulty: str) -> int:
+    """주어진 일반 단어 정답 수로 얻을 수 있는 보수적인 최대 점수."""
+    base = _ACID_BASE_SCORE[difficulty]
+    stage1 = min(correct_count, ACID_RAIN_STAGE1_MAX_CORRECT)
+    stage2 = min(
+        max(correct_count - ACID_RAIN_STAGE1_MAX_CORRECT, 0),
+        ACID_RAIN_STAGE2_MAX_CORRECT - ACID_RAIN_STAGE1_MAX_CORRECT,
+    )
+    stage3 = max(correct_count - ACID_RAIN_STAGE2_MAX_CORRECT, 0)
+    return 3 * (stage1 * base + stage2 * (base + 3) + stage3 * (base + 5))

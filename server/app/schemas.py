@@ -11,23 +11,36 @@ import uuid
 from datetime import datetime
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-from .validation import validate_nickname
+from .scoring_limits import (
+    ACID_RAIN_STAGE1_MAX_CORRECT,
+    ACID_RAIN_STAGE2_MAX_CORRECT,
+    max_acid_rain_score_for_correct_count,
+    max_chosung_score_for_correct_count,
+)
+from .validation import normalize_nickname, validate_nickname
 
 Difficulty = Literal["쉬움", "보통", "어려움"]
+GameType = Literal["chosung", "acid_rain"]
 
 
-class NicknameMixin(BaseModel):
+class RequestModel(BaseModel):
+    """요청 본문 스키마 공통 베이스.
+
+    extra="ignore"는 Pydantic 기본값과 같지만, 여기서 명시해서 알 수 없는
+    JSON 필드(예: 본문의 player_key — 인증에는 서명된 X-Player-Token
+    헤더만 쓴다)가 조용히 무시된다는 걸 문서로 남긴다.
+    tests/test_scores.py::test_body_player_key_is_ignored가 이 동작을 검증한다.
+    """
+
+    model_config = ConfigDict(extra="ignore")
+
+
+class NicknameMixin(RequestModel):
     nickname: str = Field(min_length=1, max_length=10)
 
-    # DB 설계서(game_scores) 신규 컬럼. 프런트엔드가 브라우저별로 하나 생성해
-    # localStorage에 저장하는 익명 식별자(player_key)와, 게임 결과 하나마다
-    # 새로 만드는 중복 등록 방지 키(submission_key)다. 기존 클라이언트나
-    # 테스트처럼 이 필드를 안 보내는 요청도 계속 동작해야 하므로 기본값으로
-    # 서버가 대신 생성한다 — 다만 그 경우 player_key가 매번 달라져 "내 최근
-    # 기록" 조회·submission_key 중복 방지 혜택은 받지 못한다.
-    player_key: uuid.UUID = Field(default_factory=uuid.uuid4)
+    # 결과 하나마다 생성하는 중복 등록 방지 키.
     submission_key: uuid.UUID = Field(default_factory=uuid.uuid4)
 
     @field_validator("nickname")
@@ -39,7 +52,11 @@ class NicknameMixin(BaseModel):
         message = validate_nickname(value)
         if message is not None:
             raise ValueError(message)
-        return value
+        # validate_nickname은 정규화(NFKC + trim + 공백 축약)한 뒤 검사한다 —
+        # 검증에 쓴 값과 실제로 저장되는 값이 같아야 하므로 정규화된 값을
+        # 반환한다(정규화 전 원본을 그대로 반환하면 길이·패턴 검사는
+        # 정규화된 문자열로 통과시켜 놓고 DB에는 원본이 들어가는 불일치가 생긴다).
+        return normalize_nickname(value)
 
 
 class ChosungScorePayload(NicknameMixin):
@@ -50,16 +67,53 @@ class ChosungScorePayload(NicknameMixin):
     no_hint_correct_count: int = Field(ge=0)
     max_combo: int = Field(ge=0)
 
+    @model_validator(mode="after")
+    def _check_result_consistency(self) -> "ChosungScorePayload":
+        if self.correct_count > 10:
+            raise ValueError("초성게임 정답 수는 10개를 초과할 수 없습니다.")
+        if self.no_hint_correct_count > self.correct_count:
+            raise ValueError("무힌트 정답 수는 전체 정답 수를 초과할 수 없습니다.")
+        if self.max_combo > self.correct_count:
+            raise ValueError("최대 콤보는 정답 수를 초과할 수 없습니다.")
+        maximum = max_chosung_score_for_correct_count(self.correct_count, self.difficulty)
+        if self.score > maximum:
+            raise ValueError(f"정답 수로 얻을 수 있는 최대 점수({maximum}점)를 초과했습니다.")
+        return self
+
 
 class AcidRainScorePayload(NicknameMixin):
     game: Literal["acid_rain"]
     difficulty: Difficulty
     score: int = Field(ge=0)
+    correct_count: int = Field(ge=0)
     stage_reached: int = Field(ge=1)
     max_combo: int = Field(ge=0)
     time_stop_uses: int = Field(ge=0)
     time_stop_clears: int = Field(ge=0)
     play_time_seconds: int = Field(ge=0)
+
+    @model_validator(mode="after")
+    def _check_result_consistency(self) -> "AcidRainScorePayload":
+        if self.max_combo > self.correct_count:
+            raise ValueError("최대 콤보는 정답 수를 초과할 수 없습니다.")
+        if self.time_stop_clears > self.correct_count:
+            raise ValueError("시간정지 중 제거 수는 전체 정답 수를 초과할 수 없습니다.")
+        if self.stage_reached == 1 and self.correct_count >= ACID_RAIN_STAGE1_MAX_CORRECT:
+            raise ValueError(
+                f"정답 수가 {ACID_RAIN_STAGE1_MAX_CORRECT}개 이상이면 1단계 기록일 수 없습니다."
+            )
+        if self.stage_reached == 2 and not (
+            ACID_RAIN_STAGE1_MAX_CORRECT <= self.correct_count < ACID_RAIN_STAGE2_MAX_CORRECT
+        ):
+            raise ValueError("2단계 기록의 정답 수 범위가 올바르지 않습니다.")
+        if self.stage_reached == 3 and self.correct_count < ACID_RAIN_STAGE2_MAX_CORRECT:
+            raise ValueError(
+                f"3단계 기록은 최소 {ACID_RAIN_STAGE2_MAX_CORRECT}개의 정답이 필요합니다."
+            )
+        maximum = max_acid_rain_score_for_correct_count(self.correct_count, self.difficulty)
+        if self.score > maximum:
+            raise ValueError(f"정답 수로 얻을 수 있는 최대 점수({maximum}점)를 초과했습니다.")
+        return self
 
 
 # game 필드값으로 두 형태를 구분한다(판별 유니온) — 요청 본문의 game이
@@ -69,6 +123,10 @@ ScorePayload = Annotated[
     Field(discriminator="game"),
 ]
 
+
+class PlayerSessionResult(BaseModel):
+    player_key: uuid.UUID
+    player_token: str
 
 class ScoreSubmitResult(BaseModel):
     score_id: uuid.UUID
@@ -87,7 +145,7 @@ class RankingEntry(BaseModel):
 
 
 class RankingResponse(BaseModel):
-    game: Literal["chosung", "acid_rain"]
+    game: GameType
     difficulty: Difficulty
     top5: list[RankingEntry]
 
@@ -102,24 +160,22 @@ class RecentRecordEntry(BaseModel):
 
 
 class RecentRecordsResponse(BaseModel):
-    game: Literal["chosung", "acid_rain"]
+    game: GameType
     difficulty: Difficulty
     records: list[RecentRecordEntry]
 
 
-class EventPayload(BaseModel):
+class EventPayload(RequestModel):
     """방문자/이용 지표용 이벤트 기록 요청 — page_view(방문) · game_start(이용).
 
-    닉네임 없이 익명으로 기록한다(카운팅 목적이라 누구인지는 필요 없음).
-    player_key가 없는 요청도 계속 동작해야 하므로 스코어 제출과 마찬가지로
-    기본값을 서버가 대신 생성한다. game·difficulty는 game_start에서만 쓰므로
+    닉네임 없이 익명으로 기록한다. 플레이어 식별자는 요청 본문이 아니라
+    서명된 X-Player-Token 헤더에서만 가져온다. game·difficulty는 game_start에서만 쓰므로
     선택 필드로 두고, 아래 검증기로 event_type과의 짝이 맞는지 확인한다
     (models.Event의 ck_game_events_type_fields와 같은 규칙).
     """
 
     event_type: Literal["game_start", "page_view"]
-    player_key: uuid.UUID = Field(default_factory=uuid.uuid4)
-    game: Literal["chosung", "acid_rain"] | None = None
+    game: GameType | None = None
     difficulty: Difficulty | None = None
 
     @model_validator(mode="after")

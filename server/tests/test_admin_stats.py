@@ -2,11 +2,19 @@
 
 from __future__ import annotations
 
+import uuid
+
+from app.security import issue_player_token
+
 ADMIN_HEADER = {"X-Admin-Password": "test-admin-password"}
 
 
+def _player_headers(player_key: str) -> dict[str, str]:
+    return {"X-Player-Token": issue_player_token(uuid.UUID(player_key))}
+
+
 def _seed(
-    client,
+    authorized_client,
     event_type: str,
     game: str | None = None,
     difficulty: str | None = None,
@@ -18,28 +26,29 @@ def _seed(
     if game is not None:
         payload["game"] = game
         payload["difficulty"] = difficulty
-    response = client.post("/api/v1/events", json=payload)
+    headers = _player_headers(player_key) if player_key is not None else None
+    response = authorized_client.post("/api/v1/events", json=payload, headers=headers)
     assert response.status_code == 201
 
 
-def test_stats_requires_correct_password(client):
-    response = client.get("/api/v1/admin/stats")
+def test_stats_requires_correct_password(authorized_client):
+    response = authorized_client.get("/api/v1/admin/stats")
     assert response.status_code == 401
 
-    wrong = client.get("/api/v1/admin/stats", headers={"X-Admin-Password": "wrong"})
+    wrong = authorized_client.get("/api/v1/admin/stats", headers={"X-Admin-Password": "wrong"})
     assert wrong.status_code == 401
 
 
-def test_stats_counts_page_views_and_game_starts_by_game(client):
+def test_stats_counts_page_views_and_game_starts_by_game(authorized_client):
     first = "11111111-1111-4111-8111-111111111111"
     second = "22222222-2222-4222-8222-222222222222"
-    _seed(client, "page_view", player_key=first)
-    _seed(client, "page_view", player_key=second)
-    _seed(client, "game_start", "chosung", "보통", first)
-    _seed(client, "game_start", "chosung", "어려움", first)
-    _seed(client, "game_start", "acid_rain", "쉬움", second)
+    _seed(authorized_client, "page_view", player_key=first)
+    _seed(authorized_client, "page_view", player_key=second)
+    _seed(authorized_client, "game_start", "chosung", "보통", first)
+    _seed(authorized_client, "game_start", "chosung", "어려움", first)
+    _seed(authorized_client, "game_start", "acid_rain", "쉬움", second)
 
-    response = client.get("/api/v1/admin/stats", headers=ADMIN_HEADER)
+    response = authorized_client.get("/api/v1/admin/stats", headers=ADMIN_HEADER)
     assert response.status_code == 200
     body = response.json()
     assert body["total_page_views"] == 2
@@ -52,8 +61,8 @@ def test_stats_counts_page_views_and_game_starts_by_game(client):
     assert body["average_game_starts_per_player"] == 1.5
 
 
-def test_stats_are_zero_when_no_events_recorded(client):
-    response = client.get("/api/v1/admin/stats", headers=ADMIN_HEADER)
+def test_stats_are_zero_when_no_events_recorded(authorized_client):
+    response = authorized_client.get("/api/v1/admin/stats", headers=ADMIN_HEADER)
     assert response.status_code == 200
     assert response.json() == {
         "total_page_views": 0,
@@ -66,39 +75,47 @@ def test_stats_are_zero_when_no_events_recorded(client):
     }
 
 
-def test_stats_count_unique_players_across_repeated_starts(client):
+def test_stats_count_unique_players_across_repeated_starts(authorized_client):
     same_key = "11111111-1111-4111-8111-111111111111"
     other_key = "22222222-2222-4222-8222-222222222222"
-    client.post(
+    authorized_client.post(
         "/api/v1/events",
         json={"event_type": "game_start", "player_key": same_key, "game": "chosung", "difficulty": "보통"},
+        headers=_player_headers(same_key),
     )
-    client.post(
+    authorized_client.post(
         "/api/v1/events",
         json={"event_type": "game_start", "player_key": same_key, "game": "chosung", "difficulty": "보통"},
+        headers=_player_headers(same_key),
     )
-    client.post(
+    authorized_client.post(
         "/api/v1/events",
         json={"event_type": "game_start", "player_key": other_key, "game": "acid_rain", "difficulty": "쉬움"},
+        headers=_player_headers(other_key),
     )
 
-    response = client.get("/api/v1/admin/stats", headers=ADMIN_HEADER)
+    response = authorized_client.get("/api/v1/admin/stats", headers=ADMIN_HEADER)
     body = response.json()
     assert body["total_game_starts"] == 3
     assert body["unique_players"] == 2  # 같은 player_key로 2번 시작해도 한 명
 
 
-def test_stats_usage_rate_reflects_visits_vs_game_starts(client):
+def test_stats_usage_rate_reflects_visits_vs_game_starts(authorized_client):
     visitor_keys = [f"00000000-0000-4000-8000-{i:012d}" for i in range(4)]
     for player_key in visitor_keys:
-        client.post("/api/v1/events", json={"event_type": "page_view", "player_key": player_key})
+        authorized_client.post(
+            "/api/v1/events",
+            json={"event_type": "page_view", "player_key": player_key},
+            headers=_player_headers(player_key),
+        )
     for _ in range(2):
-        client.post(
+        authorized_client.post(
             "/api/v1/events",
             json={"event_type": "game_start", "player_key": visitor_keys[0], "game": "chosung", "difficulty": "보통"},
+            headers=_player_headers(visitor_keys[0]),
         )
 
-    response = client.get("/api/v1/admin/stats", headers=ADMIN_HEADER)
+    response = authorized_client.get("/api/v1/admin/stats", headers=ADMIN_HEADER)
     body = response.json()
     assert body["total_page_views"] == 4
     assert body["total_game_starts"] == 2
@@ -107,3 +124,13 @@ def test_stats_usage_rate_reflects_visits_vs_game_starts(client):
     # 방문 4회 중 게임 시작 2회 → 2/4*100 = 50.0 (총계 대 총계, 2026-08-18)
     assert body["usage_rate_percent"] == 50.0
     assert body["average_game_starts_per_player"] == 2.0
+
+
+def test_admin_failed_attempts_are_rate_limited(authorized_client, monkeypatch):
+    from app.config import settings
+
+    monkeypatch.setattr(settings, "admin_rate_limit_max_requests", 2)
+    headers = {"X-Admin-Password": "wrong"}
+    assert authorized_client.get("/api/v1/admin/stats", headers=headers).status_code == 401
+    assert authorized_client.get("/api/v1/admin/stats", headers=headers).status_code == 401
+    assert authorized_client.get("/api/v1/admin/stats", headers=headers).status_code == 429

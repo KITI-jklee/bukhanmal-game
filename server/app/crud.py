@@ -4,14 +4,15 @@ from __future__ import annotations
 
 import uuid
 
-from sqlalchemy import func, select
+from sqlalchemy import and_, func, or_, select
 from sqlalchemy.orm import Session
 
+from .db_utils import insert_or_recover
 from .models import Event, Score
 from .schemas import EventPayload, ScorePayload
 
 
-def create_score(db: Session, payload: ScorePayload) -> Score:
+def create_score(db: Session, payload: ScorePayload, player_key: uuid.UUID) -> Score:
     """submission_key가 이미 존재하면 재삽입 없이 기존 기록을 그대로 반환한다
     (클라이언트 재시도로 같은 결과가 중복 등록되는 것을 막는다 — DB 설계서
     04_인덱스_제약 uq_game_scores_submission_key).
@@ -23,7 +24,7 @@ def create_score(db: Session, payload: ScorePayload) -> Score:
         return existing
 
     common = {
-        "player_key": payload.player_key,
+        "player_key": player_key,
         "submission_key": payload.submission_key,
         "nickname": payload.nickname,
         "game_type": payload.game,
@@ -40,46 +41,53 @@ def create_score(db: Session, payload: ScorePayload) -> Score:
     else:
         row = Score(
             **common,
-            correct_count=0,
+            correct_count=payload.correct_count,
             stage_reached=payload.stage_reached,
             time_stop_uses=payload.time_stop_uses,
             time_stop_clears=payload.time_stop_clears,
             play_time_seconds=payload.play_time_seconds,
         )
-    db.add(row)
-    db.commit()
-    db.refresh(row)
-    return row
-
-
-def _leaderboard(db: Session, game: str, difficulty: str) -> list[Score]:
-    """score 내림차순, 동점 시 played_at 오름차순(FR-RK-06: 먼저 달성한 기록 우선)."""
-    stmt = (
-        select(Score)
-        .where(Score.game_type == game, Score.difficulty == difficulty)
-        .order_by(Score.score.desc(), Score.played_at.asc())
+    return insert_or_recover(
+        db,
+        row,
+        lambda: db.scalar(select(Score).where(Score.submission_key == payload.submission_key)),
     )
-    return list(db.scalars(stmt))
 
 
 def rank_of(db: Session, row: Score) -> tuple[int, int]:
     """방금 저장한(또는 재사용된) 기록의 (순위, 전체 인원)을 계산한다."""
-    board = _leaderboard(db, row.game_type, row.difficulty)
-    rank = next(i for i, entry in enumerate(board, start=1) if entry.score_id == row.score_id)
-    return rank, len(board)
+    same_board = (Score.game_type == row.game_type, Score.difficulty == row.difficulty)
+    ahead = or_(
+        Score.score > row.score,
+        and_(Score.score == row.score, Score.played_at < row.played_at),
+        and_(
+            Score.score == row.score,
+            Score.played_at == row.played_at,
+            Score.score_id < row.score_id,
+        ),
+    )
+    rank = (db.scalar(select(func.count()).select_from(Score).where(*same_board, ahead)) or 0) + 1
+    total = db.scalar(select(func.count()).select_from(Score).where(*same_board)) or 0
+    return rank, total
 
 
 def top5(db: Session, game: str, difficulty: str) -> list[Score]:
-    return _leaderboard(db, game, difficulty)[:5]
+    stmt = (
+        select(Score)
+        .where(Score.game_type == game, Score.difficulty == difficulty)
+        .order_by(Score.score.desc(), Score.played_at.asc(), Score.score_id.asc())
+        .limit(5)
+    )
+    return list(db.scalars(stmt))
 
 
-def create_event(db: Session, payload: EventPayload) -> Event:
+def create_event(db: Session, payload: EventPayload, player_key: uuid.UUID) -> Event:
     """game_scores와 달리 중복 등록 방지 키가 없다 — 재플레이도 매번 새 행으로
     쌓는 게 목적이라(조회수 방식), submission_key 같은 dedup 개념이 필요 없다.
     """
     row = Event(
         event_type=payload.event_type,
-        player_key=payload.player_key,
+        player_key=player_key,
         game=payload.game,
         difficulty=payload.difficulty,
     )
