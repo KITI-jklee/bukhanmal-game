@@ -15,10 +15,10 @@ import type {
   ScoreSubmitResult,
 } from './types'
 import { normalizeDifficulty } from './types'
-import { getPlayerKey, readJson, writeJson } from './storage'
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '/api/v1'
-const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true' || (import.meta.env.DEV && !import.meta.env.VITE_API_BASE_URL)
+import { readJson, writeJson } from './storage'
+import { withPlayerSession } from './playerSession'
+import { API_BASE, USE_MOCK, request } from './http'
+import { MAX_NICKNAME_LENGTH } from './constants'
 
 if (import.meta.env.PROD && USE_MOCK) {
   console.warn('운영 빌드가 명시적인 목업 모드로 실행됩니다.')
@@ -28,7 +28,6 @@ if (import.meta.env.PROD && USE_MOCK) {
  * 시드 기록이 새 랭킹에 섞이지 않게 한다. */
 const STORE_KEY = 'tongil.scores.v4'
 const MAX_SCORE = 10_000_000
-const REQUEST_TIMEOUT_MS = 10_000
 
 interface StoredScore {
   id: string
@@ -57,6 +56,22 @@ function loadStore(): StoredScore[] {
   return []
 }
 
+/** score·played_at 필드 검증 — StoredScore/RankingEntry/RecentRecordEntry가
+ *  전부 이 두 필드를 같은 규칙으로 검증하므로 한 곳에 모은다. */
+function isValidScoreFields(row: { score?: unknown; played_at?: unknown }): boolean {
+  return (
+    typeof row.score === 'number' &&
+    Number.isSafeInteger(row.score) &&
+    row.score >= 0 &&
+    row.score <= MAX_SCORE &&
+    isValidPlayedAt(row.played_at)
+  )
+}
+
+function isValidPlayedAt(value: unknown): value is string {
+  return typeof value === 'string' && !Number.isNaN(Date.parse(value))
+}
+
 function isStoredScore(value: unknown): value is StoredScore {
   if (typeof value !== 'object' || value === null) return false
   const row = value as Partial<StoredScore>
@@ -65,12 +80,7 @@ function isStoredScore(value: unknown): value is StoredScore {
     typeof row.nickname === 'string' &&
     (row.game === 'acid_rain' || row.game === 'chosung') &&
     normalizeDifficulty(row.difficulty) !== null &&
-    typeof row.score === 'number' &&
-    Number.isSafeInteger(row.score) &&
-    row.score >= 0 &&
-    row.score <= MAX_SCORE &&
-    typeof row.played_at === 'string' &&
-    !Number.isNaN(Date.parse(row.played_at))
+    isValidScoreFields(row)
   )
 }
 
@@ -78,23 +88,8 @@ function assertValidScorePayload(payload: ScorePayload): void {
   if (!Number.isSafeInteger(payload.score) || payload.score < 0 || payload.score > MAX_SCORE) {
     throw new Error('유효하지 않은 점수입니다.')
   }
-  if (payload.nickname.length < 1 || payload.nickname.length > 10) {
+  if (payload.nickname.length < 1 || payload.nickname.length > MAX_NICKNAME_LENGTH) {
     throw new Error('유효하지 않은 닉네임입니다.')
-  }
-}
-
-async function request(url: string, init?: RequestInit): Promise<Response> {
-  const controller = new AbortController()
-  const timer = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
-  try {
-    return await fetch(url, { ...init, signal: controller.signal })
-  } catch (error) {
-    if (error instanceof DOMException && error.name === 'AbortError') {
-      throw new Error('서버 응답 시간이 초과됐어요. 잠시 후 다시 시도해 주세요.')
-    }
-    throw error
-  } finally {
-    window.clearTimeout(timer)
   }
 }
 
@@ -128,12 +123,7 @@ function isRankingResponse(
       Number.isSafeInteger(row.rank) &&
       Number(row.rank) >= 1 &&
       typeof row.nickname === 'string' &&
-      typeof row.score === 'number' &&
-      Number.isSafeInteger(row.score) &&
-      row.score >= 0 &&
-      row.score <= MAX_SCORE &&
-      typeof row.played_at === 'string' &&
-      !Number.isNaN(Date.parse(row.played_at))
+      isValidScoreFields(row)
     )
   })
 }
@@ -154,12 +144,7 @@ function isRecentRecordsResponse(
     return (
       typeof row.score_id === 'string' &&
       typeof row.nickname === 'string' &&
-      typeof row.score === 'number' &&
-      Number.isSafeInteger(row.score) &&
-      row.score >= 0 &&
-      row.score <= MAX_SCORE &&
-      typeof row.played_at === 'string' &&
-      !Number.isNaN(Date.parse(row.played_at))
+      isValidScoreFields(row)
     )
   })
 }
@@ -177,16 +162,14 @@ export async function submitScore(payload: ScorePayload): Promise<ScoreSubmitRes
     // game_scores 스키마의 player_key(브라우저별 익명 식별자)·submission_key
     // (재요청 중복 등록 방지)는 ScorePayload에 없는 서버 전용 필드라 여기서
     // 붙여 보낸다 — 게임 페이지 쪽 코드는 이 두 필드를 몰라도 된다.
-    const body = {
-      ...payload,
-      player_key: getPlayerKey(),
-      submission_key: crypto.randomUUID(),
-    }
-    const response = await request(`${API_BASE}/scores`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
+    const submissionKey = crypto.randomUUID()
+    const response = await withPlayerSession((session) =>
+      request(`${API_BASE}/scores`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Player-Token': session.player_token },
+        body: JSON.stringify({ ...payload, submission_key: submissionKey }),
+      }),
+    )
     if (!response.ok) throw new Error(`점수 등록 실패 (${response.status})`)
     const result: unknown = await response.json()
     if (!isSubmitResult(result)) throw new Error('점수 등록 응답 형식이 올바르지 않습니다.')
@@ -259,13 +242,12 @@ export async function fetchMyRecentRecords(
   if (!nickname) return []
 
   if (!USE_MOCK) {
-    const params = new URLSearchParams({
-      player_key: getPlayerKey(),
-      game,
-      difficulty,
-      limit: String(limit),
-    })
-    const response = await request(`${API_BASE}/scores/recent?${params}`)
+    const params = new URLSearchParams({ game, difficulty, limit: String(limit) })
+    const response = await withPlayerSession((session) =>
+      request(`${API_BASE}/scores/recent?${params}`, {
+        headers: { 'X-Player-Token': session.player_token },
+      }),
+    )
     if (!response.ok) throw new Error(`최근 기록 조회 실패 (${response.status})`)
     const result: unknown = await response.json()
     if (!isRecentRecordsResponse(result, game, difficulty)) {

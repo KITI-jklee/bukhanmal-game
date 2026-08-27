@@ -1,17 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from '../lib/router'
 import { Countdown } from '../components/Countdown'
-import { PauseIcon, ShieldIcon, ZapIcon } from '../components/Icons'
+import { DefenseGauge } from '../components/DefenseGauge'
+import { GameOverlayMessage, GamePauseOverlay } from '../components/GameOverlay'
+import { PauseIcon, ZapIcon } from '../components/Icons'
 import { AcidRainEngine, type EngineSnapshot } from '../game/AcidRainEngine'
-import {
-  DEFENSE_MAX,
-  MOBILE_FALL_DURATION_SCALE,
-  TIME_STOP_DURATION,
-  defenseTone,
-} from '../game/acidRainConfig'
+import { MOBILE_FALL_DURATION_SCALE, TIME_STOP_DURATION, defenseTone } from '../game/acidRainConfig'
 import type { AcidRainPair, Difficulty } from '../lib/types'
 import { normalizeDifficulty } from '../lib/types'
+import { focusInputSoon, refocusInputIfBlurred } from '../lib/focusInput'
 import { useGameData } from '../lib/useGameData'
+import { isMobileViewport } from '../lib/useIsMobile'
 import { useAutoPause, useLockBodyScroll } from '../lib/useViewport'
 import './AcidRain.css'
 
@@ -31,22 +30,17 @@ export function AcidRain() {
   // 컴포넌트를 그대로 재사용) 재시작이 안 걸린다.
   const [restartKey, setRestartKey] = useState(0)
   // 단어 데이터가 fetch로 아직 도착하지 않았으면 엔진을 만들지 않는다.
-  // restartKey는 콜백 안에서 안 쓰지만, 값을 올려 강제로 새 엔진을
-  // 만들게 하는 재시작 트리거라 의존성 배열에 일부러 넣어둔다.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const engine = useMemo(
-    () =>
-      allPairs
-        ? new AcidRainEngine(
-            allPairs,
-            difficulty,
-            window.matchMedia('(max-width: 768px)').matches ? MOBILE_FALL_DURATION_SCALE : 1,
-          )
-        : null,
-    // restartKey는 새 엔진 생성을 강제하는 트리거다.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [allPairs, difficulty, restartKey],
-  )
+  // restartKey 값을 읽어 의도적인 재생성 트리거임을 명시한다.
+  const engine = useMemo(() => {
+    void restartKey
+    return allPairs
+      ? new AcidRainEngine(
+          allPairs,
+          difficulty,
+          isMobileViewport() ? MOBILE_FALL_DURATION_SCALE : 1,
+        )
+      : null
+  }, [allPairs, difficulty, restartKey])
 
   const [snapshot, setSnapshot] = useState<EngineSnapshot | null>(() => engine?.snapshot() ?? null)
   const [counting, setCounting] = useState(true)
@@ -85,7 +79,7 @@ export function AcidRain() {
   // 무관하게 항상 실행된다.
   useEffect(() => {
     if (counting || snapshot?.status !== 'playing') return
-    const timer = window.setTimeout(() => inputRef.current?.focus(), 0)
+    const timer = focusInputSoon(inputRef)
     return () => window.clearTimeout(timer)
   }, [counting, snapshot?.status])
 
@@ -115,26 +109,18 @@ export function AcidRain() {
     // 엔터 제출 때는 입력창이 이미 활성화돼 있으므로 다시 focus하면 iOS가
     // 화면을 위아래로 재스크롤한다. 버튼 제출 등 실제로 포커스가 빠진
     // 경우에만 스크롤 없이 복원해 키보드를 유지한다.
-    window.setTimeout(() => {
-      const inputElement = inputRef.current
-      if (inputElement && document.activeElement !== inputElement) {
-        inputElement.focus({ preventScroll: true })
-      }
-    }, 0)
+    refocusInputIfBlurred(inputRef)
   }
 
   if (loadError) {
     return (
       <div className="app-shell screen--rain">
-        <div className="overlay">
-          <div className="overlay-card" role="alertdialog" aria-modal="true">
-            <h3>단어 데이터를 불러오지 못했어요</h3>
-            <p>네트워크 상태를 확인한 뒤 메인에서 다시 시도해 주세요.</p>
-            <button className="button button--primary" onClick={() => navigate('/')}>
-              메인으로
-            </button>
-          </div>
-        </div>
+        <GameOverlayMessage
+          variant="alert"
+          title="단어 데이터를 불러오지 못했어요"
+          description="네트워크 상태를 확인한 뒤 메인에서 다시 시도해 주세요."
+          onGoHome={() => navigate('/')}
+        />
       </div>
     )
   }
@@ -142,12 +128,11 @@ export function AcidRain() {
   if (!engine || !snapshot) {
     return (
       <div className="app-shell screen--rain">
-        <div className="overlay">
-          <div className="overlay-card" role="status" aria-live="polite">
-            <h3>단어를 불러오는 중이에요</h3>
-            <p>잠시만 기다려 주세요.</p>
-          </div>
-        </div>
+        <GameOverlayMessage
+          variant="loading"
+          title="단어를 불러오는 중이에요"
+          description="잠시만 기다려 주세요."
+        />
       </div>
     )
   }
@@ -200,17 +185,7 @@ export function AcidRain() {
 
       {/* 모바일에서만 보인다(desktop-topbar 참고 주석) — 데스크톱에서는
        * .rain-dock 안의 원본 방어 게이지만 그대로 보인다. */}
-      <div className="defense-meter defense-meter--board">
-        <div className="defense-label">
-          <span>
-            <ShieldIcon size={11} /> 방어 게이지
-          </span>
-          <strong>{snapshot.defense}%</strong>
-        </div>
-        <div className={`defense-track defense-track--${tone}`}>
-          <span style={{ width: `${(snapshot.defense / DEFENSE_MAX) * 100}%` }} />
-        </div>
-      </div>
+      <DefenseGauge defense={snapshot.defense} tone={tone} variant="board" />
       </div>
 
       {/* 플레이 내내 참조하는 안내라 각주가 아니라 읽히는 크기의 띠로 둔다 */}
@@ -321,17 +296,7 @@ export function AcidRain() {
           </button>
         </form>
 
-        <div className="defense-meter">
-          <div className="defense-label">
-            <span>
-              <ShieldIcon size={11} /> 방어 게이지
-            </span>
-            <strong>{snapshot.defense}%</strong>
-          </div>
-          <div className={`defense-track defense-track--${tone}`}>
-            <span style={{ width: `${(snapshot.defense / DEFENSE_MAX) * 100}%` }} />
-          </div>
-        </div>
+        <DefenseGauge defense={snapshot.defense} tone={tone} />
       </div>
 
       {counting && !hasDataError ? (
@@ -364,48 +329,26 @@ export function AcidRain() {
       ) : null}
 
       {hasDataError ? (
-        <div className="overlay">
-          <div className="overlay-card" role="alertdialog" aria-modal="true">
-            <h3>단어 데이터를 불러오지 못했어요</h3>
-            <p>선택한 난이도의 산성비 단어가 없습니다. 메인에서 다시 시도해 주세요.</p>
-            <button className="button button--primary" onClick={() => navigate('/')}>
-              메인으로
-            </button>
-          </div>
-        </div>
+        <GameOverlayMessage
+          variant="alert"
+          title="단어 데이터를 불러오지 못했어요"
+          description="선택한 난이도의 산성비 단어가 없습니다. 메인에서 다시 시도해 주세요."
+          onGoHome={() => navigate('/')}
+        />
       ) : null}
 
       {isPaused ? (
-        <div className="overlay">
-          <div className="overlay-card" role="dialog" aria-modal="true" aria-label="일시정지">
-            <h3>잠시 멈췄어요</h3>
-            <p>
-              점수 {snapshot.score.toLocaleString()}점 · 스테이지 {snapshot.stage}
-              <br />
-              준비되면 이어서 진행하세요.
-            </p>
-            <div className="overlay-actions">
-              <button
-                className="button button--primary"
-                onClick={() => {
-                  engine.resume()
-                  window.setTimeout(() => inputRef.current?.focus(), 0)
-                }}
-              >
-                이어하기
-              </button>
-              <button
-                className="button button--outline"
-                onClick={() => setRestartKey((key) => key + 1)}
-              >
-                다시 시작하기
-              </button>
-              <button className="button button--ghost" onClick={() => navigate('/')}>
-                메인으로 나가기
-              </button>
-            </div>
-          </div>
-        </div>
+        <GamePauseOverlay
+          score={snapshot.score}
+          statusLine={<>스테이지 {snapshot.stage}</>}
+          onResume={() => {
+            engine.resume()
+            focusInputSoon(inputRef)
+          }}
+          onRestart={() => setRestartKey((key) => key + 1)}
+          onGoHome={() => navigate('/')}
+          goHomeLabel="메인으로 나가기"
+        />
       ) : null}
     </div>
   )

@@ -170,7 +170,7 @@
 케이스를 없앤다.
 
 제외 목록은 `acidrain_제외목록_5자이상.csv`에 보관한다. 원본은
-`public/data/acidrain_pairs.backup_before_4char_cap.json`으로 백업했다.
+교체 전 파일은 저장소 Git 이력에서 복구할 수 있다.
 
 **최종 데이터: 14,689개**
 

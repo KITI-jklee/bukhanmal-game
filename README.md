@@ -53,7 +53,7 @@ python -m venv .venv
 # macOS/Linux
 source .venv/bin/activate
 
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -89,10 +89,14 @@ VITE_API_BASE_URL=http://127.0.0.1:8000/api/v1
 - 같은 도메인에서 서빙되므로 프런트엔드는 `VITE_API_BASE_URL`을 **설정하지 않는다** — 기본값(`/api/v1`, 상대 경로)이 그대로 같은 도메인의 백엔드 서비스로 연결된다.
 - Vercel 프로젝트 환경변수(Production)에 아래 값을 등록해야 한다 (백엔드 서비스가 읽는 값 — `server/.env.example` 참고):
   - `DATABASE_URL` — Supabase 연결 문자열 (Connection Pooler, 포트 6543 권장)
+  - `ADMIN_PASSWORD` — 현재 관리자 비밀번호
+  - `PLAYER_TOKEN_SECRET` — 관리자 비밀번호와 별개인 충분히 긴 무작위 서명 키(필수)
   - `CORS_ORIGINS` — 로컬 개발 도메인만 있어도 되지만(운영은 동일 도메인이라 CORS 자체가 필요 없음), 그대로 둬도 무방
-  - `RATE_LIMIT_MAX_REQUESTS`, `RATE_LIMIT_WINDOW_SECONDS`, `ACID_RAIN_SCORE_CEILING`
+  - `RATE_LIMIT_MAX_REQUESTS`, `RATE_LIMIT_WINDOW_SECONDS`, `EVENT_RATE_LIMIT_MAX_REQUESTS`, `EVENT_RATE_LIMIT_WINDOW_SECONDS`
+  - `ADMIN_RATE_LIMIT_MAX_REQUESTS`, `ADMIN_RATE_LIMIT_WINDOW_SECONDS`, `RANKING_RATE_LIMIT_MAX_REQUESTS`, `RECENT_RATE_LIMIT_MAX_REQUESTS`
+  - `RATE_LIMIT_RETENTION_SECONDS`, `PLAYER_TOKEN_TTL_SECONDS`, `ACID_RAIN_SCORE_CEILING`
 - GitHub `main`에 푸시하면 두 서비스가 함께 자동으로 다시 빌드·배포된다.
-- 요청 빈도 제한(`server/app/rate_limit.py`)은 프로세스 메모리 기반이다. Vercel의 Fluid compute는 인스턴스를 최대한 재사용해서 대부분 상황에서 잘 동작하지만, 트래픽이 급증하면 여러 인스턴스로 나뉠 수 있어 100% 보장되는 방식은 아니다 — 트래픽이 늘어나면 Redis 등 공유 저장소로 옮기는 것을 검토한다.
+- 요청 빈도 제한은 Supabase의 `request_limits` 테이블을 모든 인스턴스가 공유하며, 오래된 버킷은 기본 24시간 후 자동 정리된다. 새 DB는 `server/supabase_schema.sql`, 기존 DB의 Data API 차단·보강은 `server/supabase_hardening.sql`을 적용한다.
 
 ## 주요 명령어
 
@@ -103,7 +107,7 @@ VITE_API_BASE_URL=http://127.0.0.1:8000/api/v1
 | `npm run preview` | 프로덕션 빌드 미리보기 |
 | `npm run lint` | 프런트엔드 코드 검사 |
 | `npm test` | 프런트엔드 단위 테스트 |
-| `npm run check:engine` | 산성비 게임 엔진 및 규칙 검증 |
+| `npm run check:acidrain` | 산성비 게임 엔진 및 규칙 검증 |
 | `npm run check:chosung` | 초성 게임 엔진 및 데이터 검증 |
 
 백엔드 테스트는 다음 명령으로 실행합니다.

@@ -81,6 +81,7 @@ export function Result() {
                 game: 'acid_rain',
                 difficulty: result.difficulty,
                 score: result.score,
+                correct_count: result.correctCount,
                 stage_reached: result.stageReached,
                 max_combo: result.maxCombo,
                 time_stop_uses: result.timeStopUses,

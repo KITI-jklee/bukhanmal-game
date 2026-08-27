@@ -35,19 +35,6 @@ export function comboBonus(combo: number): number {
   return 0
 }
 
-/** 정답 비교용 정규화 — 앞뒤 공백 제거 후 연속 공백을 하나로 (FR-CH-11) */
-export function normalizeAnswer(value: string): string {
-  return value.trim().replace(/\s+/g, ' ')
-}
-
-/** 빈 값·공백·특수문자만 있는 제출은 오답으로 처리하지 않는다 (FR-CM-07) */
-export function isSubmittable(value: string): boolean {
-  const normalized = normalizeAnswer(value)
-  if (!normalized) return false
-  // 한글·영문·숫자가 하나도 없으면 의미 없는 입력으로 본다
-  return /[가-힣ㄱ-ㆎa-zA-Z0-9]/.test(normalized)
-}
-
 /** 받침 유무에 따라 알맞은 조사를 고른다. "논리을(를)" 같은 어색한 표기를 피하기 위함. */
 export function particleFor(word: string, withBatchim: string, withoutBatchim: string): string {
   const code = word.trim().slice(-1).charCodeAt(0) - 0xac00
@@ -78,14 +65,3 @@ export function shouldRevealFirstLetter(hintLevel: number, southExpression: stri
   if (southExpression.trim().length > 0) return hintLevel >= 2
   return hintLevel >= 1
 }
-
-/* 뜻풀이 마스킹은 더 이상 쓰지 않는다.
- *
- * 초기 샘플의 뜻풀이가 "남한말로 풀이하면 ‘근해’입니다." 형태라 1단계 힌트를
- * 미리 노출해 버려서 가림 처리를 넣었었다. 실제 사전형 뜻풀이("육지에서 비교적
- * 가까운 바다.")로 교체되면서 기본 정보 → 1단계 힌트 → 2단계 힌트가
- * 기획서 3-3대로 각각 다른 정보를 주게 되어 가릴 이유가 없어졌다.
- *
- * 부분 문자열 때문에 오히려 해로웠다 — "골문"의 '골', "행복한"의 '복'처럼
- * 남한말이 다른 단어 안에 들어 있으면 멀쩡한 뜻풀이를 "○문", "행○한"으로
- * 망가뜨린다. */

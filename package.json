@@ -11,11 +11,11 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "test": "vitest run",
-    "check:engine": "npm run check:engine:unit && npm run check:engine:rules",
-    "check:engine:unit": "vitest run tests/engine.test.ts",
-    "check:engine:rules": "tsx scripts/engine-check.ts",
-    "preview": "vite preview",
-    "check:chosung": "tsx scripts/chosung-check.ts"
+    "check:acidrain": "npm run check:acidrain:unit && npm run check:acidrain:rules",
+    "check:acidrain:unit": "vitest run tests/engine.test.ts",
+    "check:acidrain:rules": "tsx scripts/engine-check.ts",
+    "check:chosung": "tsx scripts/chosung-check.ts",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

@@ -15,11 +15,16 @@ function compact(value: string): string {
   return normalize(value).replace(/\s/g, '')
 }
 
-/** 빈 문자열·공백만·특수문자만 있는 값은 제출로 보지 않는다(FR-CM-07). */
+/** 빈 문자열·공백만·특수문자만 있는 값은 제출로 보지 않는다(FR-CM-07).
+ *
+ * 한글 자모 범위는 현대 한글 자모(ㄱ-ㅎ, ㅏ-ㅣ)뿐 아니라 옛한글 등에 쓰이는
+ * 나머지 호환용 자모(ㆍ-ㆎ 등)까지 포함한 ㄱ-ㆎ 전체를 허용한다 — 더 넓은
+ * 쪽이 유효한 한글 입력을 놓치지 않는다(초성게임·산성비게임 공통, 두 게임
+ * 다 원래 이 범위 안에서만 정답을 받으므로 동작에 영향이 없다). */
 export function isSubmittable(value: string): boolean {
   const trimmed = normalize(value)
   if (trimmed.length === 0) return false
-  return /[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]/.test(trimmed)
+  return /[가-힣ㄱ-ㆎa-zA-Z0-9]/.test(trimmed)
 }
 
 /** 허용 정답 배열과 완전일치하는지 */

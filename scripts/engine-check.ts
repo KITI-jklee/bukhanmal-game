@@ -1,7 +1,7 @@
 /** 산성비게임 엔진 규칙 검증 하니스
  *
  * 브라우저 없이 게임 루프를 가상 시계로 돌려 기획서 4장의 수치가
- * 실제로 그렇게 동작하는지 확인한다.  실행: npm run check:engine */
+ * 실제로 그렇게 동작하는지 확인한다.  실행: npm run check:acidrain */
 
 import { AcidRainEngine } from '../src/game/AcidRainEngine'
 import { TIME_STOP_WORD } from '../src/game/acidRainConfig'

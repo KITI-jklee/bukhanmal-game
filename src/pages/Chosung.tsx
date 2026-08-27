@@ -1,12 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { useNavigate, useSearchParams } from '../lib/router'
+import { ChanceRow } from '../components/ChanceRow'
 import { Countdown } from '../components/Countdown'
-import { BookIcon, BulbIcon, HeartIcon, PauseIcon, ZapIcon } from '../components/Icons'
+import { GameOverlayMessage, GamePauseOverlay } from '../components/GameOverlay'
+import { BookIcon, BulbIcon, PauseIcon, ZapIcon } from '../components/Icons'
 import { ChosungEngine, type ChosungSnapshot } from '../game/ChosungEngine'
 import { HINT_SCORE, MAX_WRONG, TIME_LIMIT_SECONDS, particleFor } from '../game/chosungConfig'
 import type { ChosungWord, Difficulty } from '../lib/types'
 import { normalizeDifficulty } from '../lib/types'
+import { focusInputSoon, refocusInputIfBlurred } from '../lib/focusInput'
 import { useGameData } from '../lib/useGameData'
+import { useIsMobile } from '../lib/useIsMobile'
 import { useAutoPause, useLockBodyScroll } from '../lib/useViewport'
 import './Chosung.css'
 
@@ -36,13 +40,11 @@ export function Chosung() {
   // 컴포넌트를 그대로 재사용) 재시작이 안 걸린다.
   const [restartKey, setRestartKey] = useState(0)
   // 단어 데이터가 fetch로 아직 도착하지 않았으면 엔진을 만들지 않는다.
-  // restartKey는 콜백 안에서 안 쓰지만, 값을 올려 강제로 새 엔진을
-  // 만들게 하는 재시작 트리거라 의존성 배열에 일부러 넣어둔다.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const engine = useMemo(
-    () => (allWords ? new ChosungEngine(allWords, difficulty) : null),
-    [allWords, difficulty, restartKey],
-  )
+  // restartKey 값을 읽어 의도적인 재생성 트리거임을 명시한다.
+  const engine = useMemo(() => {
+    void restartKey
+    return allWords ? new ChosungEngine(allWords, difficulty) : null
+  }, [allWords, difficulty, restartKey])
 
   const [snapshot, setSnapshot] = useState<ChosungSnapshot | null>(() => engine?.snapshot() ?? null)
   const [counting, setCounting] = useState(true)
@@ -52,7 +54,7 @@ export function Chosung() {
 
   // 모바일 전용 힌트 팝오버 — 데스크톱은 하단 독의 기존 힌트 보기 버튼을
   // 그대로 쓰고, 이 상태는 절대 true가 되지 않는다(handleHintTap의
-  // matchMedia 가드 참고).
+  // isMobile 가드 참고).
   const [hintPopupOpen, setHintPopupOpen] = useState(false)
   const hintPopupTimerRef = useRef<number | undefined>(undefined)
   useEffect(() => {
@@ -60,6 +62,7 @@ export function Chosung() {
       if (hintPopupTimerRef.current !== undefined) window.clearTimeout(hintPopupTimerRef.current)
     }
   }, [])
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     if (!engine) return
@@ -91,11 +94,7 @@ export function Chosung() {
 
   useEffect(() => {
     if (counting || snapshot?.status !== 'playing' || snapshot.reveal) return
-    // requestAnimationFrame이 아니라 setTimeout을 쓴다 — 탭이 백그라운드로
-    // 밀리는 등 화면이 실제로 그려지지 않는 순간에는 rAF 콜백 자체가 브라우저
-    // 정책상 멈춰서 포커스 복원이 씹힐 수 있다. setTimeout은 그런 상태와
-    // 무관하게 항상 실행된다.
-    const timer = window.setTimeout(() => inputRef.current?.focus(), 0)
+    const timer = focusInputSoon(inputRef)
     return () => window.clearTimeout(timer)
   }, [counting, snapshot?.status, snapshot?.reveal])
 
@@ -121,7 +120,7 @@ export function Chosung() {
     engine.next()
     // 다음 문제로 넘어갈 때 입력창 포커스를 되살린다 — 안 하면 이 버튼에
     // 포커스가 남아 모바일에서 키보드가 다시 뜨지 않는다.
-    window.setTimeout(() => inputRef.current?.focus(), 0)
+    focusInputSoon(inputRef)
   }, [engine])
 
   // 정답/오답 모달이 떠 있을 때 Enter를 누르면 "다음 문제" 버튼을 누른 것과
@@ -146,26 +145,18 @@ export function Chosung() {
     // 엔터 제출 때 이미 활성화된 입력창에 다시 focus하면 iOS가 화면을
     // 위아래로 재스크롤한다. 버튼 제출처럼 실제로 포커스가 빠졌을 때만
     // 스크롤 없이 복원해 산성비게임과 같은 짧은 좌우 흔들림만 남긴다.
-    window.setTimeout(() => {
-      const inputElement = inputRef.current
-      if (inputElement && document.activeElement !== inputElement) {
-        inputElement.focus({ preventScroll: true })
-      }
-    }, 0)
+    refocusInputIfBlurred(inputRef)
   }
 
   if (loadError) {
     return (
       <div className="app-shell screen--quiz">
-        <div className="overlay">
-          <div className="overlay-card" role="alertdialog" aria-modal="true">
-            <h3>문제 데이터를 불러오지 못했어요</h3>
-            <p>네트워크 상태를 확인한 뒤 메인에서 다시 시도해 주세요.</p>
-            <button className="button button--primary" onClick={() => navigate('/')}>
-              메인으로
-            </button>
-          </div>
-        </div>
+        <GameOverlayMessage
+          variant="alert"
+          title="문제 데이터를 불러오지 못했어요"
+          description="네트워크 상태를 확인한 뒤 메인에서 다시 시도해 주세요."
+          onGoHome={() => navigate('/')}
+        />
       </div>
     )
   }
@@ -173,12 +164,11 @@ export function Chosung() {
   if (!engine || !snapshot) {
     return (
       <div className="app-shell screen--quiz">
-        <div className="overlay">
-          <div className="overlay-card" role="status" aria-live="polite">
-            <h3>문제를 불러오는 중이에요</h3>
-            <p>잠시만 기다려 주세요.</p>
-          </div>
-        </div>
+        <GameOverlayMessage
+          variant="loading"
+          title="문제를 불러오는 중이에요"
+          description="잠시만 기다려 주세요."
+        />
       </div>
     )
   }
@@ -202,7 +192,7 @@ export function Chosung() {
   // 아무 일도 안 일어나게 막는다(버튼 자체는 항상 존재하지만 동작은
   // 모바일에서만).
   const handleHintTap = () => {
-    if (typeof window === 'undefined' || !window.matchMedia('(max-width: 768px)').matches) return
+    if (!isMobile) return
     if (blocked || hintsLeft === 0) return
     engine.useHint()
     setHintPopupOpen(true)
@@ -254,62 +244,37 @@ export function Chosung() {
         </div>
       </header>
 
-      <div className="chance-row chance-row--desktop">
-        <div className="chance-group" aria-label={`남은 기회 ${snapshot.hearts}개`}>
-          <span>기회</span>
-          {Array.from({ length: MAX_WRONG }, (_, i) => (
-            <HeartIcon key={i} size={15} filled={i < snapshot.hearts} />
-          ))}
-        </div>
-        <div className="chance-group chance-group--hint">
-          <button
-            type="button"
-            className="hint-trigger"
-            aria-label={`남은 힌트 ${hintsLeft}개`}
-            onClick={handleHintTap}
-          >
-            <span className="hint-trigger-label hint-trigger-label--desktop">힌트</span>
-            <span className="hint-trigger-label hint-trigger-label--mobile">힌트보기</span>
-            {Array.from({ length: snapshot.maxHintLevel }, (_, i) => (
-              <BulbIcon key={i} size={15} filled={i >= snapshot.hintLevel} />
-            ))}
-          </button>
-        </div>
-      </div>
+      <ChanceRow
+        variant="desktop"
+        hearts={snapshot.hearts}
+        maxHearts={MAX_WRONG}
+        hintLevel={snapshot.hintLevel}
+        maxHintLevel={snapshot.maxHintLevel}
+        hintsLeft={hintsLeft}
+        onHintTap={handleHintTap}
+      />
       </div>
 
       <main className="quiz-stage">
         <div className="question-card">
-          <div className="chance-row chance-row--mobile">
-            <div className="chance-group" aria-label={`남은 기회 ${snapshot.hearts}개`}>
-              <span>기회</span>
-              {Array.from({ length: MAX_WRONG }, (_, i) => (
-                <HeartIcon key={i} size={15} filled={i < snapshot.hearts} />
-              ))}
-            </div>
-            <div className="chance-group chance-group--hint">
-              <button
-                type="button"
-                className="hint-trigger"
-                aria-label={`남은 힌트 ${hintsLeft}개`}
-                onClick={handleHintTap}
-              >
-                <span className="hint-trigger-label hint-trigger-label--desktop">힌트</span>
-                <span className="hint-trigger-label hint-trigger-label--mobile">힌트보기</span>
-                {Array.from({ length: snapshot.maxHintLevel }, (_, i) => (
-                  <BulbIcon key={i} size={15} filled={i >= snapshot.hintLevel} />
-                ))}
-              </button>
-
-              {hintPopupOpen ? (
+          <ChanceRow
+            variant="mobile"
+            hearts={snapshot.hearts}
+            maxHearts={MAX_WRONG}
+            hintLevel={snapshot.hintLevel}
+            maxHintLevel={snapshot.maxHintLevel}
+            hintsLeft={hintsLeft}
+            onHintTap={handleHintTap}
+            popover={
+              hintPopupOpen ? (
                 <div className="hint-popover" role="status">
                   {hintsLeft > 0
                     ? `${hintsLeft}개 남음 · 정답 시 ${nextHintScore}점`
                     : '모두 사용함'}
                 </div>
-              ) : null}
-            </div>
-          </div>
+              ) : null
+            }
+          />
 
           <span className="question-label">이 말은 무엇일까요?</span>
           {/* 초성 5자까지는 기존 크기를 유지하고, 그보다 길면 한 줄에 들어가도록
@@ -506,49 +471,29 @@ export function Chosung() {
       ) : null}
 
       {hasDataError ? (
-        <div className="overlay">
-          <div className="overlay-card" role="alertdialog" aria-modal="true">
-            <h3>문제 데이터를 불러오지 못했어요</h3>
-            <p>선택한 난이도의 초성 문제가 없습니다. 메인에서 다시 시도해 주세요.</p>
-            <button className="button button--primary" onClick={() => navigate('/')}>
-              메인으로
-            </button>
-          </div>
-        </div>
+        <GameOverlayMessage
+          variant="alert"
+          title="문제 데이터를 불러오지 못했어요"
+          description="선택한 난이도의 초성 문제가 없습니다. 메인에서 다시 시도해 주세요."
+          onGoHome={() => navigate('/')}
+        />
       ) : null}
 
       {isPaused ? (
-        <div className="overlay">
-          <div className="overlay-card" role="dialog" aria-modal="true" aria-label="일시정지">
-            <h3>잠시 멈췄어요</h3>
-            <p>
-              점수 {snapshot.score.toLocaleString()}점 · 문제 {snapshot.questionNumber}/
-              {snapshot.totalQuestions}
-              <br />
-              준비되면 이어서 진행하세요.
-            </p>
-            <div className="overlay-actions">
-              <button
-                className="button button--primary"
-                onClick={() => {
-                  engine.resume()
-                  window.setTimeout(() => inputRef.current?.focus(), 0)
-                }}
-              >
-                이어하기
-              </button>
-              <button
-                className="button button--outline"
-                onClick={() => setRestartKey((key) => key + 1)}
-              >
-                다시 시작하기
-              </button>
-              <button className="button button--ghost" onClick={() => navigate('/')}>
-                메인으로
-              </button>
-            </div>
-          </div>
-        </div>
+        <GamePauseOverlay
+          score={snapshot.score}
+          statusLine={
+            <>
+              문제 {snapshot.questionNumber}/{snapshot.totalQuestions}
+            </>
+          }
+          onResume={() => {
+            engine.resume()
+            focusInputSoon(inputRef)
+          }}
+          onRestart={() => setRestartKey((key) => key + 1)}
+          onGoHome={() => navigate('/')}
+        />
       ) : null}
     </div>
   )

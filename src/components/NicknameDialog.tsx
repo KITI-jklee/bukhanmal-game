@@ -6,6 +6,7 @@
  * 이미 랭킹에 올라간 과거 기록의 닉네임은 그대로 둔다(재등록하지 않음). */
 
 import { useRef, useState } from 'react'
+import { MAX_NICKNAME_LENGTH } from '../lib/constants'
 import { normalizeNickname, setNickname, validateNickname } from '../lib/storage'
 import { useDialogFocus } from '../lib/useDialogFocus'
 
@@ -58,9 +59,9 @@ export function NicknameDialog({ onDone, onSkip, initialValue = '' }: Props) {
         <input
           className="nickname-input"
           value={value}
-          maxLength={10}
+          maxLength={MAX_NICKNAME_LENGTH}
           autoFocus
-          placeholder="10자 이내"
+          placeholder={`${MAX_NICKNAME_LENGTH}자 이내`}
           // 바꿀 때 지우고 다시 치는 대신 바로 덮어쓸 수 있게 전체 선택해둔다
           onFocus={(event) => event.target.select()}
           onChange={(event) => {

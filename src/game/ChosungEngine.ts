@@ -4,6 +4,7 @@
  * 화면 갱신 주기와 무관하게 제한시간이 정확히 흐르고, 가상 시계로 테스트할 수 있다. */
 
 import type { ChosungQuestionLog, ChosungResult, ChosungWord, Difficulty } from '../lib/types'
+import { isCorrect, isSubmittable, normalize } from '../lib/answer'
 import {
   DIFFICULTY_MULTIPLIER,
   HINT_SCORE,
@@ -13,8 +14,6 @@ import {
   TIME_LIMIT_SECONDS,
   comboBonus,
   effectiveMaxHintLevel,
-  isSubmittable,
-  normalizeAnswer,
   revealFirstLetter,
   shouldRevealFirstLetter,
 } from './chosungConfig'
@@ -323,10 +322,7 @@ export class ChosungEngine {
       return
     }
 
-    const input = normalizeAnswer(raw)
-    const accepted = word.accepted_answers.map(normalizeAnswer)
-
-    if (accepted.includes(input)) {
+    if (isCorrect(raw, word.accepted_answers)) {
       const base = HINT_SCORE[Math.min(this.hintLevel, HINT_SCORE.length - 1)]
       const clean = this.hintLevel === 0 && this.wrongCount === 0
       if (clean) {
@@ -357,7 +353,8 @@ export class ChosungEngine {
     }
 
     // 편집거리 1은 정답으로 인정하지 않고 안내만 한다 (FR-CH-11)
-    const near = accepted.some((answer) => isNearMiss(input, answer))
+    const input = normalize(raw)
+    const near = word.accepted_answers.some((answer) => isNearMiss(input, normalize(answer)))
     this.showFeedback(near ? 'near' : 'wrong', near ? '거의 맞았어요!' : '다시 시도해 보세요')
     this.emit()
   }

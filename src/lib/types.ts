@@ -59,6 +59,7 @@ export interface AcidRainScorePayload {
   game: 'acid_rain'
   difficulty: Difficulty
   score: number
+  correct_count: number
   stage_reached: number
   max_combo: number
   time_stop_uses: number

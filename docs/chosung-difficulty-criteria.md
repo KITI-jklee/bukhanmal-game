@@ -304,7 +304,7 @@
 단어·뜻풀이로 `chosung_words.json`을 전면 교체했다(기존 24,288개 중 위 17,553개만
 남기고 나머지 6,735개는 완전히 제외 — 사용자 확인 완료).
 
-- 교체 전 파일은 `public/data/chosung_words.backup_20260825_before_short_def_reextract.json`에 보관.
+- 교체 전 파일은 저장소 Git 이력에서 복구할 수 있다.
 - `word`당 `south_expression`·`accepted_answers`·`category`·출처 메타데이터는 기존
   `chosung_words.json`에서 그대로 이어받았다(단어가 100% 겹치므로 매칭 가능). 새로
   바뀐 것은 `meaning`(사전 대조로 다시 확보한 짧은 뜻풀이)과 그로 인해 다시 산정한
