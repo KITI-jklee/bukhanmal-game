@@ -43,6 +43,18 @@ VITE_API_BASE_URL=http://127.0.0.1:8000/api/v1
 pytest tests/ -v
 ```
 
+기본 테스트는 빠른 인메모리 SQLite 단위 테스트다. 실제 PostgreSQL/Supabase
+연동까지 확인하려면 스키마가 적용된 전용 테스트 DB의 직접 연결 또는 세션 풀러
+URL을 `TEST_DATABASE_URL`에 넣고 통합 테스트를 실행한다.
+
+```bash
+TEST_DATABASE_URL=postgresql+psycopg://... pytest tests/integration -v
+```
+
+`TEST_DATABASE_URL`이 없으면 통합 테스트는 자동으로 건너뛴다. 테스트 중 생성한
+점수·이벤트·요청 제한 데이터는 테스트 종료 시 트랜잭션 롤백으로 제거된다.
+
+
 라우트·검증·랭킹 정렬·최근 기록·에러코드를 검증한다. 매 테스트가 완전히
 새로운 인메모리 SQLite로 시작해 서로 영향을 주지 않는다 — 이건 운영 DB와
 무관한 테스트 전용 더블이다(실제 쿼리는 Supabase에 붙지 않고 여기서
