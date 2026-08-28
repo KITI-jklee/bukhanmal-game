@@ -1,7 +1,4 @@
-/** 초성게임 엔진 — 상세기획서 3장
- *
- * 산성비게임과 같은 방식으로 requestAnimationFrame + delta time을 쓴다.
- * 화면 갱신 주기와 무관하게 제한시간이 정확히 흐르고, 가상 시계로 테스트할 수 있다. */
+/* 초성게임 엔진 — 상세기획서 3장 산성비게임과 같은 방식으로 requestAnimationFrame + delta time을 쓴다. */
 
 import type { ChosungQuestionLog, ChosungResult, ChosungWord, Difficulty } from '../lib/types'
 import { isCorrect, isSubmittable, normalize } from '../lib/answer'
@@ -42,8 +39,7 @@ export interface ChosungSnapshot {
   hearts: number
   hintLevel: number
   maxHintLevel: number
-  /** 1단계 힌트로 공개된 남한말 표현. 아직 안 열었거나, 이 단어에 남한말 대응어
-   *  정보 자체가 없으면(effectiveMaxHintLevel이 1인 경우) null */
+  /* 1단계 힌트로 공개된 남한말 표현. */
   southHint: string | null
   score: number
   combo: number
@@ -115,11 +111,7 @@ export class ChosungEngine {
     if (this.questions.length === 0) this.status = 'error'
   }
 
-  /** 선택 난이도의 문제 중 중복 없이 무작위로 10문제 (FR-CH-01)
-   *
-   * 남한말 대응어(south_expression)가 없는 단어도 출제 대상에 포함한다 — 그런
-   * 단어는 힌트 1단계를 건너뛰고 바로 첫 글자를 보여준다(chosungConfig의
-   * effectiveMaxHintLevel·shouldRevealFirstLetter 참고). */
+  /* 선택 난이도에서 중복 없이 10문제를 뽑는다. */
   private static pickQuestions(pool: ChosungWord[], difficulty: Difficulty): ChosungWord[] {
     const candidates = pool.filter((word) => word.difficulty === difficulty)
     const shuffled = [...candidates]
@@ -142,8 +134,7 @@ export class ChosungEngine {
 
   snapshot(): ChosungSnapshot {
     const word = this.current
-    // 남한말 대응어가 없는 단어는 1단계에서 보여줄 게 없으므로, 힌트를 쓰자마자
-    // (1단계에) 바로 첫 글자를 공개한다 — chosungConfig 참고.
+    // 남한말 대응어가 없는 단어는 1단계에서 보여줄 게 없으므로, 힌트를 쓰자마자 (1단계에) 바로 첫 글자를 공개한다 — chosungConfig 참고.
     const southHintAvailable = !!word && word.south_expression.trim().length > 0
     return {
       status: this.status,
@@ -295,10 +286,7 @@ export class ChosungEngine {
     this.feedbackTimer = 1.2
   }
 
-  /** 힌트 열람 — 반드시 1단계부터 순서대로, 콤보는 즉시 초기화 (FR-CH-04·08)
-   *
-   * 남한말 대응어가 없는 단어는 effectiveMaxHintLevel이 1이라, 1단계 힌트가
-   * 바로 "첫 글자 공개"(원래 2단계 정보)로 대체되고 그 이상은 못 쓴다. */
+  /* 힌트 열람 — 반드시 1단계부터 순서대로, 콤보는 즉시 초기화 (FR-CH-04·08) 남한말 대응어가 없는 단어는 effectiveMaxHintLevel이 1이라, 1단계 힌트가 바로 "첫 글자 공개"(원래 2단계 정보)로 대체되고 그 이상은 못 쓴다. */
   useHint(): void {
     if (this.status !== 'playing' || this.reveal) return
     const word = this.current

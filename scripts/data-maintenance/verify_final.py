@@ -9,8 +9,7 @@ print("뜻풀이 O + south_expression O:", len(has_south))
 
 Q = "['‘’\"“”]"
 
-# south_expression 문자열 일치 여부와 무관하게, meaning 문장 자체에
-# "정답을 그대로 알려주는 문구"가 남아있는지를 독립적으로 검사한다.
+# south_expression 문자열 일치 여부와 무관하게, meaning 문장 자체에 "정답을 그대로 알려주는 문구"가 남아있는지를 독립적으로 검사한다.
 GIVEAWAY_PATTERNS = [
     re.compile(rf"{Q}.+?{Q}의 북한어"),         # '남한말'의 북한어  (남한말 자체를 알려줌)
     re.compile(rf"{Q}.+?{Q}\(?으?\)?로 다듬음"),  # '다른표현'으로 다듬음

@@ -1,7 +1,6 @@
 /** API 명세서 B·C장의 계약을 그대로 옮긴 타입 정의 */
 
-/** 난이도. 게임 데이터의 difficulty 필드와 백엔드 API(명세서 C-1·C-2)의
- *  열거값이 모두 이 값을 그대로 쓴다. */
+/* 난이도. */
 export type Difficulty = '쉬움' | '보통' | '어려움'
 export type GameId = 'chosung' | 'acid_rain'
 
@@ -26,8 +25,7 @@ export interface ChosungWord {
   first_letter: string
   length: number
   difficulty: Difficulty
-  /** 의미 분야. 샘플 데이터의 뜻풀이가 가려진 동안 유일한 의미 단서가 되므로
-   *  기본 정보로 함께 노출한다. */
+  /* 의미 분야. */
   category?: string
 }
 

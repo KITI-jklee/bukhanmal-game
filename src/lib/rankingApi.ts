@@ -1,8 +1,4 @@
-/** 랭킹 API 클라이언트 — API 명세서 C장
- *
- * VITE_API_BASE_URL이 설정되어 있으면 실제 FastAPI 백엔드(game_scores
- * 테이블, Supabase)를 호출한다. 그렇지 않을 때만(로컬 데모 등) localStorage
- * 기반 목업으로 동작한다 — USE_MOCK 판단 로직 참고. */
+/* 랭킹 API 클라이언트 — API 명세서 C장 VITE_API_BASE_URL이 설정되어 있으면 실제 FastAPI 백엔드(game_scores 테이블, Supabase)를 호출한다. */
 
 import type {
   Difficulty,
@@ -24,8 +20,7 @@ if (import.meta.env.PROD && USE_MOCK) {
   console.warn('운영 빌드가 명시적인 목업 모드로 실행됩니다.')
 }
 
-/* v4: 시연용 가짜 랭킹을 제거했다. 기존 저장 키와 분리해 브라우저에 남아 있던
- * 시드 기록이 새 랭킹에 섞이지 않게 한다. */
+/* v4: 시연용 가짜 랭킹을 제거했다. */
 const STORE_KEY = 'tongil.scores.v4'
 const MAX_SCORE = 10_000_000
 
@@ -56,8 +51,7 @@ function loadStore(): StoredScore[] {
   return []
 }
 
-/** score·played_at 필드 검증 — StoredScore/RankingEntry/RecentRecordEntry가
- *  전부 이 두 필드를 같은 규칙으로 검증하므로 한 곳에 모은다. */
+/* score·played_at 필드 검증 — StoredScore/RankingEntry/RecentRecordEntry가 전부 이 두 필드를 같은 규칙으로 검증하므로 한 곳에 모은다. */
 function isValidScoreFields(row: { score?: unknown; played_at?: unknown }): boolean {
   return (
     typeof row.score === 'number' &&
@@ -159,9 +153,7 @@ function compareScores(a: StoredScore, b: StoredScore): number {
 export async function submitScore(payload: ScorePayload): Promise<ScoreSubmitResult> {
   assertValidScorePayload(payload)
   if (!USE_MOCK) {
-    // game_scores 스키마의 player_key(브라우저별 익명 식별자)·submission_key
-    // (재요청 중복 등록 방지)는 ScorePayload에 없는 서버 전용 필드라 여기서
-    // 붙여 보낸다 — 게임 페이지 쪽 코드는 이 두 필드를 몰라도 된다.
+    // game_scores 스키마의 player_key(브라우저별 익명 식별자)·submission_key (재요청 중복 등록 방지)는 ScorePayload에 없는 서버 전용 필드라 여기서 붙여 보낸다 — 게임 페이지 쪽 코드는 이 두 필드를 몰라도 된다.
     const submissionKey = crypto.randomUUID()
     const response = await withPlayerSession((session) =>
       request(`${API_BASE}/scores`, {
@@ -231,8 +223,7 @@ export async function fetchRankings(
   return { game, difficulty, top5 }
 }
 
-/** 랭킹 화면의 "내 최근 기록" — GET /api/v1/scores/recent(player_key 기준).
- * rank는 이 응답에 없으므로 화면에서 안 쓰는 placeholder로 0을 채운다. */
+/* 랭킹 화면의 "내 최근 기록" — GET /api/v1/scores/recent(player_key 기준). */
 export async function fetchMyRecentRecords(
   nickname: string,
   game: GameId,

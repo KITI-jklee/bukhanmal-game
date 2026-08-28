@@ -1,5 +1,4 @@
-/** 시안에서 쓰인 lucide 아이콘을 필요한 것만 인라인 SVG로 옮겼다.
- *  아이콘 몇 개 때문에 아이콘 패키지를 통째로 번들에 넣지 않기 위함이다. */
+/* 시안에서 쓰인 lucide 아이콘을 필요한 것만 인라인 SVG로 옮겼다. */
 
 interface IconProps {
   size?: number

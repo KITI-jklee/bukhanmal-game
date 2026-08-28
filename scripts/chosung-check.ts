@@ -1,7 +1,4 @@
-/** 초성게임 엔진 규칙 검증 하니스
- *
- * 브라우저 없이 가상 시계로 돌려 상세기획서 3장의 수치를 확인한다.
- * 실행: npm run check:chosung */
+/* 초성게임 엔진 규칙 검증 하니스 브라우저 없이 가상 시계로 돌려 상세기획서 3장의 수치를 확인한다. */
 
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -13,12 +10,11 @@ import {
 } from '../src/game/chosungConfig'
 import type { ChosungWord, Difficulty } from '../src/lib/types'
 
-// 데이터는 번들 크기를 줄이려고 public/data(런타임 fetch 대상)로 옮겼다 —
-// import 대신 파일을 직접 읽는다.
+// 데이터는 번들 크기를 줄이려고 public/data(런타임 fetch 대상)로 옮겼다 — import 대신 파일을 직접 읽는다.
 const dataPath = fileURLToPath(new URL('../public/data/chosung_words.json', import.meta.url))
 const realWords = JSON.parse(readFileSync(dataPath, 'utf-8'))
 
-// ── 가상 시계 · rAF 목 ─────────────────────────────
+// 가상 시계 · rAF 목
 
 let virtualTime = 0
 let pending: ((time: number) => void) | null = null
@@ -42,7 +38,7 @@ function advance(seconds: number): void {
   }
 }
 
-// ── 테스트용 문제 풀 ───────────────────────────────
+// 테스트용 문제 풀
 
 const POOL: ChosungWord[] = Array.from({ length: 40 }, (_, i) => ({
   id: `w${i}`,
@@ -81,7 +77,7 @@ function answerCurrent(engine: ChosungEngine, pool = POOL): void {
   engine.next()
 }
 
-// ── 1. 출제 ────────────────────────────────────────
+// 1.
 
 console.log('\n[1] 출제 규칙')
 {
@@ -103,7 +99,7 @@ console.log('\n[1] 출제 규칙')
   check('회차 내 중복 출제 없음', seen.size, QUESTIONS_PER_ROUND)
 }
 
-// ── 2. 힌트 단계별 점수 ────────────────────────────
+// 2.
 
 console.log('\n[2] 힌트 단계별 기본점수 (10 / 5 / 2)')
 {
@@ -123,7 +119,7 @@ console.log('\n[2] 힌트 단계별 기본점수 (10 / 5 / 2)')
   check('2단계 힌트 후 정답 2점', hint2.snapshot().score, 2)
 }
 
-// ── 3. 힌트 공개 내용 ──────────────────────────────
+// 3.
 
 console.log('\n[3] 힌트 공개 내용')
 {
@@ -148,10 +144,7 @@ console.log('\n[3] 힌트 공개 내용')
   check('3단계 힌트는 없다', engine.snapshot().hintLevel, 2)
 }
 
-// ── 3-1. 남한말 대응어가 없는 단어의 힌트 ──────────
-// 통일부 원본 데이터에 남한말 대응어 정보 자체가 없는 단어가 다수 있다
-// (2026-08-11 데이터 검증). 이런 단어는 1단계 힌트가 보여줄 게 없으므로,
-// 힌트 1회로 바로(유일한 단계로) 첫 글자를 공개한다.
+// 3-1.
 console.log('\n[3-1] 남한말 대응어 없는 단어의 힌트')
 {
   const noSouthPool: ChosungWord[] = POOL.map((w) => ({ ...w, south_expression: '' }))
@@ -169,7 +162,7 @@ console.log('\n[3-1] 남한말 대응어 없는 단어의 힌트')
   check('더 이상 힌트를 못 쓴다(1단계가 최대)', engine.snapshot().hintLevel, 1)
 }
 
-// ── 4. 힌트는 제한시간을 늘리지 않는다 ─────────────
+// 4.
 
 console.log('\n[4] 힌트와 제한시간')
 {
@@ -181,7 +174,7 @@ console.log('\n[4] 힌트와 제한시간')
   check('힌트를 열어도 남은 시간 그대로', after, before)
 }
 
-// ── 5. 하트와 오답 ─────────────────────────────────
+// 5.
 
 console.log('\n[5] 오답과 하트')
 {
@@ -204,7 +197,7 @@ console.log('\n[5] 오답과 하트')
   check('공백·특수문자 제출은 하트를 깎지 않는다', empty.snapshot().hearts, 3)
 }
 
-// ── 6. 시간 초과 ───────────────────────────────────
+// 6.
 
 console.log('\n[6] 시간 초과')
 {
@@ -226,7 +219,7 @@ console.log('\n[6] 시간 초과')
   check('다음 문제에서 시간 초기화', next.remainingSeconds, TIME_LIMIT_SECONDS)
 }
 
-// ── 7. 콤보 ────────────────────────────────────────
+// 7.
 
 console.log('\n[7] 콤보 (무힌트·무오답 연속 정답만)')
 {
@@ -274,7 +267,7 @@ console.log('\n[8] 콤보 초기화 조건')
   check('그래도 단계별 기본점수는 획득', after.snapshot().score, 5)
 }
 
-// ── 9. 난이도 배수 ─────────────────────────────────
+// 9.
 
 console.log('\n[9] 난이도 배수 (합계에 한 번만 적용)')
 {
@@ -295,7 +288,7 @@ console.log('\n[9] 난이도 배수 (합계에 한 번만 적용)')
   }
 }
 
-// ── 10. 정답 판정 ──────────────────────────────────
+// 10.
 
 console.log('\n[10] 정답 판정')
 {
@@ -327,14 +320,12 @@ console.log('\n[10] 정답 판정')
   check('그래도 하트는 차감', near.snapshot().hearts, 2)
 }
 
-// ── 11. 실제 데이터 ────────────────────────────────
+// 11.
 
 console.log('\n[11] 실제 데이터 (chosung_words.json)')
 {
   const words = realWords as ChosungWord[]
-  // 남한말 대응어가 없는 단어도 이제 정상 출제 대상이다(2026-08-11) — 그런 단어는
-  // 1단계 힌트가 바로 첫 글자를 보여준다(chosungConfig의 effectiveMaxHintLevel 참고).
-  // 그래서 "남한말 표현이 없는 문제 없음" 같은 필수 조건은 더 이상 없다.
+  // 남한말 대응어가 없는 단어도 이제 정상 출제 대상이다(2026-08-11) — 그런 단어는 1단계 힌트가 바로 첫 글자를 보여준다(chosungConfig의 effectiveMaxHintLevel 참고).
   const noSouthCount = words.filter((w) => !w.south_expression.trim()).length
   if (noSouthCount > 0) {
     console.log(`  참고: 남한말 대응어 없는 문제 ${noSouthCount}개 (힌트 1단계=첫 글자 공개로 대체됨)`)

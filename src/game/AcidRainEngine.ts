@@ -1,8 +1,4 @@
-/** 산성비게임 엔진 — 상세기획서 4장
- *
- * React 밖에서 게임 루프를 돌리고 변경 시에만 구독자에게 알린다.
- * 낙하 위치는 픽셀이 아니라 진행률(0~1)로 관리하므로 화면 크기가 바뀌거나
- * 모바일 가상 키보드가 열려도 단어가 순간 이동하지 않는다(NFR-03). */
+/* 산성비게임 엔진 — 상세기획서 4장 React 밖에서 게임 루프를 돌리고 변경 시에만 구독자에게 알린다. */
 
 import type { AcidRainPair, AcidRainResult, Difficulty, MissedWord } from '../lib/types'
 import { isCorrect, isSubmittable, normalize } from '../lib/answer'
@@ -90,10 +86,7 @@ export class AcidRainEngine {
 
   private stageIndex = 0
   private stageCorrect = 0
-  // 시간정지 출현 기준(4-5)에 쓰는 카운터 — 맞힌 개수가 아니라 화면에
-  // 떨어진(스폰된) 일반 단어 개수로 센다. 정답 여부와 무관하게 일정한
-  // 간격으로 나오게 해서, 잘 못 맞히는 플레이어에게도 구제 아이템이
-  // 늦게 나오지 않도록 한다(2026-08-19 3차 조정).
+  // 시간정지 출현 기준(4-5)에 쓰는 카운터 — 맞힌 개수가 아니라 화면에 떨어진(스폰된) 일반 단어 개수로 센다.
   private stageSpawned = 0
   private spawnTimer = 0
   private bannerTimer = 0
@@ -126,7 +119,7 @@ export class AcidRainEngine {
     if (this.pool.length === 0) this.status = 'error'
   }
 
-  // ── 구독 ─────────────────────────────────────────
+  // 구독
 
   subscribe(listener: Listener): () => void {
     this.listeners.add(listener)
@@ -172,7 +165,7 @@ export class AcidRainEngine {
     return Math.max(0, DEFENSE_MAX - this.misses * DEFENSE_LOSS_PER_MISS)
   }
 
-  // ── 수명주기 ─────────────────────────────────────
+  // 수명주기
 
   start(): void {
     if (this.pool.length === 0) {
@@ -226,7 +219,7 @@ export class AcidRainEngine {
     this.tick(delta)
   }
 
-  // ── 게임 루프 ────────────────────────────────────
+  // 게임 루프
 
   private tick(delta: number): void {
     if (this.status !== 'playing') return
@@ -311,7 +304,7 @@ export class AcidRainEngine {
     this.emit()
   }
 
-  // ── 스테이지 ─────────────────────────────────────
+  // 스테이지
 
   private get stageConfig() {
     return STAGES[this.stageIndex]
@@ -351,7 +344,7 @@ export class AcidRainEngine {
     this.bannerTimer = STAGE_BANNER_DURATION
   }
 
-  // ── 단어 생성 ────────────────────────────────────
+  // 단어 생성
 
   private trySpawn(): void {
     if (this.words.length >= this.stageConfig.maxConcurrent) return
@@ -442,7 +435,7 @@ export class AcidRainEngine {
     return 4 + Math.random() * 62
   }
 
-  // ── 입력 판정 ────────────────────────────────────
+  // 입력 판정
 
   submit(rawInput: string): void {
     if (this.status !== 'playing' || this.bannerStage !== null) return
@@ -495,8 +488,7 @@ export class AcidRainEngine {
     this.checkStageClear()
   }
 
-  /** 스테이지별 출현 기준(떨어진 일반 단어 개수 기준, 정답 여부와 무관)을
-   * 넘겼으면 다음 스폰에 시간정지 단어를 예약한다 (4-5, 2026-08-19 3차 조정) */
+  /* 스테이지별 출현 기준(떨어진 일반 단어 개수 기준, 정답 여부와 무관)을 넘겼으면 다음 스폰에 시간정지 단어를 예약한다 (4-5, 2026-08-19 3차 조정) */
   private queueTimeStopIfDue(): void {
     const config = this.stageConfig
     if (config.timeStopLimit !== null && this.timeStopSpawned >= config.timeStopLimit) return
@@ -510,7 +502,7 @@ export class AcidRainEngine {
     this.feedbackTimer = 1.2
   }
 
-  // ── 결과 ─────────────────────────────────────────
+  // 결과
 
   buildResult(): AcidRainResult {
     return {

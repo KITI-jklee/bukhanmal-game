@@ -13,8 +13,7 @@ interface ChanceRowProps {
   popover?: ReactNode
 }
 
-/** 초성게임 상단의 "기회(하트)+힌트" 띠. 데스크톱 HUD와 모바일 문제 카드
- *  안에 같은 마크업이 중복돼 있던 걸 하나로 모았다(Chosung.tsx). */
+/* 초성게임 상단의 "기회(하트)+힌트" 띠. */
 export function ChanceRow({
   variant,
   hearts,

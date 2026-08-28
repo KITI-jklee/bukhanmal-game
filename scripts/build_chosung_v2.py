@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# *- coding: utf-8 -*
 """
 초성게임용 단어 데이터 재구성 스크립트
 - 입력: raw_words.json (엑셀 'short_def_single_meaning.xlsx'에서 추출한 word/meaning 17,553개)
@@ -27,10 +27,7 @@ def get_initials(word):
 
 HANJA_RE = re.compile(r'[\u4E00-\u9FFF]')
 
-# ---- 1-6-② 전문 분야 키워드 (도메인별로 묶어서 "여러 개 동시 등장" 가점 판단) ----
-# 이 말뭉치(북한 용어사전)에는 산업·생산 관련 어휘가 일상어로도 흔히 등장하므로,
-# '생산'·'노동'·'기술'처럼 지나치게 범용적인 단어는 제외하고 실제로 전문적인
-# 개념·용어에 해당하는 키워드만 남겼다.
+# 전문 분야 키워드는 여러 개가 함께 등장할 때만 가점을 준다.
 DOMAIN_KEYWORDS = {
     '의료·생물': ['질환', '병원체', '바이러스', '세균', '기생충', '병리', '해부', '생리학',
                  '유전자', '효소', '호르몬', '임상', '염색체', '항체', '세포', '종양', '백신'],
@@ -66,13 +63,13 @@ def score_difficulty(word, meaning, south_expression):
     score = 0
     length = len(word)
 
-    # 1. 길이 (보조 기준)
+    # 1.
     if length == 3:
         score += 1
     elif length == 4:
         score += 2
 
-    # 2. 전문성·생소함 — 도메인 키워드
+    # 2.
     hits = domain_hits(meaning)
     if hits:
         score += 2
@@ -83,17 +80,17 @@ def score_difficulty(word, meaning, south_expression):
     if HANJA_RE.search(meaning):
         score += 1
 
-    # 3. 뜻풀이를 통한 정답 유추 가능성 (가장 중요)
+    # 3.
     clue = has_word_clue(word, meaning)
     if not clue:
         score += 1
 
-    # 4. 남한 대응어 존재 여부 — 있으면 소폭 완화
+    # 4.
     has_south = bool(south_expression and south_expression.strip())
     if has_south:
         score -= 1
 
-    # 5. 뜻풀이가 길고 복잡함
+    # 5.
     if len(meaning) > 30:
         score += 1
 
@@ -106,14 +103,11 @@ def score_difficulty(word, meaning, south_expression):
     else:
         difficulty = '어려움'
 
-    # 6. 난이도 보정 (하한 규칙) — 이 데이터셋은 최대 4자이므로 관련 규칙만 적용
+    # 6.
     if length == 4 and len(hits) >= 2 and difficulty == '보통':
         difficulty = '어려움'
 
-    # 6-1. 짧은 단어(3자)인데 뜻풀이에 단서도 전혀 없고(3절) 설명까지 길고 복잡하면(5절)
-    # 두 신호가 겹치는 경우라 '보통' 상한만으로는 부족 — 어려움으로 승격.
-    # (전체 산정 이후 '어려움' 비중이 지나치게 낮게 나와 재조정한 규칙: 이 조합 804건이
-    #  실제로 뜻풀이만 보고는 단어를 전혀 유추할 수 없는 사례들이었다.)
+    # 6-1.
     if length == 3 and (not clue) and len(meaning) > 30 and difficulty == '보통':
         difficulty = '어려움'
 
@@ -166,9 +160,7 @@ def main():
     # 가나다순 정렬
     entries.sort(key=lambda e: e['word'])
 
-    # ---- 같은 (난이도, 초성) 조합 안에서 뜻풀이까지 완전히 같은 항목 제외 ----
-    # (게임 규칙상 초성+난이도가 같은 문제끼리는 뜻풀이로 구분되어야 하므로,
-    #  뜻풀이까지 겹치면 플레이어 입장에서 구분 불가 — 가나다순으로 먼저 나오는 것만 남긴다)
+    # 초성·난이도·뜻풀이가 모두 같으면 구분할 수 없으므로 제외한다.
     group_seen = {}
     dropped_duplicate_meaning = []
     deduped_entries = []
@@ -206,7 +198,7 @@ def main():
             'review_status': e['review_status'],
         })
 
-    # ---- 정합성 점검 (chosung-check.ts [11]와 동일 관점) ----
+    # 정합성 점검 (chosung-check.ts [11]와 동일 관점)
     report = {
         'total': len(final),
         'dropped_duplicate_meaning': len(dropped_duplicate_meaning),

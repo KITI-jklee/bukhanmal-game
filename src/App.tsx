@@ -20,8 +20,7 @@ export default function App() {
     }
   }, [pathname, navigate])
 
-  // 앱이 브라우저에서 뜰 때 한 번만 방문자 수를 센다 — SPA 내부 이동(라우팅)은
-  // 페이지 재로드가 아니라서 여기서 다시 안 잡힌다(의도한 동작, eventApi.ts 참고).
+  // 앱이 브라우저에서 뜰 때 한 번만 방문자 수를 센다 — SPA 내부 이동(라우팅)은 페이지 재로드가 아니라서 여기서 다시 안 잡힌다(의도한 동작, eventApi.ts 참고).
   useEffect(() => {
     trackPageView()
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -16,9 +16,7 @@ import './Chosung.css'
 
 const DATA_URL = `${import.meta.env.BASE_URL}data/chosung_words.json`
 
-/** 뜻풀이가 "① ... ② ..."처럼 여러 뜻으로 나뉘어 있으면 한 줄에 욱여넣지 않고
- * 뜻별로 나눠서 보여주기 위한 분리 함수. 문제 화면의 기본 뜻풀이와 정답/오답
- * 공개 모달의 뜻풀이 양쪽에서 같은 기준으로 쓴다. */
+/* 뜻풀이가 "① ... */
 function splitMeaningSenses(meaning: string): string[] {
   return meaning
     .split(/(?=[①②③④⑤⑥⑦⑧⑨⑩])/)
@@ -36,11 +34,8 @@ export function Chosung() {
   }, [params])
 
   // 일시정지 중 "다시 시작하기"를 누르면 값을 올려 엔진을 새로 만든다.
-  // difficulty만 의존성이면 같은 난이도로는 재생성이 안 돼(리액트가 같은
-  // 컴포넌트를 그대로 재사용) 재시작이 안 걸린다.
   const [restartKey, setRestartKey] = useState(0)
   // 단어 데이터가 fetch로 아직 도착하지 않았으면 엔진을 만들지 않는다.
-  // restartKey 값을 읽어 의도적인 재생성 트리거임을 명시한다.
   const engine = useMemo(() => {
     void restartKey
     return allWords ? new ChosungEngine(allWords, difficulty) : null
@@ -52,9 +47,7 @@ export function Chosung() {
   const composingRef = useRef(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // 모바일 전용 힌트 팝오버 — 데스크톱은 하단 독의 기존 힌트 보기 버튼을
-  // 그대로 쓰고, 이 상태는 절대 true가 되지 않는다(handleHintTap의
-  // isMobile 가드 참고).
+  // 모바일 전용 힌트 팝오버 — 데스크톱은 하단 독의 기존 힌트 보기 버튼을 그대로 쓰고, 이 상태는 절대 true가 되지 않는다(handleHintTap의 isMobile 가드 참고).
   const [hintPopupOpen, setHintPopupOpen] = useState(false)
   const hintPopupTimerRef = useRef<number | undefined>(undefined)
   useEffect(() => {
@@ -84,9 +77,7 @@ export function Chosung() {
     setInput('')
   }, [snapshot?.questionNumber])
 
-  // 오답 피드백 — (지원 기기에서) 진동. navigator.vibrate는 진동 하드웨어가
-  // 없는 데스크톱에서는 조용히 무시된다. 화면을 흔드는 시각 효과는 모바일에서
-  // 화면이 움직이는 느낌이 거슬린다는 피드백을 받아 제거했다.
+  // 오답 피드백 — (지원 기기에서) 진동.
   useEffect(() => {
     if (snapshot?.feedback?.kind !== 'wrong') return
     navigator.vibrate?.(120)
@@ -118,13 +109,11 @@ export function Chosung() {
   const handleRevealNext = useCallback(() => {
     if (!engine) return
     engine.next()
-    // 다음 문제로 넘어갈 때 입력창 포커스를 되살린다 — 안 하면 이 버튼에
-    // 포커스가 남아 모바일에서 키보드가 다시 뜨지 않는다.
+    // 다음 문제로 넘어갈 때 입력창 포커스를 되살린다 — 안 하면 이 버튼에 포커스가 남아 모바일에서 키보드가 다시 뜨지 않는다.
     focusInputSoon(inputRef)
   }, [engine])
 
-  // 정답/오답 모달이 떠 있을 때 Enter를 누르면 "다음 문제" 버튼을 누른 것과
-  // 동일하게 다음 문제로 넘어간다. 조합 중 엔터(IME 229)는 무시한다.
+  // 정답/오답 모달이 떠 있을 때 Enter를 누르면 "다음 문제" 버튼을 누른 것과 동일하게 다음 문제로 넘어간다.
   useEffect(() => {
     if (!snapshot?.reveal) return
     const onKeyDown = (event: KeyboardEvent) => {
@@ -142,9 +131,7 @@ export function Chosung() {
     if (composingRef.current || !engine) return
     engine.submit(input)
     setInput('')
-    // 엔터 제출 때 이미 활성화된 입력창에 다시 focus하면 iOS가 화면을
-    // 위아래로 재스크롤한다. 버튼 제출처럼 실제로 포커스가 빠졌을 때만
-    // 스크롤 없이 복원해 산성비게임과 같은 짧은 좌우 흔들림만 남긴다.
+    // 엔터 제출 때 이미 활성화된 입력창에 다시 focus하면 iOS가 화면을 위아래로 재스크롤한다.
     refocusInputIfBlurred(inputRef)
   }
 
@@ -179,18 +166,11 @@ export function Chosung() {
   const hintsLeft = snapshot.maxHintLevel - snapshot.hintLevel
   const nextHintScore = HINT_SCORE[Math.min(snapshot.hintLevel + 1, HINT_SCORE.length - 1)]
 
-  // 뜻풀이가 "① ... ② ..."처럼 여러 뜻으로 나뉘어 있으면 한 줄에 욱여넣지
-  // 않고 뜻별로 줄바꿈해서 보여준다(안 그러면 글자 수가 너무 많아져
-  // meaning-scale이 지나치게 작아진다). 정답/오답 공개 모달의 뜻풀이도
-  // 같은 기준으로 나눠서 보여준다.
+  // 뜻풀이가 "① ...
   const meaningSenses = splitMeaningSenses(snapshot.meaning)
   const revealMeaningSenses = snapshot.reveal ? splitMeaningSenses(snapshot.reveal.meaning) : []
 
-  // 모바일(≤768px)에서만 상단 상태바의 힌트 아이콘을 눌러 힌트를 쓸 수
-  // 있게 한다 — 데스크톱은 하단 독의 기존 버튼만 동작해야 하므로, CSS
-  // 미디어 쿼리와 같은 기준선을 여기서도 그대로 검사해 데스크톱에서는
-  // 아무 일도 안 일어나게 막는다(버튼 자체는 항상 존재하지만 동작은
-  // 모바일에서만).
+  // 모바일에서만 상단 힌트 버튼을 활성화한다.
   const handleHintTap = () => {
     if (!isMobile) return
     if (blocked || hintsLeft === 0) return
@@ -291,11 +271,6 @@ export function Chosung() {
             style={
               {
                 // 뜻풀이가 길어질수록 글자 크기를 줄여 한 줄 안에 들어가게 한다.
-                // 32자까지는 기존 크기를 유지하고, 그보다 길면 글자 수에
-                // 반비례해 줄어들되 0.72 밑으로는 가독성을 위해 더 줄이지
-                // 않는다(그 이상 긴 뜻풀이는 줄바꿈을 허용해 잘리지 않게 둔다).
-                // 단, ①②처럼 뜻이 여러 개로 나뉜 경우는 줄바꿈으로 나눠 보여주니
-                // 글자 수와 무관하게 원래 크기를 그대로 쓴다.
                 '--meaning-scale':
                   meaningSenses.length > 1
                     ? 1

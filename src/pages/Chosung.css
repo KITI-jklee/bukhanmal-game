@@ -7,10 +7,7 @@
   background: var(--rain-bg);
 }
 
-/* 모바일 전용 오버레이 래퍼 — 데스크톱에서는 display: contents로 박스
- * 자체를 없애서 .quiz-hud/.chance-row가 원래처럼 .screen--quiz의 직접
- * flex 자식으로 동작하게 한다. 768px 이하에서만 실제 오버레이가 된다
- * (아래 @media 참고). */
+/* 모바일 전용 오버레이 래퍼 — 데스크톱에서는 display: contents로 박스 자체를 없애서 .quiz-hud/.chance-row가 원래처럼 .screen--quiz의 직접 flex 자식으로 동작하게 한다. */
 .quiz-topbar {
   display: contents;
 }
@@ -168,9 +165,7 @@
   color: #eab23e;
 }
 
-/* 데스크톱에서는 예전의 표시 전용 div와 똑같이 보이도록 버튼 기본
- * 스타일을 전부 지운다 — 실제 클릭 동작(모바일 전용)은 handleHintTap의
- * matchMedia 가드로 막혀 있다. */
+/* 데스크톱에서는 예전의 표시 전용 div와 똑같이 보이도록 버튼 기본 스타일을 전부 지운다 — 실제 클릭 동작(모바일 전용)은 handleHintTap의 matchMedia 가드로 막혀 있다. */
 .hint-trigger {
   display: flex;
   align-items: center;
@@ -183,8 +178,7 @@
   cursor: default;
 }
 
-/* 데스크톱 기본값 — "힌트"만 보인다. 모바일 문구("힌트보기")는
- * @media (max-width: 768px)에서 뒤바뀐다. */
+/* 데스크톱 기본값 — "힌트"만 보인다. */
 .hint-trigger-label--mobile {
   display: none;
 }
@@ -213,8 +207,7 @@
   box-shadow: 0 13px 30px #25413612;
 }
 
-/* 기회와 힌트는 상단 HUD가 아니라 문제 내용과 함께 한눈에 확인하도록
- * 문제 카드의 첫 행에 배치한다. */
+/* 기회와 힌트는 상단 HUD가 아니라 문제 내용과 함께 한눈에 확인하도록 문제 카드의 첫 행에 배치한다. */
 .question-card > .chance-row {
   max-width: none;
   min-height: 0;
@@ -231,9 +224,7 @@
 .initial-letters {
   display: block;
   margin: clamp(14px, 3vw, 26px) 0 clamp(13px, 2.5vw, 20px);
-  /* --initials-scale은 Chosung.tsx에서 초성 글자 수에 반비례해 넣어준다
-   * (5자까지는 1로 기존 크기 유지, 6자 이상부터 줄어들어 카드 폭 안에서
-   * 줄바꿈 없이 한 줄에 들어간다). */
+  /* initials-scale은 Chosung.tsx에서 초성 글자 수에 반비례해 넣어준다 (5자까지는 1로 기존 크기 유지, 6자 이상부터 줄어들어 카드 폭 안에서 줄바꿈 없이 한 줄에 들어간다). */
   font-size: calc(clamp(38px, 9vw, 68px) * var(--initials-scale, 1));
   line-height: 1;
   letter-spacing: 0.18em;
@@ -248,11 +239,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  /* 글자 크기가 clamp(12px,1.5vw,14px)로 화면이 커질수록 함께 커지는데
-   * 폭은 400px에 막혀 있어서, 데스크톱(큰 글자)이 모바일(작은 글자)보다
-   * 오히려 더 쉽게 줄바꿈되는 역전 현상이 있었다. 데이터 중 가장 긴
-   * 뜻풀이(44자)도 544px면 한 줄에 들어가고 카드 안쪽 폭이 최대 560px라,
-   * 480px로 넉넉히 늘려 흔한 길이는 줄바꿈 없이 한 줄에 들어가게 한다. */
+  /* 글자 크기가 clamp(12px,1.5vw,14px)로 화면이 커질수록 함께 커지는데 폭은 400px에 막혀 있어서, 데스크톱(큰 글자)이 모바일(작은 글자)보다 오히려 더 쉽게 줄바꿈되는 역전 현상이 있었다. */
   width: min(100%, 480px);
   margin: 0 auto;
   padding: clamp(10px, 1.7vw, 15px);
@@ -266,8 +253,7 @@
   color: var(--green);
 }
 
-/* 뜻이 ①②로 여러 개 나뉜 경우: 줄들은 왼쪽 정렬로 세로 나열하되,
- * 아이콘은 박스 전체 높이 기준으로 가운데(align-items: center, 상속값)에 둔다 */
+/* 뜻이 ①②로 여러 개 나뉜 경우: 줄들은 왼쪽 정렬로 세로 나열하되, 아이콘은 박스 전체 높이 기준으로 가운데(align-items: center, 상속값)에 둔다 */
 .definition-lines {
   display: flex;
   flex-direction: column;
@@ -277,8 +263,7 @@
 
 .definition p {
   margin: 0;
-  /* --meaning-scale는 Chosung.tsx에서 뜻풀이 글자 수에 반비례해 넣어준다
-   * (뜻이 여러 개로 나뉘어 줄바꿈되는 경우엔 1로 고정해서 원래 크기를 쓴다) */
+  /* meaning-scale는 Chosung.tsx에서 뜻풀이 글자 수에 반비례해 넣어준다 (뜻이 여러 개로 나뉘어 줄바꿈되는 경우엔 1로 고정해서 원래 크기를 쓴다) */
   font-size: calc(clamp(12px, 1.5vw, 14px) * var(--meaning-scale, 1));
   line-height: 1.6;
 }
@@ -314,8 +299,7 @@
   }
 }
 
-/* 데스크톱(웹)에서는 모바일 화면 폭에 맞춰 잡아둔 카드·뜻풀이 크기가
- * 너무 작게 보여서, 769px 이상에서만 카드 전체와 뜻풀이 글자를 키운다. */
+/* 데스크톱(웹)에서는 모바일 화면 폭에 맞춰 잡아둔 카드·뜻풀이 크기가 너무 작게 보여서, 769px 이상에서만 카드 전체와 뜻풀이 글자를 키운다. */
 @media screen and (min-width: 769px) {
   .question-card {
     width: min(100%, 760px);
@@ -346,11 +330,7 @@
 
 .answer-dock {
   flex: none;
-  /* 키보드 높이를 여기서 또 더하지 않는다 — .screen--quiz의 높이 자체가
-   * 이미 --viewport-height(키보드 위 가시 영역)로 줄어들어 있어서, 여기
-   * 서까지 --keyboard-inset을 더하면 키보드 높이가 두 번 반영돼 버려서
-   * 남은 문제 카드 영역이 거의 0으로 눌려버렸다(모바일에서 키보드를
-   * 열면 화면이 거의 안 보이던 버그의 원인). */
+  /* 컨테이너 높이에 반영된 키보드 여백을 중복 적용하지 않는다. */
   padding: clamp(11px, 2vw, 17px) clamp(14px, 8vw, 86px) clamp(13px, 2.5vw, 22px);
   background: var(--rain-panel);
   border-top: 1px solid var(--rain-border);
@@ -453,8 +433,7 @@
   color: #5b6d65;
 }
 
-/* 뜻이 ①②로 여러 개 나뉜 경우: 줄들을 세로로 나열한다(카드 전체가
- * 가운데 정렬이라 .definition-lines와 달리 각 줄도 가운데 정렬 유지) */
+/* 뜻이 ①②로 여러 개 나뉜 경우: 줄들을 세로로 나열한다(카드 전체가 가운데 정렬이라 .definition-lines와 달리 각 줄도 가운데 정렬 유지) */
 .reveal-meaning-lines {
   display: flex;
   flex-direction: column;
@@ -535,13 +514,7 @@
   }
 }
 
-/* ============================================================
- * 모바일 전용 (≤768px) — 데스크톱 레이아웃은 위 규칙 그대로 유지된다.
- * 반드시 파일 맨 끝(모든 기본 규칙보다 뒤)에 둔다 — CSS는 우선순위가
- * 같으면 소스 순서상 나중 규칙이 이긴다. 미디어 쿼리 자체는 우선순위를
- * 안 높여주므로, 이 블록이 위 기본 규칙보다 앞에 있으면 조건을 만족해도
- * 기본 규칙에 덮어써진다.
- * ============================================================ */
+/* 모바일 전용 (≤768px) — 데스크톱 레이아웃은 위 규칙 그대로 유지된다. */
 @media screen and (max-width: 768px) {
   .chance-row--desktop {
     display: none;
@@ -551,9 +524,7 @@
     display: flex;
   }
 
-  /* 좌우의 점수 영역과 일시정지 버튼 너비가 달라도 진행 정보는 HUD의
-   * 정확한 가로 중앙에 놓이게 한다. 일반 grid 가운데 열에 두면 남는
-   * 공간을 기준으로 정렬되어 화면 중심에서 오른쪽으로 밀릴 수 있다. */
+  /* 좌우의 점수 영역과 일시정지 버튼 너비가 달라도 진행 정보는 HUD의 정확한 가로 중앙에 놓이게 한다. */
   .quiz-hud__inner {
     position: relative;
     grid-template-columns: 1fr auto;
@@ -569,11 +540,7 @@
     grid-column: 2;
   }
 
-  /* HUD+기회띠를 문제 영역 위에 뜨는 반투명 막대로 바꾼다 — 참고 앱처럼
-   * 별도 바가 공간을 차지하지 않아서, 문제 카드 영역(.quiz-stage, 아래
-   * 에서 화면 전체를 채움)이 훨씬 넓게 남는다. 카드처럼 여백·둥근
-   * 모서리를 주지 않고 화면 가로 전체를 채우는 막대 하나로 이어붙여서,
-   * HUD 줄과 기회띠 줄이 하나의 상단 바처럼 보이게 한다. */
+  /* HUD+기회띠를 문제 영역 위에 뜨는 반투명 막대로 바꾼다 — 참고 앱처럼 별도 바가 공간을 차지하지 않아서, 문제 카드 영역(.quiz-stage, 아래 에서 화면 전체를 채움)이 훨씬 넓게 남는다. */
   .quiz-topbar {
     display: block;
     position: absolute;
@@ -598,18 +565,7 @@
     background: none;
   }
 
-  /* 가상 키보드가 뜰 때 브라우저가 "입력창을 보이게" 문서를 스크롤시켜
-   * HUD·문제 카드가 화면 밖으로 밀려나는 걸 막는다. fixed로 뷰포트에
-   * 고정하고, touch-action: none으로 이 화면 안에서 제스처 스크롤 자체가
-   * 안 생기게 한다(useLockBodyScroll이 html/body에도 동일하게 건다).
-   * --viewport-height는 useViewport.ts가 visualViewport 기준으로 갱신하는
-   * 값이라, 100dvh보다 키보드 유무를 더 정확히 반영한다.
-   *
-   * 그런데 iOS Safari는 키보드가 뜨면 fixed의 기준(레이아웃 뷰포트)과
-   * 실제 보이는 화면(visualViewport)이 어긋나는 버그가 있다 — 이게 없으면
-   * 입력창만 화면 위쪽에 혼자 뜨고 HUD·문제 카드는 화면 밖으로 사라져
-   * 보인다. transform: translateY로 그 차이(--viewport-offset-top,
-   * useViewport.ts가 갱신)만큼 직접 보정한다. */
+  /* 가상 키보드가 뜰 때 브라우저가 "입력창을 보이게" 문서를 스크롤시켜 HUD·문제 카드가 화면 밖으로 밀려나는 걸 막는다. */
   .screen--quiz {
     position: fixed;
     inset: 0;
@@ -619,23 +575,14 @@
     touch-action: none;
   }
 
-  /* 입력 독(하단 입력창+제출버튼)은 오버레이로 바꾸지 않는다 — 원래처럼
-   * 불투명한 바탕에 자기 공간을 차지한다. 상단(HUD+기회띠)만 반투명
-   * 막대로 합쳐서 문제 영역에 공간을 돌려준다.
-   *
-   * quiz-topbar가 position: absolute라 flex 흐름에서 빠지므로, quiz-stage
-   * (flex: 1)는 이제 화면 맨 위(0)부터 공간을 받는다 — 그대로 두면
-   * 가운데 정렬된 문제 카드가 떠 있는 상단 바 뒤로 가려질 수 있어서,
-   * 상단 바 높이만큼 위쪽 여백을 미리 확보해 둔다. 혹시 문제 카드가
-   * 화면보다 길어지는 극단적인 경우를 위한 안전망도 같이 둔다. */
+  /* 입력 독(하단 입력창+제출버튼)은 오버레이로 바꾸지 않는다 — 원래처럼 불투명한 바탕에 자기 공간을 차지한다. */
   .quiz-stage {
     min-height: 0;
     padding: 76px 14px 14px;
     overflow-y: auto;
   }
 
-  /* 모바일에서는 별도의 흰색 카드가 화면을 다시 좁히지 않도록 문제 영역을
-   * 화면에 직접 배치한다. 데스크톱의 카드 디자인은 기본 규칙을 유지한다. */
+  /* 모바일에서는 별도의 흰색 카드가 화면을 다시 좁히지 않도록 문제 영역을 화면에 직접 배치한다. */
   .question-card {
     width: 100%;
     padding: 20px 4px;
@@ -654,10 +601,7 @@
     display: none;
   }
 
-  /* 안내문을 숨겨도 .dock-note의 min-height·margin은 그대로 남아 입력창
-   * 아래에 빈 공간이 계속 잡혀 있었다. 평소엔 완전히 접어두고, 정답
-   * 제출 후 나오는 정답/오답 피드백(.quiz-feedback)이 있을 때만 그
-   * 요소 자신이 위쪽 여백을 갖게 한다. */
+  /* 안내문을 숨겨도 .dock-note의 min-height·margin은 그대로 남아 입력창 아래에 빈 공간이 계속 잡혀 있었다. */
   .dock-note {
     min-height: 0;
     margin: 0;
@@ -668,9 +612,7 @@
     margin-top: 8px;
   }
 
-  /* 하단 독의 독립된 힌트 보기 버튼(및 "N개 남음 · 정답 시 N점" 텍스트)을
-   * 없앤다 — 같은 기능이 상단 상태바의 힌트 아이콘(.hint-trigger)으로
-   * 옮겨갔다. */
+  /* 하단 독의 독립된 힌트 보기 버튼(및 "N개 남음 · 정답 시 N점" 텍스트)을 없앤다 — 같은 기능이 상단 상태바의 힌트 아이콘(.hint-trigger)으로 옮겨갔다. */
   .hint-button {
     display: none;
   }
@@ -687,9 +629,7 @@
     display: inline;
   }
 
-  /* 힌트 팝오버의 위치 기준 — 이 상태는 데스크톱에서 절대 렌더링되지
-   * 않으므로(handleHintTap의 matchMedia 가드), position: relative를 여기
-   * 안에 둬도 데스크톱에는 영향이 없다. */
+  /* 힌트 팝오버의 위치 기준 — 이 상태는 데스크톱에서 절대 렌더링되지 않으므로(handleHintTap의 matchMedia 가드), position: relative를 여기 안에 둬도 데스크톱에는 영향이 없다. */
   .chance-group--hint {
     position: relative;
   }
@@ -710,8 +650,7 @@
     box-shadow: 0 8px 20px #00000026;
   }
 
-  /* 터치 영역 확대 — 최소 48px 권장(Apple/Google 가이드라인)에 맞춘다.
-   * 데스크톱은 그대로 44px(.button 공통 스타일) 또는 아이콘 크기 그대로. */
+  /* 터치 영역 확대 — 최소 48px 권장(Apple/Google 가이드라인)에 맞춘다. */
   .answer-form .button {
     min-height: 48px;
     min-width: 48px;
@@ -727,13 +666,9 @@
     padding: 6px 4px;
   }
 
-  /* iOS 키보드가 열리면 visual viewport가 짧아진다. 이때도 중앙 정렬을
-   * 유지하면 카드 위의 빈 공간 때문에 아래 내용을 보려 스크롤해야 하므로,
-   * 키보드가 열린 동안만 위쪽부터 촘촘하게 배치한다. */
+  /* iOS 키보드가 열리면 visual viewport가 짧아진다. */
   :root[data-keyboard-open] .screen--quiz .quiz-stage {
-    /* 줄인 간격은 유지하되 남는 높이에 따라 문제 묶음을 세로 중앙에 둔다.
-     * 짧은 iPhone에서는 촘촘하게, 긴 Android에서는 빈 공간을 위아래로
-     * 나눠 특정 기기에서만 상단에 붙는 현상을 막는다. */
+    /* 줄인 간격은 유지하되 남는 높이에 따라 문제 묶음을 세로 중앙에 둔다. */
     place-items: center;
     padding: 58px 10px 2px;
   }

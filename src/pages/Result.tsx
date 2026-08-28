@@ -43,20 +43,14 @@ export function Result() {
   const chosung = isChosungResult(location.state) ? location.state : null
   const result: AcidRainResult | ChosungResult | null = acid ?? chosung
 
-  // 결과 화면 진입 시점의 저장된 닉네임 — 다이얼로그 프리필용으로만 쓰고
-  // 이후 바뀌지 않는다. 실제 등록에 쓰는 닉네임은 아래 nickname으로,
-  // 다이얼로그에서 완료를 눌러야만(그대로든 수정해서든) 채워진다.
-  //
-  // 발주처 요청으로 FR-CM-10("최초 1회만 입력, 이후 재입력 없음")과 다르게
-  // 매 게임 종료 시 다이얼로그를 띄운다 — 닉네임을 바꿀 수 있게 하기 위함.
-  // 과거 랭킹에 이미 올라간 기록의 닉네임은 그대로 둔다.
+  // 결과 화면 진입 시점의 저장된 닉네임 — 다이얼로그 프리필용으로만 쓰고 이후 바뀌지 않는다.
   const [storedNickname] = useState(() => getNickname())
   const [nickname, setNicknameState] = useState<string | null>(null)
   const [showNicknameDialog, setShowNicknameDialog] = useState(true)
   const [rank, setRank] = useState<ScoreSubmitResult | null>(null)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [showAllMissed, setShowAllMissed] = useState(false)
-  // 결과 화면에서 1회만 등록한다(C-1). StrictMode 이중 실행도 여기서 막는다.
+  // 결과 화면에서 1회만 등록한다(C-1).
   const submittedRef = useRef(false)
 
   const register = useCallback(
@@ -126,8 +120,7 @@ export function Result() {
             side: '북한말',
             sideTone: 'north' as const,
             prompt: log.word,
-            // 남한말 대응어가 없는 단어(2026-08-11 이후 정상 출제 대상)는
-            // "남한말" 라벨 자체를 보여줄 게 없어서 detail을 통째로 비운다.
+            // 남한말 대응어가 없는 단어(2026-08-11 이후 정상 출제 대상)는 "남한말" 라벨 자체를 보여줄 게 없어서 detail을 통째로 비운다.
             detail: log.southExpression.trim() ? `남한말 · ${log.southExpression}` : null,
             tag: log.outcome,
           }))
@@ -353,8 +346,7 @@ export function Result() {
             setNicknameState(value)
             setShowNicknameDialog(false)
           }}
-          // 이미 닉네임이 있는 사용자는 확인·수정만 하는 것이라 건너뛸 이유가
-          // 없다 — "다음에 하기"는 아직 닉네임이 없는 첫 사용자에게만 준다.
+          // 이미 닉네임이 있는 사용자는 확인·수정만 하는 것이라 건너뛸 이유가 없다 — "다음에 하기"는 아직 닉네임이 없는 첫 사용자에게만 준다.
           onSkip={
             storedNickname
               ? undefined

@@ -31,11 +31,8 @@ export function AcidRain() {
   }, [params])
 
   // 일시정지 중 "다시 시작하기"를 누르면 값을 올려 엔진을 새로 만든다.
-  // difficulty만 의존성이면 같은 난이도로는 재생성이 안 돼(리액트가 같은
-  // 컴포넌트를 그대로 재사용) 재시작이 안 걸린다.
   const [restartKey, setRestartKey] = useState(0)
   // 단어 데이터가 fetch로 아직 도착하지 않았으면 엔진을 만들지 않는다.
-  // restartKey 값을 읽어 의도적인 재생성 트리거임을 명시한다.
   const engine = useMemo(() => {
     void restartKey
     return allPairs
@@ -62,9 +59,7 @@ export function AcidRain() {
     return () => engine.destroy()
   }, [engine])
 
-  // 오답·놓침 피드백 — (지원 기기에서) 진동. navigator.vibrate는 진동 하드웨어가
-  // 없는 데스크톱에서는 조용히 무시된다. 화면을 흔드는 시각 효과는 모바일에서
-  // 화면이 움직이는 느낌이 거슬린다는 피드백을 받아 제거했다.
+  // 오답·놓침 피드백 — (지원 기기에서) 진동.
   useEffect(() => {
     if (snapshot?.feedback?.kind !== 'wrong' && snapshot?.feedback?.kind !== 'miss') return
     navigator.vibrate?.(120)
@@ -78,20 +73,13 @@ export function AcidRain() {
   }, [engine])
 
   // 시작·이어하기로 입력창이 다시 활성화된 다음 자동으로 포커스를 복원한다.
-  // requestAnimationFrame이 아니라 setTimeout을 쓴다 — 탭이 백그라운드로
-  // 밀리는 등 화면이 실제로 그려지지 않는 순간에는 rAF 콜백 자체가 브라우저
-  // 정책상 멈춰서 포커스 복원이 씹힐 수 있다. setTimeout은 그런 상태와
-  // 무관하게 항상 실행된다.
   useEffect(() => {
     if (counting || snapshot?.status !== 'playing') return
     const timer = focusInputSoon(inputRef)
     return () => window.clearTimeout(timer)
   }, [counting, snapshot?.status])
 
-  // 방어 게이지가 0이 되면 "게임 오버" 모달을 띄운다 (FR-AR-08). 타이핑 중이던
-  // 화면이 예고 없이 바로 닉네임 등록창으로 바뀌면 당황스럽다는 피드백에 따라,
-  // 모달을 잠깐 보여준 뒤 자동으로 결과 화면으로 넘어간다(기다리기 싫으면
-  // 모달의 버튼으로 바로 넘어갈 수 있다).
+  // 방어 게이지가 0이 되면 "게임 오버" 모달을 띄운다 (FR-AR-08).
   const finishGame = useCallback(() => {
     if (!engine) return
     navigate('/result', { replace: true, state: engine.buildResult() })
@@ -120,9 +108,7 @@ export function AcidRain() {
     if (composingRef.current || !engine) return
     engine.submit(input)
     setInput('')
-    // 엔터 제출 때는 입력창이 이미 활성화돼 있으므로 다시 focus하면 iOS가
-    // 화면을 위아래로 재스크롤한다. 버튼 제출 등 실제로 포커스가 빠진
-    // 경우에만 스크롤 없이 복원해 키보드를 유지한다.
+    // 엔터 제출 때는 입력창이 이미 활성화돼 있으므로 다시 focus하면 iOS가 화면을 위아래로 재스크롤한다.
     refocusInputIfBlurred(inputRef)
   }
 
@@ -231,10 +217,6 @@ export function AcidRain() {
             style={{
               left: `${word.x}%`,
               // 진행률 기준이라 화면 높이가 바뀌어도 위치가 튀지 않는다.
-              // 34px는 단어 박스의 실제 렌더링 높이(모바일 31px~데스크톱 35px)에
-              // 맞춘 값이다 — progress가 1(놓침 판정)이 되는 순간 박스의 아래쪽
-              // 끝이 정확히 컨테이너 바닥(DEFENSE LINE)에 닿아야 눈으로 보는
-              // 소멸 위치와 실제 판정 위치가 일치한다.
               top: `calc(${word.progress} * (100% - var(--rain-play-bottom, 0px) - 34px))`,
             }}
           >

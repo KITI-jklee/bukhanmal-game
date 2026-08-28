@@ -1,13 +1,10 @@
-/** 산성비게임 엔진 규칙 검증 하니스
- *
- * 브라우저 없이 게임 루프를 가상 시계로 돌려 기획서 4장의 수치가
- * 실제로 그렇게 동작하는지 확인한다.  실행: npm run check:acidrain */
+/* 산성비게임 엔진 규칙 검증 하니스 브라우저 없이 게임 루프를 가상 시계로 돌려 기획서 4장의 수치가 실제로 그렇게 동작하는지 확인한다. */
 
 import { AcidRainEngine } from '../src/game/AcidRainEngine'
 import { TIME_STOP_WORD } from '../src/game/acidRainConfig'
 import type { AcidRainPair } from '../src/lib/types'
 
-// ── 가상 시계 · rAF 목 ─────────────────────────────
+// 가상 시계 · rAF 목
 
 let virtualTime = 0
 let pending: ((time: number) => void) | null = null
@@ -32,7 +29,7 @@ function advance(seconds: number): void {
   }
 }
 
-// ── 테스트용 단어 풀 ───────────────────────────────
+// 테스트용 단어 풀
 
 const POOL: AcidRainPair[] = Array.from({ length: 60 }, (_, i) => ({
   id: `p${i}`,
@@ -43,7 +40,7 @@ const POOL: AcidRainPair[] = Array.from({ length: 60 }, (_, i) => ({
   difficulty: '보통' as const,
 }))
 
-// ── 단언 헬퍼 ──────────────────────────────────────
+// 단언 헬퍼
 
 let failures = 0
 function check(label: string, actual: unknown, expected: unknown): void {
@@ -74,7 +71,7 @@ function newEngine() {
   return engine
 }
 
-// ── 1. 스폰 · 스테이지1 기본값 ─────────────────────
+// 1.
 
 console.log('\n[1] 스폰과 스테이지1 기본값')
 {
@@ -92,7 +89,7 @@ console.log('\n[1] 스폰과 스테이지1 기본값')
   check('동시 출현 상한 2개', engine.snapshot().words.length, 2)
 }
 
-// ── 2. 점수 · 콤보 배수 ────────────────────────────
+// 2.
 
 console.log('\n[2] 점수와 콤보 배수  (보통 난이도 기본 12점, 스테이지1 보너스 0)')
 {
@@ -117,7 +114,7 @@ console.log('\n[2] 점수와 콤보 배수  (보통 난이도 기본 12점, 스�
   check('콤보 배수 3', engine.snapshot().multiplier, 3)
 }
 
-// ── 3. 오답 · 콤보 초기화 ──────────────────────────
+// 3.
 
 console.log('\n[3] 오답 처리')
 {
@@ -138,7 +135,7 @@ console.log('\n[3] 오답 처리')
   check('공백·특수문자 제출은 무시', engine.snapshot().combo, before.combo)
 }
 
-// ── 4. 시간정지 단어 ───────────────────────────────
+// 4.
 
 console.log('\n[4] 시간정지 단어 (모든 스테이지 6개 정답마다 반복, 2026-08-19 밸런스 조정)')
 {
@@ -184,8 +181,7 @@ console.log(
   '\n[4-1] 시간정지 출현은 정답 수가 아니라 스폰(낙하) 수 기준 (2026-08-19 3차 조정)',
 )
 {
-  // 정답을 하나도 맞히지 않고 전부 놓쳐도(스테이지 정답 수 = 0), 화면에
-  // 일반 단어가 6번 떨어지면(스폰 6회) 시간정지가 나와야 한다.
+  // 정답을 하나도 맞히지 않고 전부 놓쳐도(스테이지 정답 수 = 0), 화면에 일반 단어가 6번 떨어지면(스폰 6회) 시간정지가 나와야 한다.
   const engine = newEngine()
   advance(0.1)
   let hasStop = false
@@ -199,7 +195,7 @@ console.log(
   check('게임오버로 끝나지 않음(놓친 개수가 7 미만)', engine.snapshot().status, 'playing')
 }
 
-// ── 5. 스테이지 전환 ───────────────────────────────
+// 5.
 
 console.log('\n[5] 스테이지 전환 (13개 → STAGE 2)')
 {
@@ -227,7 +223,7 @@ console.log('\n[5] 스테이지 전환 (13개 → STAGE 2)')
   check('스테이지2 보너스 +3 반영 → (12+3)×3', gained, 45)
 }
 
-// ── 6. 방어 게이지 · 게임오버 ──────────────────────
+// 6.
 
 console.log('\n[6] 방어 게이지와 게임오버')
 {
@@ -237,7 +233,6 @@ console.log('\n[6] 방어 게이지와 게임오버')
   check('정답 1개 후 콤보 1', engine.snapshot().combo, 1)
 
   // 아무것도 입력하지 않고 방치해 게이지가 실제로 밟는 값을 순서대로 모은다.
-  // 한 번에 여러 단어가 바닥에 닿을 수 있으므로 작은 간격으로 진행시킨다.
   const gaugeSteps: number[] = [engine.snapshot().defense]
   let comboAtFirstMiss: number | null = null
 
@@ -260,7 +255,7 @@ console.log('\n[6] 방어 게이지와 게임오버')
   check('결과 게임 구분', result.game, 'acid_rain')
 }
 
-// ── 7. 일시정지 ────────────────────────────────────
+// 7.
 
 console.log('\n[7] 일시정지')
 {
@@ -277,7 +272,7 @@ console.log('\n[7] 일시정지')
   check('재개 후 낙하 계속', after[0] > before[0], true)
 }
 
-// ── 8. 중복 출제 방지 ──────────────────────────────
+// 8.
 
 console.log('\n[8] 동시 출제 중복 방지')
 {
@@ -294,7 +289,7 @@ console.log('\n[8] 동시 출제 중복 방지')
   check('화면에 같은 정답·같은 단어쌍이 동시에 없다', violation, false)
 }
 
-// ── 9. 스테이지3 가속과 하한선 ─────────────────────
+// 9.
 
 console.log('\n[9] 스테이지3 가속 (10개마다 -0.3초, 최소 3초)')
 {

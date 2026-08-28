@@ -1,9 +1,4 @@
-/** 닉네임 입력 — 결과 화면마다 뜨며, 저장된 닉네임이 있으면 미리 채워둔다.
- *
- * FR-CM-10("최초 1회만 입력받고 다시 묻지 않는다")과 다르게, 발주처 요청으로
- * 매 게임 종료 시 확인·수정할 수 있게 바꿨다. 그대로 완료를 누르면 기존
- * 닉네임으로 등록되고(변경 없음), 수정 후 누르면 그 값이 새 기본값이 된다.
- * 이미 랭킹에 올라간 과거 기록의 닉네임은 그대로 둔다(재등록하지 않음). */
+/* 닉네임 입력 — 결과 화면마다 뜨며, 저장된 닉네임이 있으면 미리 채워둔다. */
 
 import { useRef, useState } from 'react'
 import { MAX_NICKNAME_LENGTH } from '../lib/constants'
@@ -69,7 +64,6 @@ export function NicknameDialog({ onDone, onSkip, initialValue = '' }: Props) {
             setError(null)
           }}
           // 폼 기본 제출에만 기대지 않고 Enter를 명시적으로 처리한다.
-          // 한글 조합 중인 Enter는 글자 확정용이므로 제출하지 않는다.
           onKeyDown={(event) => {
             if (event.key !== 'Enter' || event.nativeEvent.isComposing) return
             event.preventDefault()

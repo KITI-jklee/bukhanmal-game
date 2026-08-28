@@ -1,5 +1,4 @@
-/** 방문자(page_view)·이용(game_start) 지표용 이벤트 기록.
- * 카운팅 실패는 게임 진행과 전역 Promise 상태에 영향을 주지 않는다. */
+/* 방문자(page_view)·이용(game_start) 지표용 이벤트 기록. */
 
 import type { Difficulty, GameId } from './types'
 import { withPlayerSession } from './playerSession'

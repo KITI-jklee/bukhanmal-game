@@ -1,13 +1,9 @@
-/** 관리자 통계 화면 API 클라이언트 — GET /api/v1/admin/stats(비밀번호 헤더 필요)
- *
- * 발주처가 Vercel 대시보드에 접근할 수 없어, 방문자 수·게임 이용 횟수를
- * 이 앱 안에서 직접 보여주기 위한 전용 엔드포인트다. */
+/* 관리자 통계 화면 API 클라이언트 — GET /api/v1/admin/stats(비밀번호 헤더 필요) 발주처가 Vercel 대시보드에 접근할 수 없어, 방문자 수·게임 이용 횟수를 이 앱 안에서 직접 보여주기 위한 전용 엔드포인트다. */
 
 import type { StatsResponse } from './types'
 import { API_BASE, request } from './http'
 
-/** 비밀번호가 틀리면 서버가 401을 준다 — 그 경우를 구분해 화면에서 다른
- * 안내를 보여줄 수 있게 전용 에러 클래스로 던진다. */
+/* 비밀번호가 틀리면 서버가 401을 준다 — 그 경우를 구분해 화면에서 다른 안내를 보여줄 수 있게 전용 에러 클래스로 던진다. */
 export class AdminAuthError extends Error {}
 function isNonNegativeInteger(value: unknown): value is number {
   return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0

@@ -9,8 +9,7 @@ interface DefenseGaugeProps {
   variant?: 'board'
 }
 
-/** 방어 게이지 표시. 모바일 상단 오버레이와 데스크톱 하단 독에 같은 마크업이
- *  중복돼 있던 걸 하나로 모았다(AcidRain.tsx). */
+/* 방어 게이지 표시. */
 export function DefenseGauge({ defense, tone, variant }: DefenseGaugeProps) {
   return (
     <div className={variant ? `defense-meter defense-meter--${variant}` : 'defense-meter'}>

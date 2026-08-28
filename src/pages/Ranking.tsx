@@ -1,7 +1,4 @@
-/** 랭킹 화면 — FR-RK-01~06
- *
- * 시안에는 "이번 주 랭킹 / 시즌 08 · D-4" 문구가 있었으나,
- * FR-RK-04는 시즌·주간 리셋 없는 상시 누적 방식이므로 문구를 바로잡았다. */
+/* 랭킹 화면 — FR-RK-01~06 시안에는 "이번 주 랭킹 / 시즌 08 · D-4" 문구가 있었으나, FR-RK-04는 시즌·주간 리셋 없는 상시 누적 방식이므로 문구를 바로잡았다. */
 
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from '../lib/router'
@@ -83,8 +80,7 @@ export function Ranking() {
         if (!cancelled) setMyRecords(records)
       })
       .catch(() => {
-        // 내 최근 기록은 화면 보조 정보라 실패해도 TOP 5처럼 오류를 보여주지
-        // 않고 조용히 빈 목록으로 둔다.
+        // 내 최근 기록은 화면 보조 정보라 실패해도 TOP 5처럼 오류를 보여주지 않고 조용히 빈 목록으로 둔다.
         if (!cancelled) setMyRecords([])
       })
     return () => {
