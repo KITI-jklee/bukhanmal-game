@@ -43,8 +43,7 @@ def _enforce(request: Request, db: Session, scope: str, maximum: int, seconds: f
         if row is new_row:
             # 경합 없이 새 버킷을 만들었다 — 이미 커밋했고 hits=1이라 더 할 일이 없다.
             return
-        # 동시 요청이 먼저 버킷을 만들었다 — 그 행을 이번 요청 몫까지 반영하도록
-        # 아래 공통 로직(윈도우 만료·상한 체크·hits 증가)으로 그대로 넘어간다.
+        # 동시 요청이 먼저 버킷을 만들었다 — 그 행을 이번 요청 몫까지 반영하도록 아래 공통 로직(윈도우 만료·상한 체크·hits 증가)으로 그대로 넘어간다.
     started = row.window_started_at
     if started.tzinfo is None:
         started = started.replace(tzinfo=UTC)

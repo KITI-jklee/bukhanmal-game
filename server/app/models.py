@@ -25,15 +25,12 @@ class Score(Base):
     __tablename__ = "game_scores"
     __table_args__ = (
         CheckConstraint(
-            # Postgres char_length() 대신 length()를 쓴다 — 텍스트 컬럼에서는
-            # 결과가 같고, sqlite(테스트 환경)에는 char_length()가 없다.
+            # Postgres char_length() 대신 length()를 쓴다 — 텍스트 컬럼에서는 결과가 같고, sqlite(테스트 환경)에는 char_length()가 없다.
             "length(trim(nickname)) between 1 and 10",
             name="ck_game_scores_nickname",
         ),
         CheckConstraint(
-            # schemas.GameType이 파이썬 쪽 정본이다 — SQL CHECK 문자열이라
-            # 프로그램적으로 그 타입에서 뽑아낼 수 없으므로, 값 목록이 바뀌면
-            # 여기와 supabase_schema.sql도 같이 손으로 맞춰야 한다.
+            # schemas.GameType이 파이썬 쪽 정본이다 — SQL CHECK 문자열이라 프로그램적으로 그 타입에서 뽑아낼 수 없으므로, 값 목록이 바뀌면 여기와 supabase_schema.sql도 같이 손으로 맞춰야 한다.
             "game_type in ('chosung', 'acid_rain')",
             name="ck_game_scores_game_type",
         ),
@@ -126,8 +123,7 @@ class Event(Base):
             name="ck_game_events_event_type",
         ),
         CheckConstraint(
-            # schemas.GameType과 반드시 같은 값 목록을 유지해야 한다 — 위
-            # ck_game_scores_game_type 주석 참고.
+            # schemas.GameType과 반드시 같은 값 목록을 유지해야 한다 — 위 ck_game_scores_game_type 주석 참고.
             "game is null or game in ('chosung', 'acid_rain')",
             name="ck_game_events_game",
         ),
@@ -135,9 +131,7 @@ class Event(Base):
             "difficulty is null or difficulty in ('쉬움', '보통', '어려움')",
             name="ck_game_events_difficulty",
         ),
-        # game_start는 어떤 게임·난이도인지 같이 남기고, page_view는 게임과
-        # 무관하니 두 필드 다 비워야 한다 — schemas.py의 검증과 같은 규칙을
-        # DB 레벨에도 걸어 둔다(models.Score의 ck_game_scores_game_fields와 같은 패턴).
+        # game_start는 어떤 게임·난이도인지 같이 남기고, page_view는 게임과 무관하니 두 필드 다 비워야 한다 — schemas.py의 검증과 같은 규칙을 DB 레벨에도 걸어 둔다(models.Score의 ck_game_scores_game_fields와 같은 패턴).
         CheckConstraint(
             "(event_type = 'game_start' and game is not null and difficulty is not null)"
             " or (event_type = 'page_view' and game is null and difficulty is null)",

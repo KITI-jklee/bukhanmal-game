@@ -17,9 +17,7 @@ from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from .config import settings
 
-# SQLite(테스트 전용)는 기본적으로 하나의 스레드에서만 커넥션을 재사용할 수
-# 있다. FastAPI는 요청마다 스레드풀을 쓸 수 있으므로 check_same_thread를
-# 끈다. (Postgres에는 이 커넥션 인자가 없어 무시된다)
+# SQLite(테스트 전용)는 기본적으로 하나의 스레드에서만 커넥션을 재사용할 수 있다.
 database_url = make_url(settings.database_url)
 connect_args: dict[str, object] = {}
 if database_url.get_backend_name() == "sqlite":

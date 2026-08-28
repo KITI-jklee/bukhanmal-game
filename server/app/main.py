@@ -56,13 +56,7 @@ def require_admin(x_admin_password: str | None = Header(default=None, alias=ADMI
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # 로컬 개발용 sqlite는 편의상 여기서 자동으로 테이블을 만든다. Postgres
-    # (Supabase)는 새 배포에 supabase_schema.sql을 사용한다. 기존 DB의
-    # Data API 차단과 rate-limit 보강은 supabase_hardening.sql에 기록한다.
-    # 매 기동마다 원격 DB에 introspection 쿼리를 보낼
-    # 이유도 없다(테스트에서 TestClient를 만들 때마다 이 lifespan이 돌아서,
-    # DATABASE_URL이 Supabase를 가리키면 테스트가 매번 네트워크를 타는 문제도
-    # 같이 없앤다).
+    # 로컬 개발용 sqlite는 편의상 여기서 자동으로 테이블을 만든다.
     if engine.dialect.name == "sqlite":
         Base.metadata.create_all(bind=engine)
     yield

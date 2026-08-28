@@ -55,8 +55,7 @@ def test_stats_counts_page_views_and_game_starts_by_game(authorized_client):
     assert body["total_game_starts"] == 3
     assert body["unique_visitors"] == 2
     assert body["game_starts_by_game"] == {"chosung": 2, "acid_rain": 1}
-    # 2026-08-18부터 이용률 = 게임 시작 횟수 ÷ 방문 횟수(둘 다 총계) — 한 번의
-    # 방문에서 게임을 여러 번 시작해서(3회) 방문 횟수(2회)를 넘어 150%가 된다.
+    # 2026-08-18부터 이용률 = 게임 시작 횟수 ÷ 방문 횟수(둘 다 총계) — 한 번의 방문에서 게임을 여러 번 시작해서(3회) 방문 횟수(2회)를 넘어 150%가 된다.
     assert body["usage_rate_percent"] == 150.0
     assert body["average_game_starts_per_player"] == 1.5
 

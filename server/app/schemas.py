@@ -47,15 +47,10 @@ class NicknameMixin(RequestModel):
     @classmethod
     def _check_nickname(cls, value: str) -> str:
         # 형식·금칙어 위반은 400으로 응답해야 한다(API 명세서 C-1).
-        # 여기서 걸리면 FastAPI가 RequestValidationError를 던지고,
-        # main.py의 커스텀 핸들러가 422 대신 400으로 바꿔 응답한다.
         message = validate_nickname(value)
         if message is not None:
             raise ValueError(message)
-        # validate_nickname은 정규화(NFKC + trim + 공백 축약)한 뒤 검사한다 —
-        # 검증에 쓴 값과 실제로 저장되는 값이 같아야 하므로 정규화된 값을
-        # 반환한다(정규화 전 원본을 그대로 반환하면 길이·패턴 검사는
-        # 정규화된 문자열로 통과시켜 놓고 DB에는 원본이 들어가는 불일치가 생긴다).
+        # 검증과 저장에 같은 정규화 값을 사용한다.
         return normalize_nickname(value)
 
 
@@ -116,8 +111,7 @@ class AcidRainScorePayload(NicknameMixin):
         return self
 
 
-# game 필드값으로 두 형태를 구분한다(판별 유니온) — 요청 본문의 game이
-# "chosung"이면 위, "acid_rain"이면 아래 스키마로 파싱된다.
+# game 필드값으로 두 형태를 구분한다(판별 유니온) — 요청 본문의 game이 "chosung"이면 위, "acid_rain"이면 아래 스키마로 파싱된다.
 ScorePayload = Annotated[
     ChosungScorePayload | AcidRainScorePayload,
     Field(discriminator="game"),
@@ -139,8 +133,7 @@ class RankingEntry(BaseModel):
     nickname: str
     score: int
     played_at: datetime
-    # 산성비게임 조회 시에만 포함한다(API 명세서 C-2). 초성게임 응답에는
-    # 이 필드를 만들지 않도록 model_dump(exclude_none=True)로 직렬화한다.
+    # 산성비게임 조회 시에만 포함한다(API 명세서 C-2).
     stage_reached: int | None = None
 
 
@@ -201,18 +194,12 @@ class StatsResponse(BaseModel):
 
     total_page_views: int
     total_game_starts: int
-    # 관리자 화면에는 더 이상 노출하지 않는다(카드 삭제, 2026-08-18) — 다만
-    # API 응답에는 계속 포함해 다른 소비자와의 하위 호환을 유지한다.
+    # 관리자 화면에는 더 이상 노출하지 않는다(카드 삭제, 2026-08-18) — 다만 API 응답에는 계속 포함해 다른 소비자와의 하위 호환을 유지한다.
     unique_visitors: int
     game_starts_by_game: GameStartCounts
-    # 순 이용자 수 — game_events가 새로 생긴 이후로 게임을 시작한 브라우저
-    # 수(player_key distinct). game_scores 쪽 과거 데이터는 이 값에 안 잡힌다.
-    # 관리자 화면에는 더 이상 노출하지 않지만(카드 삭제, 2026-08-18)
-    # average_game_starts_per_player 계산에는 계속 쓰인다.
+    # 순 이용자 수 — game_events가 새로 생긴 이후로 게임을 시작한 브라우저 수(player_key distinct).
     unique_players: int
     # 방문 횟수(total_page_views) 대비 게임 시작 횟수(total_game_starts)의 비율(%).
-    # 2026-08-18부터 고유 방문자 기준이 아니라 총계 대 총계로 계산한다 — 한 번의
-    # 방문에서 게임을 여러 번 시작하면 100%를 넘을 수 있다. 방문이 아직 없으면 null.
     usage_rate_percent: float | None
     # 반복 이용 강도 — 전체 게임 시작 횟수 / 고유 게임 이용자 수.
     average_game_starts_per_player: float | None

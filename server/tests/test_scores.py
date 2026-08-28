@@ -45,9 +45,6 @@ def test_submit_acid_rain_score(authorized_client):
 
 def test_rank_is_computed_within_same_game_and_difficulty_only(authorized_client):
     # 다른 난이도 기록은 순위 계산에 영향을 주지 않아야 한다.
-    # rank·total_players는 "저장 시점의 즉시 스냅샷"이라 이후 제출로 바뀌지
-    # 않는다(API 명세서 C-1: "저장 직후 계산해 즉시 반환") — 최종 순서는
-    # GET /rankings로 별도 확인한다.
     authorized_client.post("/api/v1/scores", json={**CHOSUNG_PAYLOAD, "difficulty": "쉬움", "score": 999})
 
     low = authorized_client.post("/api/v1/scores", json={**CHOSUNG_PAYLOAD, "score": 10})
@@ -92,24 +89,13 @@ def test_banned_word_nickname_returns_400(authorized_client):
 
 
 def test_score_over_correct_count_max_returns_400(authorized_client):
-    # 스키마 단계 검증(정답 수 기준 조건부 최대 점수, schemas.py
-    # ChosungScorePayload._check_result_consistency) — main.py의 게임·난이도별
-    # 절대 상한(true 422 경로)과는 별개다. 어려움 난이도 정답 8개 기준 조건부
-    # 최대 점수를 넘겼으므로 400(요청 형식 오류)으로 응답해야 한다.
+    # 스키마 단계 검증(정답 수 기준 조건부 최대 점수, schemas.py ChosungScorePayload._check_result_consistency) — main.py의 게임·난이도별 절대 상한(true 422 경로)과는 별개다.
     response = authorized_client.post("/api/v1/scores", json={**CHOSUNG_PAYLOAD, "score": 300})
     assert response.status_code == 400
 
 
 def test_score_over_absolute_ceiling_returns_422(authorized_client):
-    # main.py submit_score의 max_score_for(game, difficulty) 절대 상한 체크
-    # (스키마 검증을 통과한 뒤에만 도달하는 진짜 422 경로) — 위
-    # test_score_over_correct_count_max_returns_400과는 별개의 코드 경로다.
-    # 초성게임은 정답 수가 10을 넘을 수 없어(스키마 상수 검증) 조건부 최대
-    # 점수가 절대 상한(CHOSUNG_SCORE_MAX)과 사실상 같은 값이 되므로 이 경로를
-    # 재현할 수 없다. 산성비게임은 스테이지3이 무한 생존이라 정답 수만 충분히
-    # 크면 조건부 최대 점수가 ACID_RAIN_SCORE_CEILING(기본 300,000)을 넘어서
-    # — 스키마 검증은 통과시키고 main.py의 절대 상한에서만 걸리는 값을 만들 수
-    # 있다.
+    # main.py submit_score의 max_score_for(game, difficulty) 절대 상한 체크 (스키마 검증을 통과한 뒤에만 도달하는 진짜 422 경로) — 위 test_score_over_correct_count_max_returns_400과는 별개의 코드 경로다.
     from app.scoring_limits import ACID_RAIN_SCORE_CEILING, max_acid_rain_score_for_correct_count
 
     difficulty = "어려움"
@@ -145,8 +131,7 @@ def test_negative_score_returns_400(authorized_client):
 
 
 def test_duplicate_submission_key_returns_same_record_without_duplicating(authorized_client):
-    # 클라이언트 재시도(네트워크 오류 등)로 같은 submission_key가 두 번
-    # 오더라도 기존 기록을 그대로 반환해야 한다 — 랭킹에 중복 집계되지 않음.
+    # 클라이언트 재시도(네트워크 오류 등)로 같은 submission_key가 두 번 오더라도 기존 기록을 그대로 반환해야 한다 — 랭킹에 중복 집계되지 않음.
     submission_key = str(uuid.uuid4())
     payload = {**CHOSUNG_PAYLOAD, "submission_key": submission_key}
 
@@ -159,10 +144,7 @@ def test_duplicate_submission_key_returns_same_record_without_duplicating(author
 
 
 def test_nickname_is_normalized_before_persisting(authorized_client):
-    # schemas.NicknameMixin._check_nickname은 validate_nickname()으로 정규화된
-    # (NFKC + trim + 연속 공백 축약) 값을 기준으로 길이·패턴을 검사한다 — 실제로
-    # 저장·응답되는 값도 검증에 쓴 정규화된 값과 같아야 한다(정규화 전 원본을
-    # 그대로 저장하면 검증 통과 여부와 실제 저장값이 어긋난다).
+    # 검증에 사용한 정규화 값이 그대로 저장되어야 한다.
     response = authorized_client.post(
         "/api/v1/scores", json={**CHOSUNG_PAYLOAD, "nickname": "  테스 터  "}
     )

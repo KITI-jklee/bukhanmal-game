@@ -26,8 +26,7 @@ def test_submit_page_view_event_returns_ok(authorized_client):
 
 
 def test_repeated_game_start_events_all_recorded(authorized_client):
-    # game_scores와 달리 dedup 키가 없다 — 같은 플레이어가 여러 판 시작하면
-    # 매번 새 행으로 쌓여야 한다(조회수 방식 카운팅).
+    # game_scores와 달리 dedup 키가 없다 — 같은 플레이어가 여러 판 시작하면 매번 새 행으로 쌓여야 한다(조회수 방식 카운팅).
     player_key = str(uuid.uuid4())
     for _ in range(3):
         response = authorized_client.post(
