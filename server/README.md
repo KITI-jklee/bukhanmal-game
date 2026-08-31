@@ -88,6 +88,7 @@ server/
     test_scores.py          # C-1 검증
     test_rankings.py        # C-2 검증
     test_recent_records.py  # 내 최근 기록(player_key 기준) 검증
+    test_player_sessions.py # POST /api/v1/players/session 발급·서명·빈도 제한 검증
     test_events.py          # 방문자/이용 지표 이벤트(page_view·game_start) 검증
     test_admin_stats.py     # 관리자 통계 화면(GET /api/v1/admin/stats) 검증
     test_security.py        # 플레이어 세션 토큰 서명·만료 검증

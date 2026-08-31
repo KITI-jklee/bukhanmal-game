@@ -1,7 +1,7 @@
 # 초성게임 난이도 분류 기준
 
-> 데이터: `public/data/chosung_words.json` (24,288개)
-> 최종 갱신: 2026-08-18 (보통→어려움 재점수화 포함)
+> 데이터: `public/data/chosung_words.json` (17,538개)
+> 최종 갱신: 2026-08-25 (뜻풀이 재추출 및 데이터 전면 교체, 아래 해당 섹션 참고)
 > 관련 기획서: 북한말_학습게임_상세기획서.md 1-6 (문제 은행 난이도 태깅 기준)
 > 관련 문서: [acidrain-difficulty-criteria.md](acidrain-difficulty-criteria.md) (산성비게임 난이도 기준)
 

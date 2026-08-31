@@ -74,18 +74,22 @@ VITE_API_BASE_URL=http://127.0.0.1:8000/api/v1
 ```json
 {
   "services": {
-    "frontend": { "root": "./", "framework": "vite" },
+    "frontend": { "root": "./", "framework": "vite", "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] },
     "backend": { "root": "server/", "entrypoint": "app.main:app" }
   },
   "rewrites": [
     { "source": "/healthz", "destination": { "service": "backend" } },
     { "source": "/api/(.*)", "destination": { "service": "backend" } },
     { "source": "/(.*)", "destination": { "service": "frontend" } }
+  ],
+  "headers": [
+    { "source": "/(.*)", "headers": [/* CSP, HSTS 등 운영용 보안 헤더 — 상세는 vercel.json 참고 */] }
   ]
 }
 ```
 
-- `/api/*`, `/healthz`는 백엔드(FastAPI) 서비스로, 나머지는 프런트엔드(React) 서비스로 라우팅된다.
+- `/api/*`, `/healthz`는 백엔드(FastAPI) 서비스로, 나머지는 프런트엔드(React) 서비스로 라우팅된다. 프런트엔드 서비스에는 SPA 폴백 rewrite(`/(.*) → /index.html`)가 별도로 걸려 있다.
+- 모든 응답에 CSP·Referrer-Policy·X-Content-Type-Options·X-Frame-Options·Permissions-Policy·HSTS 헤더가 적용된다(`vercel.json`의 `headers` 블록).
 - 같은 도메인에서 서빙되므로 프런트엔드는 `VITE_API_BASE_URL`을 **설정하지 않는다** — 기본값(`/api/v1`, 상대 경로)이 그대로 같은 도메인의 백엔드 서비스로 연결된다.
 - Vercel 프로젝트 환경변수(Production)에 아래 값을 등록해야 한다 (백엔드 서비스가 읽는 값 — `server/.env.example` 참고):
   - `DATABASE_URL` — Supabase 연결 문자열 (Connection Pooler, 포트 6543 권장)
@@ -93,7 +97,8 @@ VITE_API_BASE_URL=http://127.0.0.1:8000/api/v1
   - `PLAYER_TOKEN_SECRET` — 관리자 비밀번호와 별개인 충분히 긴 무작위 서명 키(필수)
   - `CORS_ORIGINS` — 로컬 개발 도메인만 있어도 되지만(운영은 동일 도메인이라 CORS 자체가 필요 없음), 그대로 둬도 무방
   - `RATE_LIMIT_MAX_REQUESTS`, `RATE_LIMIT_WINDOW_SECONDS`, `EVENT_RATE_LIMIT_MAX_REQUESTS`, `EVENT_RATE_LIMIT_WINDOW_SECONDS`
-  - `ADMIN_RATE_LIMIT_MAX_REQUESTS`, `ADMIN_RATE_LIMIT_WINDOW_SECONDS`, `RANKING_RATE_LIMIT_MAX_REQUESTS`, `RECENT_RATE_LIMIT_MAX_REQUESTS`
+  - `ADMIN_RATE_LIMIT_MAX_REQUESTS`, `ADMIN_RATE_LIMIT_WINDOW_SECONDS`
+  - `RANKING_RATE_LIMIT_MAX_REQUESTS`, `RANKING_RATE_LIMIT_WINDOW_SECONDS`, `RECENT_RATE_LIMIT_MAX_REQUESTS`, `RECENT_RATE_LIMIT_WINDOW_SECONDS`
   - `RATE_LIMIT_RETENTION_SECONDS`, `PLAYER_TOKEN_TTL_SECONDS`, `ACID_RAIN_SCORE_CEILING`
 - GitHub `main`에 푸시하면 두 서비스가 함께 자동으로 다시 빌드·배포된다.
 - 요청 빈도 제한은 Supabase의 `request_limits` 테이블을 모든 인스턴스가 공유하며, 오래된 버킷은 기본 24시간 후 자동 정리된다. 새 DB는 `server/supabase_schema.sql`, 기존 DB의 Data API 차단·보강은 `server/supabase_hardening.sql`을 적용한다.
@@ -121,12 +126,12 @@ pytest tests/ -v
 
 ```text
 .
-├─ public/             정적 파일 및 배포 설정
-├─ scripts/            게임 규칙 검증 스크립트
+├─ docs/               난이도 분류 기준 등 데이터 관련 문서
+├─ public/             정적 파일, 게임 데이터(data/), 배포 설정
+├─ scripts/            게임 규칙 검증 및 데이터 빌드·정비 스크립트
 ├─ server/             FastAPI 백엔드 및 테스트
 ├─ src/
 │  ├─ components/      공통 UI 컴포넌트
-│  ├─ data/            게임 문제 데이터
 │  ├─ game/            게임 엔진과 설정
 │  ├─ lib/             API, 저장소 및 공통 유틸리티
 │  └─ pages/           화면별 컴포넌트
@@ -135,9 +140,11 @@ pytest tests/ -v
 
 ## 데이터
 
-- 산성비 게임: 남북한 단어쌍 500개
-- 초성 게임: 북한말 문제 496개
+- 산성비 게임: 남북한 단어쌍 14,689개 (`public/data/acidrain_pairs.json`)
+- 초성 게임: 북한말 문제 17,538개 (`public/data/chosung_words.json`)
+- 데이터가 커지며 프런트엔드 JS 번들에 포함하지 않고 `public/data/`에서 런타임에 fetch한다(`src/lib/useGameData.ts` 참고).
 - 런타임에는 외부 공공데이터 API를 호출하지 않고, 저장소에 포함된 정제 데이터를 사용합니다.
+- 난이도 분류 기준은 [`docs/acidrain-difficulty-criteria.md`](docs/acidrain-difficulty-criteria.md), [`docs/chosung-difficulty-criteria.md`](docs/chosung-difficulty-criteria.md) 참고.
 
 데이터의 이용과 출처 표기는 원천 데이터 제공기관의 이용 조건을 따릅니다.
 
