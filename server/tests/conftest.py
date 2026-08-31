@@ -52,6 +52,7 @@ def client():
     settings.rate_limit_max_requests = original_max
     settings.event_rate_limit_max_requests = original_event_max
     app.dependency_overrides.clear()
+    engine.dispose()
 
 
 @pytest.fixture()

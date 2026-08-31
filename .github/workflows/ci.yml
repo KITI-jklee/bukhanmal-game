@@ -15,13 +15,29 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
-      - run: npm test
+      - run: npm run test:coverage
       - run: npm run check:acidrain
       - run: npm run check:chosung
       - run: npm run build
 
   backend:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: bukhanmal_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d bukhanmal_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/bukhanmal_test
     defaults:
       run:
         working-directory: server
@@ -35,7 +51,8 @@ jobs:
             server/requirements.txt
             server/requirements-dev.txt
       - run: pip install -r requirements.txt -r requirements-dev.txt
-      - run: python -m pytest
+      - run: psql "$TEST_DATABASE_URL" -f supabase_schema.sql
+      - run: python -m pytest -W error --cov=app --cov-report=term-missing --cov-fail-under=80
       # 알려진 취약점 스캔 — 프런트엔드 job(lint/test/build)과 달리 실패해도
       # 빌드를 막지 않는다. pip-audit은 스캔 시점의 공개 취약점 DB에 따라
       # 별도 코드 변경 없이도 결과가 바뀔 수 있어서, 이 job을 CI 필수 통과

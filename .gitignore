@@ -27,6 +27,7 @@ myenv/
 .ruff_cache/
 .coverage
 htmlcov/
+coverage/
 
 # Local databases
 *.db

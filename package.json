@@ -11,6 +11,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "check:acidrain": "npm run check:acidrain:unit && npm run check:acidrain:rules",
     "check:acidrain:unit": "vitest run tests/engine.test.ts",
     "check:acidrain:rules": "tsx scripts/engine-check.ts",
@@ -24,10 +25,14 @@
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.6",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
+    "@vitest/coverage-v8": "^4.1.11",
+    "jsdom": "^30.0.1",
     "oxlint": "^1.75.0",
     "tsx": "^4.23.6",
     "typescript": "~6.0.2",

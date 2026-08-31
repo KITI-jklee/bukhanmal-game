@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import uuid
+from concurrent.futures import ThreadPoolExecutor
 
 import pytest
 from fastapi.testclient import TestClient
@@ -11,8 +12,10 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
 
 from app.config import settings
+from app.crud import create_score
 from app.database import get_db
 from app.main import app
+from app.schemas import ChosungScorePayload
 from app.security import issue_player_token
 
 pytestmark = pytest.mark.integration
@@ -183,3 +186,29 @@ def test_postgres_rate_limit_enforced_via_shared_table(postgres_client):
 
     hits = connection.execute(text("select hits from request_limits")).scalars().all()
     assert hits == [1]
+
+
+def test_postgres_concurrent_duplicate_submission_is_idempotent(postgres_client):
+    _client, connection, player_key = postgres_client
+    submission_key = uuid.uuid4()
+    payload = ChosungScorePayload(**_score_payload(submission_key, f"pg{uuid.uuid4().hex[:6]}"))
+
+    def submit_once() -> uuid.UUID:
+        with sessionmaker(bind=connection.engine, expire_on_commit=False)() as db:
+            return create_score(db, payload, player_key).score_id
+
+    try:
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            score_ids = list(executor.map(lambda _index: submit_once(), range(2)))
+        assert score_ids[0] == score_ids[1]
+        count = connection.execute(
+            text("select count(*) from game_scores where submission_key = :submission_key"),
+            {"submission_key": submission_key},
+        ).scalar_one()
+        assert count == 1
+    finally:
+        with connection.engine.begin() as cleanup:
+            cleanup.execute(
+                text("delete from game_scores where submission_key = :submission_key"),
+                {"submission_key": submission_key},
+            )
