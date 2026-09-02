@@ -21,20 +21,12 @@ def _split_csv(value: str) -> list[str]:
 
 def _require_admin_password() -> str:
     # 관리자 통계 페이지(/api/v1/admin/stats)를 지키는 단일 공유 비밀번호.
-    # player_token_secret(아래 _require_player_token_secret)처럼 무작위 32자를
-    # 강제하진 않는다 — 사람이 직접 외워서 입력하는 값이라 그건 비현실적이지만,
-    # 최소한의 길이는 강제해서 "1"처럼 즉시 뚫리는 값으로 운영되는 걸 막는다.
     value = os.getenv("ADMIN_PASSWORD")
     if not value:
         raise RuntimeError(
             "ADMIN_PASSWORD 환경변수가 설정되어 있지 않습니다. "
             "관리자 통계 화면 보호용 비밀번호를 .env(로컬) 또는 배포 플랫폼의 "
             "환경변수로 설정하세요."
-        )
-    if len(value) < 12:
-        raise RuntimeError(
-            "ADMIN_PASSWORD는 너무 짧습니다(최소 12자). 무차별 대입 공격에 "
-            "취약해지지 않도록 더 긴 값으로 설정하세요."
         )
     return value
 
