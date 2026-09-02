@@ -13,7 +13,7 @@ import type {
 import { normalizeDifficulty } from './types'
 import { readJson, writeJson } from './storage'
 import { withPlayerSession } from './playerSession'
-import { API_BASE, USE_MOCK, request } from './http'
+import { API_BASE, USE_MOCK, readErrorMessage, request } from './http'
 import { MAX_NICKNAME_LENGTH } from './constants'
 
 if (import.meta.env.PROD && USE_MOCK) {
@@ -149,12 +149,22 @@ function compareScores(a: StoredScore, b: StoredScore): number {
   return a.played_at.localeCompare(b.played_at)
 }
 
-/** C-1. POST /api/v1/scores */
-export async function submitScore(payload: ScorePayload): Promise<ScoreSubmitResult> {
+/** C-1. POST /api/v1/scores
+ *
+ * submissionKey는 호출부(Result.tsx)가 플레이 1회당 하나씩 만들어 넘겨야
+ * 한다 - 여기서 매번 새로 만들면(예전 방식) 서버 응답이 늦게 와서 클라이언트가
+ * 타임아웃으로 포기한 뒤 "다시 시도"를 눌렀을 때, 서버는 이미 첫 요청을
+ * 커밋했는데도 재시도가 새 키로 가는 바람에 같은 플레이가 두 번 등록될 수
+ * 있었다(코드리뷰로 발견). 서버의 중복 등록 방지는 "같은 submission_key가
+ * 다시 오면 기존 기록을 그대로 반환"하는 방식이라, 재시도가 항상 같은 키를
+ * 써야만 실제로 동작한다. 인자를 생략하면(테스트 등) 매번 새로 만든다. */
+export async function submitScore(
+  payload: ScorePayload,
+  submissionKey: string = crypto.randomUUID(),
+): Promise<ScoreSubmitResult> {
   assertValidScorePayload(payload)
   if (!USE_MOCK) {
-    // game_scores 스키마의 player_key(브라우저별 익명 식별자)·submission_key (재요청 중복 등록 방지)는 ScorePayload에 없는 서버 전용 필드라 여기서 붙여 보낸다 — 게임 페이지 쪽 코드는 이 두 필드를 몰라도 된다.
-    const submissionKey = crypto.randomUUID()
+    // game_scores 스키마의 player_key(브라우저별 익명 식별자)는 ScorePayload에 없는 서버 전용 필드라 여기서 붙여 보낸다 — 게임 페이지 쪽 코드는 이 필드를 몰라도 된다.
     const response = await withPlayerSession((session) =>
       request(`${API_BASE}/scores`, {
         method: 'POST',
@@ -162,7 +172,7 @@ export async function submitScore(payload: ScorePayload): Promise<ScoreSubmitRes
         body: JSON.stringify({ ...payload, submission_key: submissionKey }),
       }),
     )
-    if (!response.ok) throw new Error(`점수 등록 실패 (${response.status})`)
+    if (!response.ok) throw new Error(await readErrorMessage(response, `점수 등록 실패 (${response.status})`))
     const result: unknown = await response.json()
     if (!isSubmitResult(result)) throw new Error('점수 등록 응답 형식이 올바르지 않습니다.')
     return result
@@ -201,7 +211,7 @@ export async function fetchRankings(
   if (!USE_MOCK) {
     const params = new URLSearchParams({ game, difficulty })
     const response = await request(`${API_BASE}/rankings?${params}`)
-    if (!response.ok) throw new Error(`랭킹 조회 실패 (${response.status})`)
+    if (!response.ok) throw new Error(await readErrorMessage(response, `랭킹 조회 실패 (${response.status})`))
     const result: unknown = await response.json()
     if (!isRankingResponse(result, game, difficulty)) {
       throw new Error('랭킹 응답 형식이 올바르지 않습니다.')
@@ -239,7 +249,7 @@ export async function fetchMyRecentRecords(
         headers: { 'X-Player-Token': session.player_token },
       }),
     )
-    if (!response.ok) throw new Error(`최근 기록 조회 실패 (${response.status})`)
+    if (!response.ok) throw new Error(await readErrorMessage(response, `최근 기록 조회 실패 (${response.status})`))
     const result: unknown = await response.json()
     if (!isRecentRecordsResponse(result, game, difficulty)) {
       throw new Error('최근 기록 응답 형식이 올바르지 않습니다.')

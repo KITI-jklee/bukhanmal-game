@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 import uuid
 
 CHOSUNG_PAYLOAD = {
@@ -96,7 +97,11 @@ def test_score_over_correct_count_max_returns_400(authorized_client):
 
 def test_score_over_absolute_ceiling_returns_422(authorized_client):
     # main.py submit_score의 max_score_for(game, difficulty) 절대 상한 체크 (스키마 검증을 통과한 뒤에만 도달하는 진짜 422 경로) — 위 test_score_over_correct_count_max_returns_400과는 별개의 코드 경로다.
-    from app.scoring_limits import ACID_RAIN_SCORE_CEILING, max_acid_rain_score_for_correct_count
+    from app.scoring_limits import (
+        ACID_RAIN_SCORE_CEILING,
+        max_acid_rain_score_for_correct_count,
+        min_acid_rain_play_time_seconds,
+    )
 
     difficulty = "어려움"
     correct_count = ACID_RAIN_PAYLOAD["correct_count"]
@@ -115,6 +120,9 @@ def test_score_over_absolute_ceiling_returns_422(authorized_client):
             "max_combo": correct_count,
             "time_stop_clears": 0,
             "score": score,
+            # correct_count를 위에서 크게 불렸으니 시간-정답수 정합성 검증(422보다
+            # 앞서 걸리는 400)을 안 건드리도록 물리적 최소 시간 이상으로 맞춘다.
+            "play_time_seconds": math.ceil(min_acid_rain_play_time_seconds(correct_count)) + 10,
         },
     )
     assert response.status_code == 422
@@ -192,5 +200,23 @@ def test_acid_rain_rejects_inconsistent_result_fields(authorized_client):
     response = authorized_client.post(
         "/api/v1/scores",
         json={**ACID_RAIN_PAYLOAD, "stage_reached": 1, "correct_count": 40},
+    )
+    assert response.status_code == 400
+
+
+def test_acid_rain_rejects_physically_impossible_play_time(authorized_client):
+    # 정답 500개를 1초 만에 냈다고 주장 - 점수/콤보/스테이지 범위는 다 통과할 수
+    # 있어도(코드리뷰로 발견된 안티치트 공백), 단어 생성 간격상 물리적으로
+    # 불가능하므로 400으로 막혀야 한다.
+    response = authorized_client.post(
+        "/api/v1/scores",
+        json={
+            **ACID_RAIN_PAYLOAD,
+            "correct_count": 500,
+            "stage_reached": 3,
+            "max_combo": 500,
+            "score": 1,
+            "play_time_seconds": 1,
+        },
     )
     assert response.status_code == 400

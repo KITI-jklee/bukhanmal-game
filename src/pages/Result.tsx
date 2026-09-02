@@ -52,6 +52,12 @@ export function Result() {
   const [showAllMissed, setShowAllMissed] = useState(false)
   // 결과 화면에서 1회만 등록한다(C-1).
   const submittedRef = useRef(false)
+  // 이 결과 화면(=이번 플레이 1회)에 고정된 중복 등록 방지 키 - "다시 시도"를
+  // 눌러도 항상 같은 키를 보내야, 서버 응답이 늦게 와서 타임아웃으로 재시도한
+  // 경우에도(서버는 이미 첫 요청을 커밋했을 수 있음) 서버가 재시도를 진짜
+  // 중복으로 인식해 두 번째 행을 만들지 않는다(코드리뷰로 발견 - 예전엔
+  // submitScore가 호출마다 새 키를 만들어 재시도가 중복 등록으로 이어졌다).
+  const [submissionKey] = useState(() => crypto.randomUUID())
 
   const register = useCallback(
     async (player: string) => {
@@ -82,6 +88,7 @@ export function Result() {
                 time_stop_clears: result.timeStopClears,
                 play_time_seconds: result.playTimeSeconds,
               },
+          submissionKey,
         )
         setRank(response)
       } catch (error) {
@@ -89,7 +96,7 @@ export function Result() {
         setSubmitError(error instanceof Error ? error.message : '점수 등록에 실패했어요.')
       }
     },
-    [result],
+    [result, submissionKey],
   )
 
   useEffect(() => {

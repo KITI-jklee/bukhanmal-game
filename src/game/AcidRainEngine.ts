@@ -421,7 +421,13 @@ export class AcidRainEngine {
     const candidates = fresh.length > 0 ? fresh : usable
 
     const pair = candidates[Math.floor(Math.random() * candidates.length)]
-    this.recentPairIds = [...this.recentPairIds, pair.id].slice(-Math.min(40, this.pool.length - 5))
+    // 최근 출제 기억 창 크기 - 풀이 아주 작으면(this.pool.length < 5) `this.pool.length
+    // - 5`가 음수가 돼서, 그대로 Math.min(40, 음수)를 slice(-…)에 넣으면 이중음수로
+    // "최근 N개 유지"가 아니라 "앞 N개 삭제"가 돼버렸다(코드리뷰로 발견) - pool.length
+    // === 5일 때는 slice(-0)이라 아예 안 잘려 무한히 자라나는 문제도 있었다. 창 크기가
+    // 최소 1은 되게 해서 두 문제 다 막는다.
+    const recentWindow = Math.max(1, Math.min(40, this.pool.length - 5))
+    this.recentPairIds = [...this.recentPairIds, pair.id].slice(-recentWindow)
     return pair
   }
 

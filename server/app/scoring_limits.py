@@ -59,3 +59,33 @@ def max_acid_rain_score_for_correct_count(correct_count: int, difficulty: str) -
     )
     stage3 = max(correct_count - ACID_RAIN_STAGE2_MAX_CORRECT, 0)
     return 3 * (stage1 * base + stage2 * (base + 3) + stage3 * (base + 5))
+
+
+# 스테이지별 단어 생성 간격(초) - src/game/acidRainConfig.ts의 STAGES[n].spawnInterval /
+# STAGE3_MIN_SPAWN(가속 하한)과 같은 값. 단어가 아직 생성되지도 않았는데 맞힐 수는
+# 없으므로, 이 간격보다 빠르게는 정답을 만들어낼 수 없다 - play_time_seconds가
+# correct_count에 비해 물리적으로 불가능할 만큼 짧은 제출을 걸러내는 근거가 된다.
+_ACID_RAIN_STAGE1_MIN_SPAWN_INTERVAL = 3.2
+_ACID_RAIN_STAGE2_MIN_SPAWN_INTERVAL = 2.2
+_ACID_RAIN_STAGE3_MIN_SPAWN_INTERVAL = 0.8
+
+
+def min_acid_rain_play_time_seconds(correct_count: int) -> float:
+    """correct_count만큼의 정답을 내는 데 물리적으로 필요한 최소 시간(초).
+
+    반응·입력 시간은 전혀 고려하지 않고 "단어가 생성되는 순간 바로 맞혔다"는
+    가장 관대한(플레이어에게 유리한) 가정으로 계산한 절대 하한이다 - 실제
+    플레이는 항상 이보다 오래 걸리므로, 정상적인 플레이를 오탐으로 거절할
+    일은 없다. 스테이지 경계는 위 ACID_RAIN_STAGE1_MAX_CORRECT/
+    ACID_RAIN_STAGE2_MAX_CORRECT와 맞춰야 한다."""
+    stage1 = min(correct_count, ACID_RAIN_STAGE1_MAX_CORRECT)
+    stage2 = min(
+        max(correct_count - ACID_RAIN_STAGE1_MAX_CORRECT, 0),
+        ACID_RAIN_STAGE2_MAX_CORRECT - ACID_RAIN_STAGE1_MAX_CORRECT,
+    )
+    stage3 = max(correct_count - ACID_RAIN_STAGE2_MAX_CORRECT, 0)
+    return (
+        stage1 * _ACID_RAIN_STAGE1_MIN_SPAWN_INTERVAL
+        + stage2 * _ACID_RAIN_STAGE2_MIN_SPAWN_INTERVAL
+        + stage3 * _ACID_RAIN_STAGE3_MIN_SPAWN_INTERVAL
+    )

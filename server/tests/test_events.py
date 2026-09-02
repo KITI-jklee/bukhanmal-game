@@ -80,3 +80,16 @@ def test_event_rate_limit_uses_separate_bucket(authorized_client, monkeypatch):
         "nickname": "테스터", "game": "chosung", "difficulty": "쉬움",
         "score": 10, "correct_count": 1, "no_hint_correct_count": 1, "max_combo": 1,
     }).status_code == 201
+
+
+def test_event_rate_limit_does_not_block_player_session(authorized_client, monkeypatch):
+    # 코드리뷰로 발견된 문제: /players/session이 예전엔 event 버킷을 같이 써서,
+    # page_view/game_start 텔레메트리 폭주만으로 점수 제출에 꼭 필요한 세션
+    # 발급까지 막힐 수 있었다 - 이제는 별도 버킷(session)을 쓰므로 event 버킷이
+    # 소진돼도 세션 발급은 계속 성공해야 한다.
+    from app.config import settings
+
+    monkeypatch.setattr(settings, "event_rate_limit_max_requests", 1)
+    assert authorized_client.post("/api/v1/events", json=PAGE_VIEW_PAYLOAD).status_code == 201
+    assert authorized_client.post("/api/v1/events", json=PAGE_VIEW_PAYLOAD).status_code == 429
+    assert authorized_client.post("/api/v1/players/session").status_code == 200

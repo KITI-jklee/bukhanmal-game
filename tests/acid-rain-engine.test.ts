@@ -104,4 +104,24 @@ describe('산성비게임 엔진 상태 전이', () => {
     frame(1)
     expect(engine.snapshot().words[0].progress).toBeGreaterThan(progress)
   })
+
+  it('풀이 5개 미만이어도 최근 출제 기억 창이 무한히 자라거나 거꾸로 동작하지 않는다', () => {
+    // 코드리뷰로 발견: recentPairIds의 slice 창 크기 계산이 pool.length<5일 때
+    // 음수가 두 번 뒤집혀 "최근 N개 유지"가 아니라 "앞 N개 삭제"가 됐다(실질적으로
+    // 늘 빈 배열). pool.length===5일 때는 slice(-0)이라 아예 안 잘려 무한히 자랐다.
+    const tinyPool: AcidRainPair[] = Array.from({ length: 3 }, (_, index) => ({
+      id: `tiny-${index}`, north: `북${index}`, south: `남${index}`,
+      north_answers: [`북${index}`], south_answers: [`남${index}`], difficulty: '보통',
+    }))
+    const engine = new AcidRainEngine(tinyPool, '보통') as unknown as {
+      pickPair: () => AcidRainPair | null
+      recentPairIds: string[]
+    }
+    for (let index = 0; index < 20; index += 1) engine.pickPair()
+    // 버그 버전이면 항상 []였다(창 크기가 음수 -> 이중음수로 항상 잘려나감).
+    expect(engine.recentPairIds.length).toBeGreaterThan(0)
+    // pool.length===3일 때 창 크기는 max(1, min(40, 3-5))=1 이어야 한다 -
+    // 무한히 자라나지 않고 항상 이 길이로 유지돼야 한다.
+    expect(engine.recentPairIds.length).toBe(1)
+  })
 })

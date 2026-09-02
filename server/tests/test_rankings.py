@@ -14,7 +14,9 @@ def _submit(authorized_client, **overrides):
         "max_combo": 3,
         "time_stop_uses": 0,
         "time_stop_clears": 0,
-        "play_time_seconds": 30,
+        # correct_count=40에 대해 물리적으로 가능한 최소 시간(schemas.py의
+        # min_acid_rain_play_time_seconds) 이상이어야 한다 - 그보다 짧으면 400.
+        "play_time_seconds": 100,
         **overrides,
     }
     response = authorized_client.post("/api/v1/scores", json=payload)

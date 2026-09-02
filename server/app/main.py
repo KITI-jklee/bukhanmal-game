@@ -25,6 +25,7 @@ from .rate_limit import (
     enforce_ranking_rate_limit,
     enforce_rate_limit,
     enforce_recent_rate_limit,
+    enforce_session_rate_limit,
 )
 from .scoring_limits import max_score_for
 from .security import PLAYER_TOKEN_HEADER, issue_player_token, require_player
@@ -93,7 +94,9 @@ def healthz() -> dict[str, str]:
 
 @app.post("/api/v1/players/session", response_model=PlayerSessionResult)
 def create_player_session(
-    _rate_limit: None = Depends(enforce_event_rate_limit),
+    # event(page_view/game_start 텔레메트리)와 별도 버킷을 쓴다 - 텔레메트리
+    # 폭주로 세션 발급까지 막혀 점수 제출이 안 되는 걸 방지한다(코드리뷰로 발견).
+    _rate_limit: None = Depends(enforce_session_rate_limit),
 ) -> PlayerSessionResult:
     player_key = uuid.uuid4()
     return PlayerSessionResult(player_key=player_key, player_token=issue_player_token(player_key))

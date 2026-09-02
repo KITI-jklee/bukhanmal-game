@@ -15,9 +15,26 @@ from .db_utils import insert_or_recover
 from .models import RequestLimit
 
 
+def _client_address(request: Request) -> str:
+    """rate limit 계산에 쓸 클라이언트 주소.
+
+    settings.trust_forwarded_for가 켜져 있으면(기본값 - Vercel 배포 전제)
+    X-Forwarded-For의 첫 값을 실제 클라이언트 IP로 쓴다. Vercel의 엣지가 이
+    헤더의 첫 값을 실제 접속 IP로 채워주므로, request.client.host(엣지 뒤의
+    내부 홉을 가리킬 수 있어 모든 사용자가 한 버킷을 공유하게 만드는 값)보다
+    신뢰할 수 있다. 신뢰할 수 있는 프록시 없이 앱이 직접 노출되는 배포라면
+    이 헤더는 클라이언트가 마음대로 조작할 수 있으므로 반드시 꺼야 한다."""
+    if settings.trust_forwarded_for:
+        forwarded = request.headers.get("x-forwarded-for")
+        if forwarded:
+            first = forwarded.split(",")[0].strip()
+            if first:
+                return first
+    return request.client.host if request.client else "unknown"
+
+
 def _client_bucket(request: Request, scope: str) -> str:
-    address = request.client.host if request.client else "unknown"
-    return hashlib.sha256(f"{scope}:{address}".encode()).hexdigest()
+    return hashlib.sha256(f"{scope}:{_client_address(request)}".encode()).hexdigest()
 
 
 def _enforce(request: Request, db: Session, scope: str, maximum: int, seconds: float) -> None:
@@ -66,6 +83,12 @@ def enforce_rate_limit(request: Request, db: Session = Depends(get_db)) -> None:
 
 def enforce_event_rate_limit(request: Request, db: Session = Depends(get_db)) -> None:
     _enforce(request, db, "event", settings.event_rate_limit_max_requests, settings.event_rate_limit_window_seconds)
+
+
+def enforce_session_rate_limit(request: Request, db: Session = Depends(get_db)) -> None:
+    # event 버킷과 분리한다 - page_view/game_start 텔레메트리 폭주로 이 버킷이
+    # 소진돼도, 점수 제출에 꼭 필요한 세션 발급(/players/session)은 막히지 않게.
+    _enforce(request, db, "session", settings.session_rate_limit_max_requests, settings.session_rate_limit_window_seconds)
 
 
 def enforce_admin_rate_limit(request: Request, db: Session = Depends(get_db)) -> None:

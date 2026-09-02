@@ -18,6 +18,7 @@ from .scoring_limits import (
     ACID_RAIN_STAGE2_MAX_CORRECT,
     max_acid_rain_score_for_correct_count,
     max_chosung_score_for_correct_count,
+    min_acid_rain_play_time_seconds,
 )
 from .validation import normalize_nickname, validate_nickname
 
@@ -104,6 +105,15 @@ class AcidRainScorePayload(NicknameMixin):
         if self.stage_reached == 3 and self.correct_count < ACID_RAIN_STAGE2_MAX_CORRECT:
             raise ValueError(
                 f"3단계 기록은 최소 {ACID_RAIN_STAGE2_MAX_CORRECT}개의 정답이 필요합니다."
+            )
+        # 정답 수만으로는 "짧은 시간에 비정상적으로 많이 맞혔다"를 걸러내지
+        # 못한다(예: correct_count=500, play_time_seconds=1도 위 검증들은 통과함) -
+        # 단어 생성 간격상 물리적으로 불가능한 play_time_seconds를 별도로 막는다.
+        min_seconds = min_acid_rain_play_time_seconds(self.correct_count)
+        if self.play_time_seconds < min_seconds:
+            raise ValueError(
+                f"정답 수({self.correct_count}개)에 비해 플레이 시간이 너무 짧습니다 "
+                f"(최소 {min_seconds:.1f}초 필요)."
             )
         maximum = max_acid_rain_score_for_correct_count(self.correct_count, self.difficulty)
         if self.score > maximum:

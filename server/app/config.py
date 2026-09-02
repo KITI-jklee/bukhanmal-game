@@ -21,12 +21,20 @@ def _split_csv(value: str) -> list[str]:
 
 def _require_admin_password() -> str:
     # 관리자 통계 페이지(/api/v1/admin/stats)를 지키는 단일 공유 비밀번호.
+    # player_token_secret(아래 _require_player_token_secret)처럼 무작위 32자를
+    # 강제하진 않는다 — 사람이 직접 외워서 입력하는 값이라 그건 비현실적이지만,
+    # 최소한의 길이는 강제해서 "1"처럼 즉시 뚫리는 값으로 운영되는 걸 막는다.
     value = os.getenv("ADMIN_PASSWORD")
     if not value:
         raise RuntimeError(
             "ADMIN_PASSWORD 환경변수가 설정되어 있지 않습니다. "
             "관리자 통계 화면 보호용 비밀번호를 .env(로컬) 또는 배포 플랫폼의 "
             "환경변수로 설정하세요."
+        )
+    if len(value) < 12:
+        raise RuntimeError(
+            "ADMIN_PASSWORD는 너무 짧습니다(최소 12자). 무차별 대입 공격에 "
+            "취약해지지 않도록 더 긴 값으로 설정하세요."
         )
     return value
 
@@ -103,6 +111,16 @@ class Settings:
     event_rate_limit_window_seconds: float = field(
         default_factory=lambda: _require_float("EVENT_RATE_LIMIT_WINDOW_SECONDS", "60")
     )
+    # /players/session은 예전엔 "event" 버킷을 같이 썼는데, page_view/game_start
+    # 텔레메트리 폭주만으로 이 버킷이 소진되면 점수 제출에 꼭 필요한 세션 발급까지
+    # 막혀버렸다(코드리뷰로 발견) - 별도 버킷으로 분리한다. 세션은 발급되면
+    # localStorage에 캐시돼 매 요청마다 다시 부르지 않으므로 더 여유 있게 잡는다.
+    session_rate_limit_max_requests: int = field(
+        default_factory=lambda: _require_int("SESSION_RATE_LIMIT_MAX_REQUESTS", "30")
+    )
+    session_rate_limit_window_seconds: float = field(
+        default_factory=lambda: _require_float("SESSION_RATE_LIMIT_WINDOW_SECONDS", "60")
+    )
     admin_rate_limit_max_requests: int = field(
         default_factory=lambda: _require_int("ADMIN_RATE_LIMIT_MAX_REQUESTS", "10")
     )
@@ -128,6 +146,17 @@ class Settings:
     # 산성비게임 3단계는 무한 생존이라 이론상 최대 점수가 존재하지 않는다.
     acid_rain_score_ceiling: int = field(
         default_factory=lambda: _require_int("ACID_RAIN_SCORE_CEILING", "300000")
+    )
+
+    # Vercel 같은 서버리스 플랫폼은 요청이 항상 엣지 프록시를 거쳐 들어와서,
+    # 손대지 않으면 request.client.host가 실제 클라이언트 IP가 아니라 내부 홉을
+    # 가리킬 수 있다(그러면 모든 사용자가 한 rate limit 버킷을 공유하게 되어
+    # 사실상 무력화된다) - X-Forwarded-For의 첫 값을 신뢰해 실제 IP로 쓴다.
+    # 신뢰할 수 있는 프록시 없이 앱이 직접 노출되는 배포(그 헤더를 클라이언트가
+    # 마음대로 조작할 수 있는 환경)에서는 반드시 false로 꺼야 한다.
+    trust_forwarded_for: bool = field(
+        default_factory=lambda: os.getenv("TRUST_FORWARDED_FOR", "true").strip().lower()
+        not in ("0", "false", "no")
     )
 
 

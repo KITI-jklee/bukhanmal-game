@@ -22,3 +22,21 @@ export async function request(url: string, init?: RequestInit): Promise<Response
     clearTimeout(timer)
   }
 }
+
+/** 실패 응답의 JSON `detail`을 최대한 읽어 사용자에게 보여줄 메시지를 만든다.
+ * 백엔드(FastAPI)는 400/422/429 등에서 "사용할 수 없는 닉네임입니다." 같은
+ * 구체적인 이유를 `{"detail": "..."}` 형태로 보내주는데, 예전엔 각 API
+ * 클라이언트가 이걸 안 읽고 상태코드만 넣은 문구("점수 등록 실패 (429)")로
+ * 대신해 사용자가 실제 원인을 알 수 없었다(코드리뷰로 발견). detail이
+ * 없거나 JSON 파싱이 안 되면 fallback 문구를 대신 쓴다. */
+export async function readErrorMessage(response: Response, fallback: string): Promise<string> {
+  try {
+    const body: unknown = await response.json()
+    if (body && typeof body === 'object' && typeof (body as { detail?: unknown }).detail === 'string') {
+      return (body as { detail: string }).detail
+    }
+  } catch {
+    // 본문이 JSON이 아니거나 비어 있으면 fallback을 쓴다.
+  }
+  return fallback
+}

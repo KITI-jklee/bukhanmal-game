@@ -1,5 +1,5 @@
 /** 서버가 발급한 익명 플레이어 세션. */
-import { API_BASE, request } from './http'
+import { API_BASE, readErrorMessage, request } from './http'
 
 const SESSION_KEY = 'tongil.player_session.v1'
 
@@ -37,7 +37,9 @@ export async function getPlayerSession(): Promise<PlayerSession> {
   if (!pending) {
     pending = request(`${API_BASE}/players/session`, { method: 'POST' })
       .then(async (response) => {
-        if (!response.ok) throw new Error(`플레이어 세션 발급 실패 (${response.status})`)
+        if (!response.ok) {
+          throw new Error(await readErrorMessage(response, `플레이어 세션 발급 실패 (${response.status})`))
+        }
         const value = (await response.json()) as PlayerSession
         if (!value.player_key || !value.player_token) {
           throw new Error('플레이어 세션 응답이 올바르지 않습니다.')
