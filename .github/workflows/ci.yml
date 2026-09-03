@@ -51,7 +51,24 @@ jobs:
             server/requirements.txt
             server/requirements-dev.txt
       - run: pip install -r requirements.txt -r requirements-dev.txt
-      - run: psql "$TEST_DATABASE_URL" -f supabase_schema.sql
+      # supabase_schema.sql은 실제 Supabase 프로젝트 대상이라 anon/authenticated
+      # role이 이미 있다고 가정한다(Data API 잠금용 revoke 문에서 사용). 여기
+      # postgres:17 컨테이너는 순정이라 그 role이 없으므로 미리 만들어준다 —
+      # 안 만들면 revoke 문에서 에러가 나면서 begin/commit 트랜잭션 전체가
+      # 롤백되는데, psql -f는 ON_ERROR_STOP 없이는 그래도 exit 0으로 끝나서
+      # 스키마가 하나도 안 만들어진 채 CI가 "성공"으로 표시되는 문제가 있었다.
+      - run: |
+          psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -c "
+            do \$\$ begin
+              if not exists (select from pg_roles where rolname = 'anon') then
+                create role anon;
+              end if;
+              if not exists (select from pg_roles where rolname = 'authenticated') then
+                create role authenticated;
+              end if;
+            end \$\$;
+          "
+      - run: psql "$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase_schema.sql
       - run: python -m pytest -W error --cov=app --cov-report=term-missing --cov-fail-under=80
       # 알려진 취약점 스캔 — 프런트엔드 job(lint/test/build)과 달리 실패해도
       # 빌드를 막지 않는다. pip-audit은 스캔 시점의 공개 취약점 DB에 따라
