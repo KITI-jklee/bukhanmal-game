@@ -83,7 +83,7 @@ export function DifficultyDialog({ game, onClose, onStart }: Props) {
             <span className="dialog-kicker">{gameLabel}</span>
             <h3>난이도를 선택하세요</h3>
           </div>
-          <button className="icon-button" onClick={onClose} aria-label="닫기">
+          <button className="icon-button" onClick={onClose} aria-label="닫기" data-dialog-close>
             <CloseIcon size={16} />
           </button>
         </div>

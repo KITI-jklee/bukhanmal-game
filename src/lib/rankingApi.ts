@@ -180,7 +180,10 @@ export async function submitScore(
 
   const store = loadStore()
   const record: StoredScore = {
-    id: `score_${Date.now().toString(36)}`,
+    // Date.now() 기반 id는 같은 밀리초 안에 submitScore가 두 번 불리면(자동
+    // 테스트나 빠른 연타 등) id가 충돌해 findIndex가 엉뚱한 레코드의 순위를
+    // 돌려줄 수 있었다(코드리뷰로 발견) - submissionKey처럼 randomUUID로 통일.
+    id: crypto.randomUUID(),
     nickname: payload.nickname,
     game: payload.game,
     difficulty: payload.difficulty,

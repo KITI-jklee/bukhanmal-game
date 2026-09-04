@@ -1,7 +1,7 @@
 /* 초성게임 엔진 — 상세기획서 3장 산성비게임과 같은 방식으로 requestAnimationFrame + delta time을 쓴다. */
 
 import type { ChosungQuestionLog, ChosungResult, ChosungWord, Difficulty } from '../lib/types'
-import { isCorrect, isSubmittable, normalize } from '../lib/answer'
+import { isCorrect, isNearMiss, isSubmittable } from '../lib/answer'
 import {
   DIFFICULTY_MULTIPLIER,
   HINT_SCORE,
@@ -49,31 +49,6 @@ export interface ChosungSnapshot {
 }
 
 type Listener = (snapshot: ChosungSnapshot) => void
-
-/** 편집거리 1이면 "거의 맞았어요" 안내만 한다. 정답 처리하지 않는다(FR-CH-11). */
-function isNearMiss(input: string, answer: string): boolean {
-  if (Math.abs(input.length - answer.length) > 1) return false
-  if (input === answer) return false
-  let i = 0
-  let j = 0
-  let edits = 0
-  while (i < input.length && j < answer.length) {
-    if (input[i] === answer[j]) {
-      i += 1
-      j += 1
-      continue
-    }
-    edits += 1
-    if (edits > 1) return false
-    if (input.length > answer.length) i += 1
-    else if (input.length < answer.length) j += 1
-    else {
-      i += 1
-      j += 1
-    }
-  }
-  return edits + (input.length - i) + (answer.length - j) <= 1
-}
 
 export class ChosungEngine {
   private readonly questions: ChosungWord[]
@@ -341,8 +316,7 @@ export class ChosungEngine {
     }
 
     // 편집거리 1은 정답으로 인정하지 않고 안내만 한다 (FR-CH-11)
-    const input = normalize(raw)
-    const near = word.accepted_answers.some((answer) => isNearMiss(input, normalize(answer)))
+    const near = isNearMiss(raw, word.accepted_answers)
     this.showFeedback(near ? 'near' : 'wrong', near ? '거의 맞았어요!' : '다시 시도해 보세요')
     this.emit()
   }

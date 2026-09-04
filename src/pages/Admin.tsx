@@ -24,11 +24,16 @@ export function Admin() {
       })
       .catch((err: unknown) => {
         if (err instanceof AdminAuthError) {
+          // 비밀번호 자체가 틀렸을 때만 로그인 화면으로 되돌린다.
           setError('비밀번호가 올바르지 않습니다.')
+          setStats(null)
         } else {
+          // 일시적인 네트워크/서버 오류로 새로고침이 실패한 것뿐이라면 이미
+          // 불러온 통계 화면은 그대로 두고 오류만 안내한다(코드리뷰로 발견 -
+          // 예전엔 이 경우에도 setStats(null)을 호출해 로그인 화면으로 강제
+          // 전환됐다).
           setError('통계를 불러오지 못했어요. 잠시 후 다시 시도해 주세요.')
         }
-        setStats(null)
       })
       .finally(() => setLoading(false))
   }
@@ -57,6 +62,7 @@ export function Admin() {
           ) : null}
         </div>
         <p>방문자 수와 게임 이용 횟수 총계입니다.</p>
+        {error && stats ? <p className="admin-login-error">{error}</p> : null}
 
         {!stats ? (
           <form className="admin-login" onSubmit={submit}>

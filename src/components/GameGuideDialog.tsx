@@ -41,7 +41,7 @@ export function GameGuideDialog({ game, onClose, onStart }: Props) {
             <span className="dialog-kicker">HOW TO PLAY</span>
             <h3>{title}</h3>
           </div>
-          <button className="icon-button" onClick={onClose} aria-label="닫기">
+          <button className="icon-button" onClick={onClose} aria-label="닫기" data-dialog-close>
             <CloseIcon size={16} />
           </button>
         </div>

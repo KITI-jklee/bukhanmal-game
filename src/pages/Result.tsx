@@ -59,6 +59,30 @@ export function Result() {
   // submitScore가 호출마다 새 키를 만들어 재시도가 중복 등록으로 이어졌다).
   const [submissionKey] = useState(() => crypto.randomUUID())
 
+  // 언마운트(예: 응답 기다리는 중 "메인으로" 클릭) 후에는 setRank/setSubmitError를
+  // 건너뛴다. submitScore 요청 자체는 화면 이동과 무관하게 끝까지 완료돼야
+  // 점수가 정상 등록되므로 요청은 그대로 두고, 결과를 반영하는 setState만
+  // 막는다. Ranking.tsx의 cancelled 플래그(effect마다 새로 만드는 지역
+  // 변수)와 다르게 컴포넌트 생애주기 전체에 걸리는 ref를 쓰는 이유는,
+  // register가 submittedRef로 항상 최대 1회만 불려서 "겹쳐 나간 여러
+  // 요청 중 어느 응답이 최신인지" 구분할 필요가 없기 때문이다(Ranking.tsx는
+  // game/difficulty가 바뀔 때마다 새 요청이 겹쳐 나갈 수 있어 그 구분이
+  // 필요하다).
+  const mountedRef = useRef(true)
+  useEffect(() => {
+    // StrictMode(main.tsx)는 개발 모드에서 마운트 직후 effect를
+    // 정리→재실행 한 번씩 시뮬레이션한다. cleanup에서만 false로 내리고
+    // 여기서 다시 true로 안 올리면, 그 시뮬레이션 이후 컴포넌트가 실제로는
+    // 계속 마운트돼 있는데도 mountedRef.current가 영원히 false로 굳어버려서
+    // register()의 setRank/setSubmitError가 항상 스킵된다(실제로 재현·발견 -
+    // 결과 화면이 "순위 계산 중…"에서 절대 안 넘어감). 그래서 effect 실행
+    // 시점에도 반드시 true로 세팅해야 한다.
+    mountedRef.current = true
+    return () => {
+      mountedRef.current = false
+    }
+  }, [])
+
   const register = useCallback(
     async (player: string) => {
       if (submittedRef.current || !result) return
@@ -90,10 +114,12 @@ export function Result() {
               },
           submissionKey,
         )
-        setRank(response)
+        if (mountedRef.current) setRank(response)
       } catch (error) {
         submittedRef.current = false
-        setSubmitError(error instanceof Error ? error.message : '점수 등록에 실패했어요.')
+        if (mountedRef.current) {
+          setSubmitError(error instanceof Error ? error.message : '점수 등록에 실패했어요.')
+        }
       }
     },
     [result, submissionKey],
