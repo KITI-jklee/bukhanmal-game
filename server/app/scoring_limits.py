@@ -84,8 +84,11 @@ def min_acid_rain_play_time_seconds(correct_count: int) -> float:
         ACID_RAIN_STAGE2_MAX_CORRECT - ACID_RAIN_STAGE1_MAX_CORRECT,
     )
     stage3 = max(correct_count - ACID_RAIN_STAGE2_MAX_CORRECT, 0)
+    # The engine spawns the first word immediately at game start and after each
+    # stage transition. Only subsequent words require a spawn interval. Stage
+    # banners are intentionally omitted to keep this a conservative lower bound.
     return (
-        stage1 * _ACID_RAIN_STAGE1_MIN_SPAWN_INTERVAL
-        + stage2 * _ACID_RAIN_STAGE2_MIN_SPAWN_INTERVAL
-        + stage3 * _ACID_RAIN_STAGE3_MIN_SPAWN_INTERVAL
+        max(stage1 - 1, 0) * _ACID_RAIN_STAGE1_MIN_SPAWN_INTERVAL
+        + max(stage2 - 1, 0) * _ACID_RAIN_STAGE2_MIN_SPAWN_INTERVAL
+        + max(stage3 - 1, 0) * _ACID_RAIN_STAGE3_MIN_SPAWN_INTERVAL
     )
