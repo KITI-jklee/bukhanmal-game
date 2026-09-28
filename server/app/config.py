@@ -97,8 +97,10 @@ class Settings:
     rate_limit_window_seconds: float = field(
         default_factory=lambda: _require_float("RATE_LIMIT_WINDOW_SECONDS", "10")
     )
+    # 같은 IP(사무실/학교 네트워크 등 NAT 뒤 여러 명)에서 여러 명이 동시에
+    # page_view+game_start를 보내도 정상 이벤트가 막히지 않도록 넉넉히 잡는다.
     event_rate_limit_max_requests: int = field(
-        default_factory=lambda: _require_int("EVENT_RATE_LIMIT_MAX_REQUESTS", "30")
+        default_factory=lambda: _require_int("EVENT_RATE_LIMIT_MAX_REQUESTS", "200")
     )
     event_rate_limit_window_seconds: float = field(
         default_factory=lambda: _require_float("EVENT_RATE_LIMIT_WINDOW_SECONDS", "60")
