@@ -112,5 +112,5 @@ def test_rankings_are_cached_and_rate_limited(authorized_client, monkeypatch):
     params = {"game": "chosung", "difficulty": "쉬움"}
     first = authorized_client.get("/api/v1/rankings", params=params)
     assert first.status_code == 200
-    assert "s-maxage=60" in first.headers["cache-control"]
+    assert "s-maxage=5" in first.headers["cache-control"]
     assert authorized_client.get("/api/v1/rankings", params=params).status_code == 429

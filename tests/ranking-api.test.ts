@@ -77,7 +77,9 @@ describe('랭킹 API 클라이언트', () => {
     }
     request.mockResolvedValue(new Response(JSON.stringify(valid), { status: 200 }))
     await expect(fetchRankings('chosung', '보통')).resolves.toEqual(valid)
-    expect(request).toHaveBeenCalledWith('/api/v1/rankings?game=chosung&difficulty=%EB%B3%B4%ED%86%B5')
+    expect(request).toHaveBeenCalledWith('/api/v1/rankings?game=chosung&difficulty=%EB%B3%B4%ED%86%B5', {
+      cache: 'no-store',
+    })
 
     request.mockResolvedValue(new Response(JSON.stringify({ ...valid, game: 'acid_rain' }), { status: 200 }))
     await expect(fetchRankings('chosung', '보통')).rejects.toThrow('응답 형식')

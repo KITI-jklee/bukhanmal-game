@@ -213,7 +213,9 @@ export async function fetchRankings(
 ): Promise<RankingResponse> {
   if (!USE_MOCK) {
     const params = new URLSearchParams({ game, difficulty })
-    const response = await request(`${API_BASE}/rankings?${params}`)
+    // 점수 제출 직후 바로 랭킹을 보는 경우가 많아, 브라우저 HTTP 캐시(서버의
+    // Cache-Control: max-age)에 걸린 직전 응답을 그대로 재사용하지 않도록 한다.
+    const response = await request(`${API_BASE}/rankings?${params}`, { cache: 'no-store' })
     if (!response.ok) throw new Error(await readErrorMessage(response, `랭킹 조회 실패 (${response.status})`))
     const result: unknown = await response.json()
     if (!isRankingResponse(result, game, difficulty)) {

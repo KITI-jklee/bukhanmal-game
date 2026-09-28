@@ -129,9 +129,10 @@ def get_rankings(
     db: Session = Depends(get_db),
     _rate_limit: None = Depends(enforce_ranking_rate_limit),
 ) -> RankingResponse:
-    response.headers["Cache-Control"] = (
-        "public, max-age=30, s-maxage=60, stale-while-revalidate=300"
-    )
+    # 예전엔 max-age=30·s-maxage=60·stale-while-revalidate=300이었는데, 점수
+    # 제출 직후 바로 랭킹을 보면 최대 몇 분간 예전 랭킹(엣지 캐시)이 보이는
+    # 문제가 있었다 - 순간 동시조회 부하를 어느 정도 눌러주는 선에서 짧게 줄인다.
+    response.headers["Cache-Control"] = "public, max-age=5, s-maxage=5"
     rows = top5(db, game, difficulty)
     entries = [
         RankingEntry(
